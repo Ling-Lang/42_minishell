@@ -5,26 +5,34 @@ CFLAGS = -Wall -Werror -Wextra
 DEBUG = -Wall -Wextra -g
 LIB = -I ./Libft/src/ ./Libft/libft.a
 
+GREEN = \033[0;32m
+YELLOW = \033[1;33m
+RESET = \033[0m
+
 SRC = src/main.c
 
 OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ) | lft
-	$(CC) $(LIB) $(CFLAGS) $(OBJ) -o $(NAME)
+	@echo "$(GREEN)Compiling $@$(RESET)"
+	@$(CC) $(LIB) $(CFLAGS) $(OBJ) -o $(NAME)
+	@echo "$(GREEN)Finished compiling: $@$(RESET)"
 
 lft:
-	(cd Libft && make)
+	@cd Libft && make
 
 debug: $(OBJ) | lft
 	$(CC) $(LIB) $(DEBUG) $(OBJ) -o $(NAME)
 
 clean:
-	$(RM) $(OBJ)
-	(cd Libft && make clean)
+	@echo "$(YELLOW)Cleaning object files$(RESET)"
+	@$(RM) $(OBJ)
+	@(cd Libft && make clean)
 
 fclean: clean
-	$(RM) $(NAME)
-	(cd Libft && make fclean)
+	@echo "$(YELLOW)Cleaning executable $(NAME)$(RESET)"
+	@$(RM) $(NAME)
+	@(cd Libft && make fclean)
 
 all: $(NAME)
 
