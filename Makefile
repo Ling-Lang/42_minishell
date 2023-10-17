@@ -3,13 +3,16 @@ RM = rm -f
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra 
 DEBUG = -Wall -Wextra -g
-LIB = -I ./Libft/src/ ./Libft/libft.a
+LIB = -I ./Libft/src/ ./Libft/libft.a -lreadline
 
 GREEN = \033[0;32m
 YELLOW = \033[1;33m
 RESET = \033[0m
 
-SRC = src/main.c
+SRC = 	src/main.c \
+		src/utils/str_utils.c \
+		src/utils/cmd.c \
+		src/utils/loop.c
 
 OBJ = $(SRC:.c=.o)
 
