@@ -18,6 +18,8 @@ $(NAME): $(OBJ) | lft
 	@$(CC) $(LIB) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo "$(GREEN)Finished compiling: $@$(RESET)"
 
+%.o: %.c
+	@$(CC) -c $< -o $@
 lft:
 	@cd Libft && make
 
