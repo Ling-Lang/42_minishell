@@ -12,7 +12,8 @@ RESET = \033[0m
 SRC = 	src/main.c \
 		src/utils/str_utils.c \
 		src/utils/cmd.c \
-		src/utils/loop.c
+		src/utils/loop.c \
+		src/utils/builtins/echo.c
 
 OBJ = $(SRC:.c=.o)
 
