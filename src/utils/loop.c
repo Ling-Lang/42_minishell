@@ -6,12 +6,12 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:01:28 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/17 13:24:07 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/18 13:08:40 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
+//TODO Export unset env builtins
 void ft_wait_for_cmd(char **arg)
 {
     char cwd[PATH_MAX];
@@ -21,8 +21,6 @@ void ft_wait_for_cmd(char **arg)
         free(arg);
         exit(EXIT_SUCCESS);
     }
-    else if(ft_strcmp(arg[0], "ls") == 0)
-        list_files();
     else if(ft_strcmp(arg[0], "pwd") == 0)
     {
         getcwd(cwd, sizeof(cwd));
@@ -38,20 +36,11 @@ void ft_wait_for_cmd(char **arg)
         clear();
     else if (ft_strcmp(arg[0], "echo") == 0)
     {
-        int i = 1;
-        if (arg[i] != NULL && ft_strcmp(arg[i], "-n") == 0) 
-            i++;
-        while (arg[i] != NULL) 
-        {
-            ft_printf("%s", arg[i]);
-            if (arg[i + 1] != NULL)
-            {
-                ft_printf(" ");
-            }
-            i++;
-        }
-        if (arg[1] != NULL && ft_strcmp(arg[1], "-n") != 0) 
-            ft_printf("\n");
+        ft_echo(arg);
+    }
+    else if(ft_strcmp(arg[0], "export") == 0)
+    {
+        ft_printf("%s", home_dir);
     }
     else
         execute_command(arg);
