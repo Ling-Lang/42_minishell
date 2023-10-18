@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/18 12:43:03 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/18 13:18:05 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main()
 {
     char *str;
     char **arg;
-    home_dir = getenv("PATH");
+    home_dir = getenv("HOME");
     signal(SIGINT, handlectrl);
     while((str = readline(BLU">> "WHT)))
     {
@@ -41,4 +41,5 @@ int main()
             add_history(str);
         ft_wait_for_cmd(arg);
     }
+    free(arg);
 }
