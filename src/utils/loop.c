@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:01:28 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/18 13:08:40 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/18 13:19:00 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void ft_wait_for_cmd(char **arg)
     {
         free(arg);
         exit(EXIT_SUCCESS);
+        // return;
     }
     else if(ft_strcmp(arg[0], "pwd") == 0)
     {
@@ -27,21 +28,13 @@ void ft_wait_for_cmd(char **arg)
         ft_printf("%s\n", cwd);
     }
     else if(ft_strcmp(arg[0], "cd") == 0)
-    {
-        if(!arg[1])
-            chdir(home_dir);
-        chdir(arg[1]);
-    }
+        ft_cd(arg);
     else if(ft_strcmp(arg[0], "clear") == 0)
         clear();
     else if (ft_strcmp(arg[0], "echo") == 0)
-    {
         ft_echo(arg);
-    }
     else if(ft_strcmp(arg[0], "export") == 0)
-    {
         ft_printf("%s", home_dir);
-    }
     else
         execute_command(arg);
 }
