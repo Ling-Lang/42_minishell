@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/18 13:15:52 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/19 11:32:18 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@
 #	define BLU "\e[0;34m"
 /* Global Variable */
 extern char *home_dir;
-/* Commands */
-// int list_files(char *path);
+
+/* Builtins */
 void ft_echo(char **arg);
 void ft_cd(char **arg);
 void clear();
-void ft_wait_for_cmd(char **arg);
+
+/* Parser */
+void ft_wait_for_cmd(char *str);
 int execute_command(char **arg);
-// int execute_with_output_redirection(const char *command, const char *output_file);
+
 /* String Utils */
-char *ft_last_word(char *str);
-char *first_word(char *str);
 char **ft_new_split(char *str);
 #endif

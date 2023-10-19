@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:28:05 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/17 13:23:31 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/19 11:28:43 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,44 +23,6 @@ char *ft_strncpy(char *src, char *dst, int n)
     dst[i] = '\0';
     return dst;
 }
-char *ft_last_word(char *str)
-{
-    int i = 0;
-    int end;
-    int start;
-    char *dst;
-    while(str[i] != '\0')
-        i++;
-    i--;
-    while((str[i] == '\t' || str[i] == ' ') && i != 0)
-        i--;
-    end = i;
-    while(str[i] != ' ' && str[i] != '\t' && i != 0)
-        i--;
-    if(str[i] == ' ' || str[i] == '\t')
-        i++;
-    start = i;
-    dst = (char *)malloc(sizeof(char) * (end - start) + 1);
-    dst = ft_strncpy(&str[start], dst, (end - start));
-    return dst;
-}
-char *first_word(char *str)
-{
-    int i = 0;
-    int start;
-    int end;
-    int j = 0;
-    char *dst;
-    while((str[i] == ' ' || str[i] == '\t') && str[i] != '\0')
-        i++;
-    start = i;
-    while(str[i] && str[i] != '\t' && str[i] != ' ')
-        i++;
-    end = i- 1;
-    dst = (char *)malloc(sizeof(char) * (end - start) + 1);
-    ft_strncpy(&str[start], dst, (end - start));
-    return dst;
-}
 
 int ft_wc(char *str)
 {
@@ -68,11 +30,11 @@ int ft_wc(char *str)
     int wc = 0;
     while(str[i])
     {
-        while(str[i] && (str[i] == ' ' || str[i] == '\t'))
+        while(str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
             i++;
         if(str[i])
             wc++;
-        while(str[i] && str[i] != '\t' && str[i] != ' ')
+        while(str[i] && str[i] != '\t' && str[i] != ' ' && str[i] != '\n')
             i++;
     }
     return wc;
@@ -85,17 +47,18 @@ char **ft_new_split(char *str)
     int k = 0;
     char **res;
     
-    res = (char **)malloc(sizeof(char *) * ft_wc(str) + 1);
+    res = (char **)malloc(sizeof(char *) * (ft_wc(str) + 1));
+    // ft_printf("%d", ft_wc(str));
     while(str[i])
     {
-        while(str[i] != '\0' && (str[i] == ' ' || str[i] == '\t'))
+        while(str[i] != '\0' && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
             i++;
         j = i;
-        while(str[i] && str[i] != '\t' && str[i] != ' ')
+        while(str[i] && str[i] != '\t' && str[i] != ' ' && str[i] != '\n')
             i++;
         if(i > j)
         {
-            res[k] = (char *)malloc(sizeof(char) * (i - j) + 1);
+            res[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
             ft_strncpy(&str[j], res[k], (i - j));
             k++;
         }
