@@ -2,7 +2,7 @@ NAME = minishell
 RM = rm -f
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra 
-DEBUG = -Wall -Wextra -g
+DEBUG = -Wall -Wextra -ggdb3
 LIB = -I ./Libft/src/ ./Libft/libft.a -lreadline
 
 GREEN = \033[0;32m
@@ -20,16 +20,16 @@ OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ) | lft
 	@echo "$(GREEN)Compiling $@$(RESET)"
-	@$(CC) $(LIB) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIB)
 	@echo "$(GREEN)Finished compiling: $@$(RESET)"
 
 %.o: %.c
-	@$(CC) -c $< -o $@
+	@$(CC) -c $< -o $@ $(DEBUG)
 lft:
 	@cd Libft && make
 
-debug: $(OBJ) | lft
-	$(CC) $(LIB) $(DEBUG) $(OBJ) -o $(NAME)
+debug: clean $(OBJ) | lft
+	$(CC) $(OBJ) -o $(NAME) $(LIB) $(DEBUG)
 
 clean:
 	@echo "$(YELLOW)Cleaning object files$(RESET)"
