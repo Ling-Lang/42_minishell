@@ -2,3 +2,5 @@
 minishell
 *.a
 .vscode
+*.log
+*.dSYM
