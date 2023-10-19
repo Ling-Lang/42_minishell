@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/19 11:31:56 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/19 12:25:41 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ void handlectrl(int signum)
 int main()
 {
     char *str;
-    char **arg;
     home_dir = getenv("HOME");
     signal(SIGINT, handlectrl);
     while((str = readline(BLU">> "WHT)))
     {
-
+        if(str == NULL || str[0] == EOF)
+        {
+            ft_printf("exit");
+            break;
+        }
         str[strcspn(str, "\n")] = '\0';
         if(str[0] == '\0')
         {
