@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/19 11:32:18 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/19 12:17:49 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ extern char *home_dir;
 void ft_echo(char **arg);
 void ft_cd(char **arg);
 void clear();
+void ft_pwd(void);
 
 /* Parser */
 void ft_wait_for_cmd(char *str);
 int execute_command(char **arg);
-
+void ft_check_for_redirect(char **arg);
 /* String Utils */
 char **ft_new_split(char *str);
 #endif
