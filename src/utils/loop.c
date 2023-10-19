@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:01:28 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/19 11:41:53 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/19 12:19:16 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,30 @@
 */
 
 /* CHORE Norminette */
-
+void ft_free(char ***arg)
+{
+    int i = 0;
+    while((*arg)[i] != NULL)
+    {
+        free((*arg)[i]);
+        i++;
+    }
+    free(*arg);
+}
+void ft_exit(char ***arg)
+{
+    ft_free(arg);
+    exit(EXIT_SUCCESS);
+}
 void ft_wait_for_cmd(char *str)
 {
     char **arg;
     
     arg = ft_new_split(str);
-    char cwd[PATH_MAX];
     if(ft_strcmp(arg[0], "exit") == 0)
-    {
-        for (int i = 0; arg[i] != NULL; i++)
-        {
-            free(arg[i]);
-        }
-        free(arg);
-        exit(EXIT_SUCCESS);
-    }
+        ft_exit(&arg);
     else if(ft_strcmp(arg[0], "pwd") == 0)
-    {
-        getcwd(cwd, sizeof(cwd));
-        ft_printf("%s\n", cwd);
-    }
+        ft_pwd();
     else if(ft_strcmp(arg[0], "cd") == 0)
         ft_cd(arg);
     else if(ft_strcmp(arg[0], "clear") == 0)
@@ -48,11 +51,11 @@ void ft_wait_for_cmd(char *str)
         ft_echo(arg);
     else if(ft_strcmp(arg[0], "export") == 0)
         ft_printf("%s", home_dir);
+    else if(ft_strcmp(arg[0], "unset") == 0)
+        ;
+    else if(ft_strcmp(arg[0], "env") == 0)
+        ;
     else
-        execute_command(arg);
-    for (int i = 0; arg[i] != NULL; i++)
-    {
-        free(arg[i]);
-    }
-    free(arg);
+        ft_check_for_redirect(arg);
+    ft_free(&arg);
 }
