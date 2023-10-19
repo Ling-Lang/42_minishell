@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 12:05:35 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/18 13:05:53 by jkulka           ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/10/19 12:06:21 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,39 @@ int execute_command(char **arg) {
         waitpid(child_pid, NULL, 0);
     }
     return 0;
+}
+void ft_check_for_redirect(char **arg)
+{
+    int redirect = 0;
+    int output;
+    int i = 0;
+    int j = 0;
+    int sout;
+    while(arg[i++] != NULL)
+    {
+        if(ft_strcmp(arg[i], ">") == 0)
+        {
+            redirect = 1;
+            output = open(arg[i + 1], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+            if(output == -1)
+                break;
+            j = i;
+            while(arg[j] != NULL)
+                arg[j++] = NULL;
+            break;
+        }
+
+    }
+    if(redirect)
+    {
+        sout = dup(1);
+        if(dup2(output, 1) == -1)
+            perror("error");
+        close(output);
+        execute_command(arg);
+        dup2(sout, 1);
+        close(sout);
+    }
+    else
+        execute_command(arg);
 }
