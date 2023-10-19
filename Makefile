@@ -14,7 +14,8 @@ SRC = 	src/main.c \
 		src/utils/cmd.c \
 		src/utils/loop.c \
 		src/utils/builtins/echo.c \
-		src/utils/builtins/cd.c
+		src/utils/builtins/cd.c \
+		src/utils/builtins/pwd.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -39,6 +40,8 @@ clean:
 fclean: clean
 	@echo "$(YELLOW)Cleaning executable $(NAME)$(RESET)"
 	@$(RM) $(NAME)
+	@$(RM) ./valgrind.log 
+	@$(RM) -r ./minishell.dSYM
 	@(cd Libft && make fclean)
 
 all: $(NAME)
