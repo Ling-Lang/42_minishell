@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/10/20 12:41:24 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/20 16:39:14 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,13 @@ char ** ft_str_copy(char **arg)
     res[i] = NULL;
     return res;
 }
-
+/*TODO check if first arg is '<' then open and redirect to (arguments?) and execute command;
+*
+*/
+// void ft_check_for_input_redirect(char **arg)
+// {
+// 
+// }
 void ft_check_for_redirect(char **arg)
 {
     bool redirect = false;
