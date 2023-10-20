@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:14:50 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/18 13:15:32 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/20 13:01:20 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void ft_cd(char **arg)
 {
+    char *home;
+
+    home = getenv("HOME");
     if(!arg[1])
-        chdir(home_dir);
+        chdir(home);
     chdir(arg[1]);
 }

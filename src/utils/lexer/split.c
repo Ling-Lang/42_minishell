@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:28:05 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/19 11:28:43 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/20 12:26:22 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 char *ft_strncpy(char *src, char *dst, int n)
 {
@@ -49,6 +49,10 @@ char **ft_new_split(char *str)
     
     res = (char **)malloc(sizeof(char *) * (ft_wc(str) + 1));
     // ft_printf("%d", ft_wc(str));
+    if(!res)
+    {
+        return NULL;
+    }
     while(str[i])
     {
         while(str[i] != '\0' && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
@@ -59,6 +63,14 @@ char **ft_new_split(char *str)
         if(i > j)
         {
             res[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
+            // ft_printf("%d", (i -j) + 1);
+            if(!res[k])
+            {
+                while(k != 0)
+                    free(res[k--]);
+                free(res);
+                return NULL;
+            }
             ft_strncpy(&str[j], res[k], (i - j));
             k++;
         }

@@ -6,11 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/10/19 12:06:21 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/20 12:41:24 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 void clear()
 {
@@ -22,7 +22,7 @@ int execute_command(char **arg) {
     if (child_pid == 0) {
         // Child process
         if (execvp(arg[0], arg) == -1) {
-            perror("execvp");
+            perror("minishell");
             exit(1);
         }
     } else if (child_pid < 0) {
@@ -33,18 +33,49 @@ int execute_command(char **arg) {
     }
     return 0;
 }
+
+char ** ft_str_copy(char **arg)
+{
+    char **res;
+    int i;
+
+    i = 0;
+    while(arg[i] != NULL)
+        i++;
+    res = (char **)malloc(sizeof(char *) * (i + 1));
+    if(!res)
+        return NULL;
+    i = 0;
+    while(arg[i] != NULL)
+    {
+        res[i] = ft_strdup(arg[i]);
+        if(!res[i])
+        {
+            while(i > 0)
+            {
+                free(res[i - 1]);
+                i--;
+            }
+            free(res);
+            return NULL;
+        }
+        i++;
+    }
+    res[i] = NULL;
+    return res;
+}
+
 void ft_check_for_redirect(char **arg)
 {
-    int redirect = 0;
-    int output;
+    bool redirect = false;
+    int output = -1;
     int i = 0;
     int j = 0;
-    int sout;
     while(arg[i++] != NULL)
     {
         if(ft_strcmp(arg[i], ">") == 0)
         {
-            redirect = 1;
+            redirect = true;
             output = open(arg[i + 1], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
             if(output == -1)
                 break;
@@ -53,18 +84,23 @@ void ft_check_for_redirect(char **arg)
                 arg[j++] = NULL;
             break;
         }
-
     }
+    ft_redirect(arg, redirect, output);
+}
+
+void ft_redirect(char **arg, bool redirect, int fd)
+{
+    int standard_out;
     if(redirect)
     {
-        sout = dup(1);
-        if(dup2(output, 1) == -1)
+        standard_out = dup(1);
+        if(dup2(fd, 1) == -1)
             perror("error");
-        close(output);
-        execute_command(arg);
-        dup2(sout, 1);
-        close(sout);
+        close(fd);
+        ft_wait_for_cmd(arg);
+        dup2(standard_out, 1);
+        close(standard_out);
     }
     else
-        execute_command(arg);
+        ft_wait_for_cmd(arg);
 }

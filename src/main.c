@@ -6,13 +6,12 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/19 12:25:41 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/20 12:49:40 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char *home_dir;
 void handlectrl(int signum)
 {
     (void)signum;
@@ -24,7 +23,6 @@ void handlectrl(int signum)
 int main()
 {
     char *str;
-    home_dir = getenv("HOME");
     signal(SIGINT, handlectrl);
     while((str = readline(BLU">> "WHT)))
     {
@@ -40,6 +38,6 @@ int main()
         }
         if(str[0] != '\0')
             add_history(str);
-        ft_wait_for_cmd(str);
+        ft_parse(str);
     }
 }

@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:07:09 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/18 13:10:30 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/20 10:39:16 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ void ft_echo(char **arg)
     }
     if (arg[i] != NULL && ft_strcmp(arg[i], "-n") == 0) 
         i++;
-    else if(ft_strcmp(arg[2], ">") == 0 && arg[3] != NULL)
-    {
-        int output = open(arg[3], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-        ft_putstr_fd(arg[1], output);
-        close(output);
-        return;
-    }
     while (arg[i] != NULL) 
     {
         ft_printf("%s", arg[i]);

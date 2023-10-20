@@ -10,9 +10,9 @@ YELLOW = \033[1;33m
 RESET = \033[0m
 
 SRC = 	src/main.c \
-		src/utils/str_utils.c \
-		src/utils/cmd.c \
-		src/utils/loop.c \
+		src/utils/lexer/split.c \
+		src/utils/parser/cmd.c \
+		src/utils/parser/loop.c \
 		src/utils/builtins/echo.c \
 		src/utils/builtins/cd.c \
 		src/utils/builtins/pwd.c

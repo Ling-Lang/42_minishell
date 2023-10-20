@@ -6,11 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:01:28 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/19 12:19:16 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/20 13:03:41 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 /* TODO Builtins
 *Implement following builtins:
 *export with no options
@@ -34,14 +34,23 @@ void ft_exit(char ***arg)
     ft_free(arg);
     exit(EXIT_SUCCESS);
 }
-void ft_wait_for_cmd(char *str)
+void ft_parse(char *str)
 {
     char **arg;
     
     arg = ft_new_split(str);
     if(ft_strcmp(arg[0], "exit") == 0)
         ft_exit(&arg);
-    else if(ft_strcmp(arg[0], "pwd") == 0)
+    ft_check_for_redirect(arg);
+    // ft_wait_for_cmd(arg);
+    ft_free(&arg);
+}
+
+void ft_wait_for_cmd(char **arg)
+{
+    const char *path;
+    path = (const char *)getenv("PATH");
+    if(ft_strcmp(arg[0], "pwd") == 0)
         ft_pwd();
     else if(ft_strcmp(arg[0], "cd") == 0)
         ft_cd(arg);
@@ -50,12 +59,11 @@ void ft_wait_for_cmd(char *str)
     else if (ft_strcmp(arg[0], "echo") == 0)
         ft_echo(arg);
     else if(ft_strcmp(arg[0], "export") == 0)
-        ft_printf("%s", home_dir);
+        ft_printf("%s", path);
     else if(ft_strcmp(arg[0], "unset") == 0)
         ;
     else if(ft_strcmp(arg[0], "env") == 0)
         ;
     else
-        ft_check_for_redirect(arg);
-    ft_free(&arg);
+        execute_command(arg);
 }
