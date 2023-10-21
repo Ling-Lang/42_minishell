@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/10/20 16:39:14 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/21 16:43:09 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,20 @@ char ** ft_str_copy(char **arg)
 */
 // void ft_check_for_input_redirect(char **arg)
 // {
-// 
+//     bool redirect;
+//     int i = 0;
+//     int j = 0;
+//     int fd = -1;
+    
+//     if(ft_strcmp(arg[i], "<") == 0)
+//         redirect = true;
+//     fd = open(arg[i + 1], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+//     if(fd == -1)
+//         return;
+//     if(redirect == true)
+//     {
+
+//     }
 // }
 void ft_check_for_redirect(char **arg)
 {
