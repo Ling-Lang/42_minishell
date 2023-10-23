@@ -15,7 +15,8 @@ SRC = 	src/main.c \
 		src/utils/parser/loop.c \
 		src/utils/builtins/echo.c \
 		src/utils/builtins/cd.c \
-		src/utils/builtins/pwd.c
+		src/utils/builtins/pwd.c \
+		src/utils/builtins/export.c
 
 OBJ = $(SRC:.c=.o)
 

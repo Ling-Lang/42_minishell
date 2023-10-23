@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/10/21 16:43:09 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/23 14:22:19 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,62 @@ char ** ft_str_copy(char **arg)
     res[i] = NULL;
     return res;
 }
+#include <string.h>
+char *my_join(char *str1, char *str2) {
+    size_t len1 = strlen(str1);
+    size_t len2 = strlen(str2);
+    char *result = (char *)malloc(len1 + len2 + 1);
+    if (result) {
+        strcpy(result, str1);
+        strcpy(result + len1, str2);
+    }
+    return result;
+}
+
+char *ft_read_file(int fd)
+{
+    int BUFFER_SIZE = 42;
+    char buffer[BUFFER_SIZE];
+    char *res = "";
+    ssize_t bytesRead;
+
+    while ((bytesRead = read(fd, buffer, BUFFER_SIZE)) > 0) {
+        buffer[bytesRead] = '\0'; // Null-terminate the buffer.
+        res = my_join(res, buffer);
+    }
+    // ft_printf("%s", res);
+    return res;
+}
 /*TODO check if first arg is '<' then open and redirect to (arguments?) and execute command;
 *
 */
 // void ft_check_for_input_redirect(char **arg)
 // {
-//     bool redirect;
+//     bool redirect = false;
 //     int i = 0;
 //     int j = 0;
 //     int fd = -1;
-    
+//     char *file;
+//     int k = 0;
+//     while(arg[k] != NULL)
+//         k++;
 //     if(ft_strcmp(arg[i], "<") == 0)
 //         redirect = true;
-//     fd = open(arg[i + 1], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-//     if(fd == -1)
-//         return;
 //     if(redirect == true)
 //     {
-
+//         fd = open(arg[i + 1], O_RDONLY);
+//         if(fd == -1)
+//         {
+//             perror("minishell");
+//             return;
+//         }
+//         arg[k] = ft_read_file(fd);
+//         ft_printf("%s", arg[k]);
+//         // execute_command(arg);
+//     }
+//     else
+//     {
+//         ft_check_for_redirect(arg);
 //     }
 // }
 void ft_check_for_redirect(char **arg)
