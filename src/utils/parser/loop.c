@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:01:28 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/23 16:34:44 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/23 22:40:03 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void ft_wait_for_cmd(char **arg, t_env *env)
     else if (ft_strcmp(arg[0], "echo") == 0)
         ft_echo(arg);
     else if(ft_strcmp(arg[0], "export") == 0)
-        ft_export(env);
+        ft_export(env, arg);
     else if(ft_strcmp(arg[0], "unset") == 0)
         ;
     else if(ft_strcmp(arg[0], "env") == 0)
-        ;
+        ft_env(env);
     else
         execute_command(arg);
 }

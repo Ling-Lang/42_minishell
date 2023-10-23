@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/23 16:32:55 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/23 22:40:58 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void ft_echo(char **arg);
 void ft_cd(char **arg);
 void clear();
 void ft_pwd(void);
-void ft_export(t_env *env);
+void ft_export(t_env *env, char **arg);
+void ft_export_print(t_env *env, char **arg);
+void ft_env(t_env *env);
 
 /* Parser */
 void ft_check_for_redirect(char **arg_org, t_env *env);
