@@ -16,7 +16,8 @@ SRC = 	src/main.c \
 		src/utils/builtins/echo.c \
 		src/utils/builtins/cd.c \
 		src/utils/builtins/pwd.c \
-		src/utils/builtins/export.c
+		src/utils/builtins/export.c \
+		src/utils/init.c
 
 OBJ = $(SRC:.c=.o)
 

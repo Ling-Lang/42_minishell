@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/21 16:11:56 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/23 16:28:50 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,21 @@ void handlectrl(int signum)
     rl_redisplay();
     ft_printf(BLU"\n>> "WHT);
 }
-int main()
+void print_var(char **envp)
 {
+    int i = 0;
+    while(envp[i] != NULL)
+    {
+        printf("%d\t%s\n",i, envp[i]);
+        i++;
+    }
+}
+int main(int argc, char **argv, char **envp)
+{
+    (void)argc;
+    (void)argv;
     char *str;
+    t_env *env = ft_init(envp);
     signal(SIGINT, handlectrl);
     while((str = readline(BLU">> "WHT)))
     {
@@ -38,6 +50,6 @@ int main()
         }
         if(str[0] != '\0')
             add_history(str);
-        ft_parse(str);
+        ft_parse(str, env);
     }
 }

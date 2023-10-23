@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/10/23 14:22:19 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/23 16:34:32 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char *ft_read_file(int fd)
 //         ft_check_for_redirect(arg);
 //     }
 // }
-void ft_check_for_redirect(char **arg)
+void ft_check_for_redirect(char **arg, t_env *env)
 {
     bool redirect = false;
     int output = -1;
@@ -142,10 +142,10 @@ void ft_check_for_redirect(char **arg)
             break;
         }
     }
-    ft_redirect(arg, redirect, output);
+    ft_redirect(arg, redirect, output, env);
 }
 
-void ft_redirect(char **arg, bool redirect, int fd)
+void ft_redirect(char **arg, bool redirect, int fd, t_env *env)
 {
     int standard_out;
     if(redirect)
@@ -154,10 +154,10 @@ void ft_redirect(char **arg, bool redirect, int fd)
         if(dup2(fd, 1) == -1)
             perror("error");
         close(fd);
-        ft_wait_for_cmd(arg);
+        ft_wait_for_cmd(arg, env);
         dup2(standard_out, 1);
         close(standard_out);
     }
     else
-        ft_wait_for_cmd(arg);
+        ft_wait_for_cmd(arg, env);
 }
