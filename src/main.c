@@ -6,12 +6,12 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/23 16:28:50 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/24 12:40:09 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
+#include "../include/builtins.h"
 void handlectrl(int signum)
 {
     (void)signum;
