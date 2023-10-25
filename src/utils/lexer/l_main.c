@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:07:53 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/25 13:26:57 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/25 13:56:17 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_token	*init_tokens(char *str)
 	}
 	return (tokens);
 }
+
 t_token	*create_token(char *str, int len)
 {
 	t_token	*token;

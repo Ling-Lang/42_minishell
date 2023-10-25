@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:07:48 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/25 13:35:44 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/25 13:54:29 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,24 @@ int	leading_separators(char *str, int len)
 
 int	get_token_len(char *str)
 {
-	int	i;
-	int	len;
-	t_quote q;
-	
+	int		i;
+	int		len;
+	t_quote	q;
+
 	init_quote_struct(&q);
 	i = -1;
 	len = 0;
 	while (str[++i])
 	{
-		if (is_separator(str[i]) == 1)
+		if (str[i] == '\"')
+			q.d_quote++;
+		if (str[i] == '\'')
+			q.s_quote++;
+		if (is_separator(str[i]) && q.d_quote % 2 == 0 && q.s_quote % 2 == 0)
+			break ;
+		if (is_separator(str[i]) && q.d_quote % 2 == 1 && q.s_quote % 2 == 2)
+			break ;
+		if (is_separator(str[i]) && q.d_quote % 2 == 2 && q.s_quote % 2 == 1)
 			break ;
 		len++;
 	}
@@ -71,8 +79,8 @@ int	get_token_ammount(char *str)
 	return (c);
 }
 
-void init_quote_struct(t_quote *q)
+void	init_quote_struct(t_quote *q)
 {
-	q->double_quote = 0;
-	q->single_quote = 0;
+	q->d_quote = 0;
+	q->s_quote = 0;
 }

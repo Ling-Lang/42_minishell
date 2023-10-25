@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:29:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/25 13:05:41 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/25 13:52:52 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct s_token
 
 typedef struct s_quote
 {
-    int double_quote;
-    int single_quote;
+    int d_quote;
+    int s_quote;
 } t_quote;
 
 typedef enum e_ttype

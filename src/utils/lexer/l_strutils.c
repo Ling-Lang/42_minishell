@@ -12,67 +12,74 @@
 
 #include "../../../include/minishell.h"
 
-char *ft_strncpy(char *src, char *dst, int n)
+char	*ft_strncpy(char *src, char *dst, int n)
 {
-    int i = 0;
-    while(i < n)
-    {
-        dst[i] = src[i];
-        i++;
-    }
-    dst[i] = '\0';
-    return dst;
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }
 
-int ft_wc(char *str)
+int	ft_wc(char *str)
 {
-    int i = 0;
-    int wc = 0;
-    while(str[i])
-    {
-        while(str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
-            i++;
-        if(str[i])
-            wc++;
-        while(str[i] && str[i] != '\t' && str[i] != ' ' && str[i] != '\n')
-            i++;
-    }
-    return wc;
+	int	i;
+	int	wc;
+
+	i = 0;
+	wc = 0;
+	while (str[i])
+	{
+		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+			i++;
+		if (str[i])
+			wc++;
+		while (str[i] && str[i] != '\t' && str[i] != ' ' && str[i] != '\n')
+			i++;
+	}
+	return (wc);
 }
 
-char **ft_new_split(char *str)
+char	**ft_new_split(char *str)
 {
-    int i = 0;
-    int j = 0;
-    int k = 0;
-    char **res;
+	int		i;
+	int		j;
+	int		k;
+	char	**res;
 
-    res = (char **)malloc(sizeof(char *) * (ft_wc(str) + 1));
-    if(!res)
-        return NULL;
-    while(str[i])
-    {
-        while(str[i] != '\0' && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
-            i++;
-        j = i;
-        while(str[i] && str[i] != '\t' && str[i] != ' ' && str[i] != '\n')
-            i++;
-        if(i > j)
-        {
-            res[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
-            if(!res[k])
-            {
-                while(k != 0)
-                    free(res[k--]);
-                free(res);
-                return NULL;
-            }
-            ft_strncpy(&str[j], res[k], (i - j));
-            k++;
-        }
-    }
-    res[k] = NULL;
-    return res;
+	i = 0;
+	j = 0;
+	k = 0;
+	res = (char **)malloc(sizeof(char *) * (ft_wc(str) + 1));
+	if (!res)
+		return (NULL);
+	while (str[i])
+	{
+		while (str[i] != '\0' && (str[i] == ' ' || str[i] == '\t'
+				|| str[i] == '\n'))
+			i++;
+		j = i;
+		while (str[i] && str[i] != '\t' && str[i] != ' ' && str[i] != '\n')
+			i++;
+		if (i > j)
+		{
+			res[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
+			if (!res[k])
+			{
+				while (k != 0)
+					free(res[k--]);
+				free(res);
+				return (NULL);
+			}
+			ft_strncpy(&str[j], res[k], (i - j));
+			k++;
+		}
+	}
+	res[k] = NULL;
+	return (res);
 }
-
-
