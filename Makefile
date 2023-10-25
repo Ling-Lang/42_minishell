@@ -10,7 +10,11 @@ YELLOW = \033[1;33m
 RESET = \033[0m
 
 SRC = 	src/main.c \
-		src/utils/lexer/split.c \
+		src/utils/lexer/l_strutils.c \
+		src/utils/lexer/l_main.c \
+		src/utils/lexer/l_quotes.c \
+		src/utils/lexer/l_tokens.c \
+		src/utils/lexer/l_utils.c \
 		src/utils/parser/cmd.c \
 		src/utils/parser/loop.c \
 		src/utils/builtins/echo.c \
@@ -19,7 +23,6 @@ SRC = 	src/main.c \
 		src/utils/builtins/export.c \
 		src/utils/builtins/env.c \
 		src/utils/init.c \
-		src/utils/lexer/lexer_main.c
 
 OBJ = $(SRC:.c=.o)
 

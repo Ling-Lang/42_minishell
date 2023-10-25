@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:01:28 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/24 16:51:20 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/25 12:47:46 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,30 +43,26 @@ void ft_parse(char *str, t_env *env)
 	t_token	*temp;
     
     tokens = init_tokens(str);
-    // cur = tokens;
-	// while (cur)
-	// {
-	// 	printf("Type: %d, Value: %s\n", cur->type, (char *)cur->value);
-	// 	cur = cur->next;
-	// }
+    cur = tokens;
+	while (cur)
+	{
+		printf("Type: %d, Value: %s\n", cur->type, (char *)cur->value);
+		cur = cur->next;
+	}
 	// Don't forget to free the allocated memory when you're done.
-	// cur = tokens;
-	// while (cur)
-	// {
-	// 	temp = cur;
-	// 	cur = cur->next;
-	// 	free(temp->value);
-	// 	free(temp);
-	// }
+	cur = tokens;
+	while (cur)
+	{
+		temp = cur;
+		cur = cur->next;
+		free(temp->value);
+		free(temp);
+	}
     // arg = ft_new_split(str);
     // ft_printf("%s", arg[0]);
     // if(ft_strcmp(arg[0], "exit") == 0)
         // ft_exit(&arg);
-    ft_cmd_new(tokens);
-    // ft_check_for_redirect(arg, env);
-    // ft_check_for_input_redirect(arg);
-    // ft_wait_for_cmd(arg);
-    // ft_free(&arg);
+    // ft_cmd_new(tokens);
 }
 
 void ft_cmd_new(t_token *token)

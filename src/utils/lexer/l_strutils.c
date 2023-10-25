@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   l_strutils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:28:05 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/24 16:43:22 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/25 13:17:26 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,10 @@ char **ft_new_split(char *str)
     int j = 0;
     int k = 0;
     char **res;
-    
+
     res = (char **)malloc(sizeof(char *) * (ft_wc(str) + 1));
-    // ft_printf("%d", ft_wc(str));
     if(!res)
-    {
         return NULL;
-    }
     while(str[i])
     {
         while(str[i] != '\0' && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
@@ -63,7 +60,6 @@ char **ft_new_split(char *str)
         if(i > j)
         {
             res[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
-            // ft_printf("%d", (i -j) + 1);
             if(!res[k])
             {
                 while(k != 0)
