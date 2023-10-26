@@ -1,111 +1,52 @@
 #include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <dirent.h>
-#include <limits.h>
-#include <string.h>
-#include <fcntl.h>
-#include <stdbool.h>
-#include <signal.h>
-#include <stdlib.h>
-// A data structure to store environment variables
-#include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "Libft/src/libft.h"
-// A simplified function to set or update environment variables
-// void setEnvVariable(char* name, char* value) {
-//     for (int i = 0; i < envCount; i++) {
-//         if (strcmp(env[i].name, name) == 0) {
-//             free(env[i].value); // Free old value
-//             env[i].value = strdup(value);
-//             return;
-//         }
-//     }
-    
-//     env[envCount].name = strdup(name);
-//     env[envCount].value = strdup(value);
-//     envCount++;
-// }
-// void ft_export()
-// {
-//     extern char **environ;
-//     for(char **env = environ; *env != NULL; env++)
-//         printf("declare -x %s\n", *env);
-// }
-void ft_cd()
-{
-    char *home;
-    // char cwd[PATH_MAX];
-    home = getenv("HOME");
-    printf("\tHome:\t%s\n", home);
-    chdir(home);
-    // getcwd(cwd, sizeof(cwd));
-    // printf("%s\n", cwd);
-}
-void ft_pwd(void)
-{
-    char cwd[PATH_MAX];
-    getcwd(cwd, sizeof(cwd));
-    printf("%s\n", cwd);
-}
-// int ft_strlen(char *str)
-// {
-//     int i =0;
-//     while(str[i])
-//         i++;
-//     return i;
-// }
-typedef struct s_env
-{
-    const char *name;
-    char *value;
-} t_env;
-void print_var(char **envp)
-{
-    int i = 0;
-    while(envp[i] != NULL)
-    {
-        printf("%d\t%s\n",i, envp[i]);
-        i++;
+
+int main() {
+    int pipe_fd[2];
+    if (pipe(pipe_fd) == -1) {
+        perror("pipe");
+        exit(EXIT_FAILURE);
     }
-}
-int main(int argc, char **argv, char **envp)
-{
-    int i  =0;
-    while(envp[i] != NULL)
-        i++;
-    t_env *env;
-    env = (t_env *)malloc(sizeof(t_env) * i);
-    i = 0;
-    int j = 0;
-    while(envp[i] != NULL)
-    {
-        char **tmp = ft_split(envp[i], '=');
-        env[i].name = (const char *)malloc(sizeof(char) * ft_strlen(tmp[0]) + 1); 
-        env[i].value = (char *)malloc(sizeof(char) * ft_strlen(tmp[1]) + 1);
-        env[i].name = tmp[0];
-        env[i].value = tmp[1];
-        i++;
-        free(tmp[0]);
-        free(tmp[1]);
-        free(tmp);
+
+    pid_t child_pid = fork();
+
+    if (child_pid == -1) {
+        perror("fork");
+        exit(EXIT_FAILURE);
     }
-    env[i].name = NULL;
-    env[i].value = NULL;
-    // env[i] = NULL;
-    // print_var(envp);
-    while(j < i)
-    {
-        printf("%s=%s\n", env[j].name, env[j].value);
-        j++;
+
+    if (child_pid == 0) {
+        // This is the child process
+
+        // Close the read end of the pipe
+        close(pipe_fd[0]);
+
+        // Redirect stdout to the write end of the pipe
+        dup2(pipe_fd[1], STDOUT_FILENO);
+        close(pipe_fd[1]);
+
+        // Execute the first command, e.g., "ls"
+        char *argv1[] = {"ls", NULL};
+        execvp(argv1[0], argv1);
+        perror("execvp");
+        exit(EXIT_FAILURE);
+    } else {
+        // This is the parent process
+
+        // Close the write end of the pipe
+        close(pipe_fd[1]);
+
+        // Redirect stdin to the read end of the pipe
+        dup2(pipe_fd[0], STDIN_FILENO);
+        close(pipe_fd[0]);
+
+        // Execute the second command, e.g., "grep"
+        char *argv2[] = {"cat", "-e"}; // Replace "search_term" with your desired argument
+        execvp(argv2[0], argv2);
+        perror("execvp");
+        exit(EXIT_FAILURE);
     }
-    // while(j > 0)
-    // {
-    //     free((void *)env[j].name);
-    //     free(env[j].value);
-    //     j--;
-    // }
-    // free(env);
+
+    return 0;
 }
