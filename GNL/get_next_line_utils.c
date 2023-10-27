@@ -6,12 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 14:07:43 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/27 13:04:45 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/27 16:33:07 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/get_next_line.h"
-
 size_t	ft_strlen_gnl(char *s)
 {
 	size_t	i;
