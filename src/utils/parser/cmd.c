@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/10/23 16:34:32 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/27 13:07:42 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ char *my_join(char *str1, char *str2) {
 
 char *ft_read_file(int fd)
 {
-    int BUFFER_SIZE = 42;
     char buffer[BUFFER_SIZE];
     char *res = "";
     ssize_t bytesRead;

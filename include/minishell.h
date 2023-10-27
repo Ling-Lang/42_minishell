@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/25 13:36:00 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/27 13:02:22 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../Libft/src/libft.h"
 #include "builtins.h"
 #include "structs.h"
+#include "get_next_line.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>

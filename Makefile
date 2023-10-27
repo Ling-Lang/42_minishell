@@ -23,6 +23,8 @@ SRC = 	src/main.c \
 		src/utils/builtins/export.c \
 		src/utils/builtins/env.c \
 		src/utils/init.c \
+		GNL/get_next_line.c \
+		GNL/get_next_line_utils.c
 
 OBJ = $(SRC:.c=.o)
 

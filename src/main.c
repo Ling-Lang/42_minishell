@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/24 12:40:09 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/27 13:02:40 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ int main(int argc, char **argv, char **envp)
             continue;
         }
         if(str[0] != '\0')
+        {
+            ft_printf("%s", get_next_line(open("test.txt", O_RDONLY)));
             add_history(str);
+        }
         ft_parse(str, env);
     }
 }

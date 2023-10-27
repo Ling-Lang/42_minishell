@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:29:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/25 13:52:52 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/27 14:13:12 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRUCTS_H
 #include "minishell.h"
 
+# define DEFAULT -1
 typedef struct s_env
 {
     const char *name;
@@ -44,4 +45,27 @@ typedef enum e_ttype
     PIPE,
 } t_ttype;
 
+typedef enum e_action
+{
+    NO_ACTION = -1,
+    SHIFT = 0,
+    REDUCE,
+    ACCEPT,
+    REJECT,
+} t_action;
+
+typedef enum e_rules
+{
+    PIPE_SEQUENCE = 500,
+    SIMPLE_COMMAND,
+    CMD_NAME,
+    CMD_WORD,
+    CMD_PREFIX,
+    CMD_SUFFIX,
+    IO_REDIRECT,
+    IOFILE,
+    FILENAME,
+    IO_HERE,
+    HERE_END,
+} t_rules;
 #endif
