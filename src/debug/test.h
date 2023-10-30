@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:09:26 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/27 16:19:34 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/30 16:18:06 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ const char *e_rule_names[] = {
     "IO_HERE",
     "HERE_END"
 };
-typedef struct e_ptable
+typedef struct s_ptable
 {
     int state;
     int token;
@@ -50,4 +50,24 @@ typedef struct e_ptable
     int n_state;
     int reduce;
 }   t_ptable;
+
+typedef struct s_stack
+{
+    void *data;
+    int type;
+    int state;
+    struct s_stack *next;
+}   t_stack;
+
+typedef struct s_node
+{
+    int type;
+    int reduce;
+    void *data;
+    struct s_node *l;
+    struct s_node *r;
+    struct s_node *n;
+}   t_node;
+t_stack *pop_stack(t_stack **stack, int n);
+int push_reduce(t_stack **stack, int reduce);
 #endif
