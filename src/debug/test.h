@@ -6,42 +6,15 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:09:26 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/30 16:18:06 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/31 17:38:17 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEST_H
 #define TEST_H
-
-const char *ttype_names[] = {
-    "END",
-    "WORD",
-    "R_TO_FILE",
-    "R_FROM_FILE",
-    "GREATER",
-    "LESS",
-    "PIPE"
-};
-
-const char *e_action_names[] = {
-    "NO_ACTION",
-    "SHIFT",
-    "REDUCE",
-    "REJECT",
-};
-const char *e_rule_names[] = {
-    "PIPE_SEQUENCE",
-    "SIMPLE_COMMAND",
-    "CMD_NAME",
-    "CMD_WORD",
-    "CMD_PREFIX",
-    "CMD_SUFFIX",
-    "IO_REDIRECT",
-    "IOFILE",
-    "FILENAME",
-    "IO_HERE",
-    "HERE_END"
-};
+#include "../../include/minishell.h"
+#define OK 0
+#define ERR -1
 typedef struct s_ptable
 {
     int state;
@@ -69,5 +42,16 @@ typedef struct s_node
     struct s_node *n;
 }   t_node;
 t_stack *pop_stack(t_stack **stack, int n);
+int get_nstate(t_stack *stack, t_ptable **p_table);
 int push_reduce(t_stack **stack, int reduce);
+int add_tree(t_node **tree, t_stack **stack, int reduce);
+void clear_stack(t_stack *stack);
+int accept(void);
+int reject(void);
+t_node *fix_types(t_node *tree);
+t_node *parser(t_token *input, t_ptable **table);
+void clean_parser(t_node **tree, t_stack *stack, t_token *input, int r);
+int	ft_get_next_line(int fd, char **line, int to_free);
+t_ptable **init_table(void);
+int	ms_build_tree(t_node **tree, t_node *reduc_node, t_stack **popped);
 #endif

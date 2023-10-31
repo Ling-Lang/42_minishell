@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:06:28 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/25 13:12:58 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/31 13:48:44 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,15 @@ int	get_token_type(char *str, int len)
 	tmp = (char *)malloc(sizeof(char) * len + 1);
 	ft_strncpy(str, tmp, len);
 	if (!ft_strcmp(tmp, ">"))
-		return (free(tmp), R_TO_FILE);
+		return (free(tmp), T_R_TO_FILE);
 	else if (!ft_strcmp(tmp, "<"))
-		return (free(tmp), R_FROM_FILE);
+		return (free(tmp), T_R_FROM_FILE);
 	else if (!ft_strcmp(tmp, "|"))
-		return (free(tmp), PIPE);
+		return (free(tmp), T_PIPE);
 	else if (!ft_strcmp(tmp, "<<"))
-		return (free(tmp), LESS);
+		return (free(tmp), T_LESS);
 	else if (!ft_strcmp(tmp, ">>"))
-		return (free(tmp), GREATER);
+		return (free(tmp), T_GREATER);
 	else
-		return (free(tmp), WORD);
+		return (free(tmp), T_WORD);
 }

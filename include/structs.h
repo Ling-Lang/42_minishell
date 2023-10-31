@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:29:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/27 14:13:12 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/10/31 17:31:54 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 #include "minishell.h"
 
 # define DEFAULT -1
+# define NO_ACTION -1
+# define TO_PROMOTE 0
+# define TO_CHILD 1
+# define ROOT -2
 typedef struct s_env
 {
     const char *name;
@@ -36,18 +40,17 @@ typedef struct s_quote
 
 typedef enum e_ttype
 {
-    END = -2,
-    WORD = 0,
-    R_TO_FILE,
-    R_FROM_FILE,
-    GREATER,
-    LESS,
-    PIPE,
+    T_END = -2,
+    T_WORD = 0,
+    T_R_TO_FILE,
+    T_R_FROM_FILE,
+    T_GREATER,
+    T_LESS,
+    T_PIPE,
 } t_ttype;
 
 typedef enum e_action
 {
-    NO_ACTION = -1,
     SHIFT = 0,
     REDUCE,
     ACCEPT,
@@ -56,16 +59,29 @@ typedef enum e_action
 
 typedef enum e_rules
 {
-    PIPE_SEQUENCE = 500,
-    SIMPLE_COMMAND,
-    CMD_NAME,
-    CMD_WORD,
-    CMD_PREFIX,
-    CMD_SUFFIX,
-    IO_REDIRECT,
-    IOFILE,
-    FILENAME,
-    IO_HERE,
-    HERE_END,
+    R_PIPE_SEQUENCE = 500,
+    R_SIMPLE_COMMAND,
+    R_CMD_NAME,
+    R_CMD_WORD,
+    R_CMD_PREFIX,
+    R_CMD_SUFFIX,
+    R_IO_REDIRE5CT,
+    R_IOFILE,
+    R_FILENAME,
+    R_IO_HERE,
+    R_HERE_END,
 } t_rules;
+
+typedef enum e_tree_types
+{
+    A_CMD = 0,
+    A_R_TO_FILE,
+    A_RET_FROM_FILE,
+    A_LESS,
+    A_GREATER,
+    A_PIPE,
+    A_PARAM,
+    A_FILE,
+    A_LIMITER
+} t_tree_types;
 #endif

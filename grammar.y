@@ -1,10 +1,11 @@
 %verbose
 %token  WORD
+%token  ASSIGNMENT_WORD
 %token  RET_TO
 %token  RET_FROM
 %token  PIPE
-%token  GREATER
-%token  LESS 
+%token  DGREAT 
+%token  DLESS
 
 %start pipe_sequence
 %%
@@ -34,11 +35,11 @@ io_redirect		: io_file
 				;
 io_file			: RET_TO filename
 				| RET_FROM filename
-				| GREATER filename
+				| DGREAT filename
 				;
 filename		: WORD
 				;
-io_here			: LESS here_end
+io_here			: DLESS here_end
 				;
 here_end		: WORD
 				;
