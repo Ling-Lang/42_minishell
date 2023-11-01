@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:10:14 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/31 18:31:51 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/01 18:10:48 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,15 +229,6 @@ void clear_stack(t_stack *stack)
         stack = n;
     }
 }
-
-int accept(void)
-{
-    return 1;
-}
-int reject(void)
-{
-    return -1;
-}
 void loop_fix_types(t_node *node)
 {
     if(!node)
@@ -290,7 +281,7 @@ void clear_token(t_token *token)
 }
 void clean_parser(t_node **tree, t_stack *stack, t_token *input, int r)
 {
-    if(r == -1)
+    if(r == ERR)
         free_tree(tree);
     clear_stack(stack);
     clear_token(input);

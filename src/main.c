@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/27 13:02:40 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/01 18:57:00 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,12 @@ int main(int argc, char **argv, char **envp)
     (void)argc;
     (void)argv;
     char *str;
-    t_env *env = ft_init(envp);
+    t_ptable **table = init_table();
+    t_env *env;
+    t_token *input;
+    t_node *ast;
+    char **args;
+    ft_init(envp, &env);
     signal(SIGINT, handlectrl);
     while((str = readline(BLU">> "WHT)))
     {
@@ -45,14 +50,12 @@ int main(int argc, char **argv, char **envp)
         }
         str[strcspn(str, "\n")] = '\0';
         if(str[0] == '\0')
-        {
             continue;
-        }
         if(str[0] != '\0')
-        {
-            ft_printf("%s", get_next_line(open("test.txt", O_RDONLY)));
             add_history(str);
-        }
-        ft_parse(str, env);
+        input = init_tokens(str);
+        ast = parser(input, table);
+        args = iterate_tree(ast, init_args());
+        ft_printf("%s\n", args[0]);
     }
 }

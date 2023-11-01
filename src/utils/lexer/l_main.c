@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:07:53 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/31 14:08:20 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/01 18:22:52 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_token	*create_token(char *str, int len)
 		perror("minishell");
 		exit(1);
 	}
-	token->type = get_token_type(str, len);
+	token->type = get_token_type(str);
 	token->value = (char *)malloc(len + 1);
 	if (token->value == NULL)
 	{

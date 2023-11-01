@@ -6,11 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 14:29:23 by twagner           #+#    #+#             */
-/*   Updated: 2023/10/27 16:31:56 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/01 18:26:33 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/get_next_line.h"
+#include "../../../include/get_next_line.h"
 
 static int	ft_fill_buffer_until_n(char **bufline, int fd)
 {

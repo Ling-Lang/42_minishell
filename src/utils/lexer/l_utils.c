@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:07:48 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/25 13:54:29 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/01 18:22:30 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,11 @@ int	get_token_len(char *str)
 
 int	get_token_ammount(char *str)
 {
-	int		i;
 	int		len;
 	int		c;
-	bool	inside;
 
-	i = 0;
 	len = 0;
 	c = 0;
-	inside = false;
 	while (*str)
 	{
 		while (*str == ' ' && *str)

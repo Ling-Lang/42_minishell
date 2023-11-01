@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:29:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/31 17:31:54 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/01 17:36:28 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,33 @@ typedef struct s_quote
     int d_quote;
     int s_quote;
 } t_quote;
+
+typedef struct s_ptable
+{
+    int state;
+    int token;
+    int action;
+    int n_state;
+    int reduce;
+}   t_ptable;
+
+typedef struct s_stack
+{
+    void *data;
+    int type;
+    int state;
+    struct s_stack *next;
+}   t_stack;
+
+typedef struct s_node
+{
+    int type;
+    int reduce;
+    void *data;
+    struct s_node *l;
+    struct s_node *r;
+    struct s_node *n;
+}   t_node;
 
 typedef enum e_ttype
 {

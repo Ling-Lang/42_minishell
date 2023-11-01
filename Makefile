@@ -15,16 +15,22 @@ SRC = 	src/main.c \
 		src/utils/lexer/l_quotes.c \
 		src/utils/lexer/l_tokens.c \
 		src/utils/lexer/l_utils.c \
-		src/utils/parser/cmd.c \
-		src/utils/parser/loop.c \
+		src/utils/parser/p_main.c \
+		src/utils/parser/p_action.c \
+		src/utils/parser/p_clean.c \
+		src/utils/parser/p_other.c \
+		src/utils/parser/p_stack.c \
+		src/utils/parser/p_tree.c \
+		src/utils/parser/p_table.c \
+		src/utils/parser/gnl.c \
+		src/utils/interpreter/i_main.c \
+		src/utils/interpreter/i_utils.c \
 		src/utils/builtins/echo.c \
 		src/utils/builtins/cd.c \
 		src/utils/builtins/pwd.c \
 		src/utils/builtins/export.c \
 		src/utils/builtins/env.c \
-		src/utils/init.c \
-		GNL/get_next_line.c \
-		GNL/get_next_line_utils.c
+		src/utils/init.c 
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:06:28 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/31 13:48:44 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/01 18:21:47 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,20 @@ void	add_token(t_token **tokens, t_token *new_token)
 	}
 }
 
-int	get_token_type(char *str, int len)
+int	get_token_type(char *str)
 {
-	char	*tmp;
-
-	tmp = (char *)malloc(sizeof(char) * len + 1);
-	ft_strncpy(str, tmp, len);
-	if (!ft_strcmp(tmp, ">"))
-		return (free(tmp), T_R_TO_FILE);
-	else if (!ft_strcmp(tmp, "<"))
-		return (free(tmp), T_R_FROM_FILE);
-	else if (!ft_strcmp(tmp, "|"))
-		return (free(tmp), T_PIPE);
-	else if (!ft_strcmp(tmp, "<<"))
-		return (free(tmp), T_LESS);
-	else if (!ft_strcmp(tmp, ">>"))
-		return (free(tmp), T_GREATER);
+	if(!str)
+		return(T_END);
+	else if (!ft_strcmp(str, ">"))
+		return (T_R_TO_FILE);
+	else if (!ft_strcmp(str, "<"))
+		return (T_R_FROM_FILE);
+	else if (!ft_strcmp(str, "|"))
+		return (T_PIPE);
+	else if (!ft_strcmp(str, "<<"))
+		return ( T_LESS);
+	else if (!ft_strcmp(str, ">>"))
+		return (T_GREATER);
 	else
-		return (free(tmp), T_WORD);
+		return (T_WORD);
 }

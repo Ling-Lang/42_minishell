@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 15:58:59 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/31 18:27:46 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/01 17:42:14 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,15 +168,16 @@ int reduce(t_stack **stack, t_ptable **ptable, t_ptable *entry, t_node **tree)
 }
 int	main(void)
 {
-	// char str[] = "ls -l > test.txt";
     t_token *input;
-    // char *str = "ls -l > test.txt";
     t_ptable **table = init_table();
     t_node *tree;
     char *str = readline(">> ");
     input = init_tokens(str);
+    ft_print_tokens(input);
     tree = parser(input, table);
-    // ft_printf("%d\n", tree->n->n->reduce);
+    char **tmp = iterate_tree(tree, init_args());
+    // ft_printf("%s\n", tmp[0]);
+    // execvp(tmp[0], tmp);
 }
 
 
@@ -217,7 +218,6 @@ t_node *parser(t_token *input, t_ptable **table)
             r = reject();
         }
     }
-    // clean_parser(&tree, stack, start, r);
+    clean_parser(&tree, stack, start, r);
     return(fix_types(tree));
 }
-
