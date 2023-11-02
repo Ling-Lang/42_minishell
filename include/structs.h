@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:29:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/01 17:36:28 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/02 19:30:53 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef enum e_rules
     R_CMD_WORD,
     R_CMD_PREFIX,
     R_CMD_SUFFIX,
-    R_IO_REDIRE5CT,
+    R_IO_REDIRECT,
     R_IOFILE,
     R_FILENAME,
     R_IO_HERE,
@@ -104,8 +104,8 @@ typedef enum e_tree_types
     A_CMD = 0,
     A_R_TO_FILE,
     A_RET_FROM_FILE,
-    A_LESS,
     A_GREATER,
+    A_LESS,
     A_PIPE,
     A_PARAM,
     A_FILE,

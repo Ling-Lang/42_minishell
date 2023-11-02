@@ -6,11 +6,10 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:01:28 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/25 12:47:46 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/02 17:17:01 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
 /* TODO Builtins
 *Implement following builtins:
 *export with no options

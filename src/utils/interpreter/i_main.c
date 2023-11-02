@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:38:35 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/02 15:21:52 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/02 20:19:26 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void cache_fd(int *fd)
 int ret_to(t_node *tree)
 {
     int fd;
-
-    fd = open(tree->r->data, O_RDWR | O_CREAT, 0666);
+    // ft_printf("test\n");
+    fd = open(tree->r->r->data, O_RDWR | O_CREAT, 0666);
     if(fd == ERR)
         return(perror(tree->r->r->data), ERR);
     if(dup2(fd, STDOUT_FILENO) == ERR)
@@ -114,7 +114,7 @@ int append_to(t_node *tree)
 {
     int fd;
 
-    fd = open(tree->r->data, O_RDWR | O_CREAT | O_APPEND, 0666);
+    fd = open(tree->r->r->data, O_RDWR | O_CREAT | O_APPEND, 0666);
     if(fd == ERR)
         return(perror(tree->r->r->data), ERR);
     if(dup2(fd, STDOUT_FILENO) == ERR)
@@ -152,12 +152,42 @@ int handle_redirects(t_node *tree, int r)
     }
     return r;
 }
-int simple_command(t_node *tree, int *fd)
+int execute_command(char **arg, char **envp)
+{
+    pid_t child_pid = fork();
+    if (child_pid == 0) {
+        // Child process
+        if (execvp(arg[0], arg) == -1) {
+            perror("minishell");
+            exit(1);
+        }
+    } else if (child_pid < 0) {
+        perror("fork");
+    } else {
+        // Parent process
+        waitpid(child_pid, NULL, 0);
+    }
+    return 0;
+}
+int restore_fd(int *fd)
+{
+    fd[0] = dup2(fd[0], STDIN_FILENO);
+    fd[1] = dup2(fd[1], STDOUT_FILENO);
+    return 1;
+}
+int simple_command(t_node *tree, int *fd, char **envp)
 {
     char **args;
     int r;
+    
+    r = 0;
+    args = iterate_tree(tree, init_args());
+    execute_command(args, envp);
+    if(fd[0] != -1)
+        restore_fd(fd);
+    return 1;
 }
-int exec_tree(t_node *tree)
+int exec_tree(t_node *tree, char **envp)
 {
     int r;
     int n;
@@ -175,6 +205,6 @@ int exec_tree(t_node *tree)
     {
         cache_fd(fd);
         if(handle_redirects(tree, 0) != ERR)
-            r = 
+            r = simple_command(tree, fd, envp);
     }
 }

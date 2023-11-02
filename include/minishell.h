@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/02 14:49:46 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/02 19:36:55 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ char **iterate_tree(t_node *node, char **args);
 void free_str_array(char **str);
 int arg_len(char **arg);
 char **init_args(void);
-
+int execute_command(char **arg, char **envp);
+int exec_tree(t_node *tree, char **envp);
 /* Parser */
 t_node *parser(t_token *input, t_ptable **table);
 int push_state(t_stack **stack, int state);
@@ -52,12 +53,7 @@ t_stack *init_stack(void);
 t_node *fix_types(t_node *tree);
 void clear_stack(t_stack *stack);
 void clean_parser(t_node **tree, t_stack *stack, t_token *input, int r);
-// void ft_check_for_input_redirect(char **arg);
-/* Executor */
-void ft_wait_for_cmd(char **arg, t_env *env);
-int execute_command(char **arg);
-void ft_cmd_new(t_token *token);
-
+void free_tree(t_node **node);
 
 /* Lexer */
 char **ft_new_split(char *str);
