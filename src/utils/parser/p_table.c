@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:23:31 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/01 18:24:44 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/02 14:50:18 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_ptable **init_table(void)
         return NULL;
     table[0] = NULL;
     table[100] = NULL;
-    fd = open("test", O_RDONLY);
+    fd = open(TBL_PATH, O_RDONLY);
     if(fd == ERR)
     {
         free_table(table);

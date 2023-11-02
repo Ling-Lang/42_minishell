@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:28:05 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/25 15:21:13 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/02 13:53:46 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 char	*ft_strncpy(char *src, char *dst, int n)
 {
 	int	i;
-
+	if(n == 0 || !src)
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{

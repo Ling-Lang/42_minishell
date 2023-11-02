@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/01 18:57:00 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/02 14:53:34 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,25 @@ void print_var(char **envp)
         printf("%d\t%s\n",i, envp[i]);
         i++;
     }
+}
+const char *ttype_names[] = {
+    "END",
+    "WORD",
+    "R_TO_FILE",
+    "R_FROM_FILE",
+    "GREATER",
+    "LESS",
+    "PIPE"
+};
+void ft_print_tokens(t_token *token)
+{
+	t_token *cur;
+	cur = token;
+	while(cur)
+	{
+		ft_printf("Type: %d, Value: %s\n", cur->type, (char *)cur->value);
+		cur = cur->next;
+	}
 }
 int main(int argc, char **argv, char **envp)
 {
@@ -56,6 +75,10 @@ int main(int argc, char **argv, char **envp)
         input = init_tokens(str);
         ast = parser(input, table);
         args = iterate_tree(ast, init_args());
-        ft_printf("%s\n", args[0]);
+        while(*args)
+        {
+            ft_printf("%s\n", *args);
+            ++args;
+        }
     }
 }

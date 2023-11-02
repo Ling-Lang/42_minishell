@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:38:35 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/01 18:39:08 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/02 15:21:52 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,100 @@ char **iterate_tree(t_node *node, char **args)
             args = add_arg_back(args, node->data);
     }
     return args;
+}
+int find_symbol(t_node *tree, int to_find, int n)
+{
+    if(!tree)
+        return n;
+    if(tree->type == to_find)
+        n++;
+    n = find_symbol(tree->l, to_find, n);
+    n = find_symbol(tree->r, to_find, n);
+    return n;
+}
+
+void cache_fd(int *fd)
+{
+    fd[0] = dup(STDIN_FILENO);
+    fd[1] = dup(STDOUT_FILENO);
+}
+int ret_to(t_node *tree)
+{
+    int fd;
+
+    fd = open(tree->r->data, O_RDWR | O_CREAT, 0666);
+    if(fd == ERR)
+        return(perror(tree->r->r->data), ERR);
+    if(dup2(fd, STDOUT_FILENO) == ERR)
+        return(perror("minishell"), ERR);
+    return 0;
+}
+
+int append_to(t_node *tree)
+{
+    int fd;
+
+    fd = open(tree->r->data, O_RDWR | O_CREAT | O_APPEND, 0666);
+    if(fd == ERR)
+        return(perror(tree->r->r->data), ERR);
+    if(dup2(fd, STDOUT_FILENO) == ERR)
+        return(perror("minishell"), ERR);
+    return 0;
+}
+int ret_from(t_node *tree)
+{
+    int fd;
+
+    fd = open(tree->r->r->data, O_RDONLY);
+    if(fd == ERR)
+        return(perror(tree->r->r->data), ERR);
+    if(dup2(fd, STDIN_FILENO) == ERR)
+        return(perror("minishell"), ERR);
+    return 0;
+}
+
+int handle_redirects(t_node *tree, int r)
+{
+    if(!tree || (tree && tree->type == A_PIPE))
+        return r;
+    r = handle_redirects(tree->l, r);
+    r = handle_redirects(tree->r, r);
+    if(r == ERR)
+        return ERR;
+    if(tree->reduce == R_IOFILE)
+    {
+        if(tree->l->type == A_R_TO_FILE)
+            r = ret_to(tree);
+        if(tree->l->type == A_RET_FROM_FILE)
+            r = ret_from(tree);
+        if(tree->l->type == A_GREATER)
+            r = append_to(tree);
+    }
+    return r;
+}
+int simple_command(t_node *tree, int *fd)
+{
+    char **args;
+    int r;
+}
+int exec_tree(t_node *tree)
+{
+    int r;
+    int n;
+    int fd[2];
+
+    fd[0] = -1;
+    r = 1;
+    n = find_symbol(tree, A_PIPE, 0);
+    if(n)
+    {
+        ft_printf("Found pipe \n");
+        return ;
+    }
+    else
+    {
+        cache_fd(fd);
+        if(handle_redirects(tree, 0) != ERR)
+            r = 
+    }
 }
