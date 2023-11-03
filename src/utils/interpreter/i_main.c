@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:38:35 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/02 20:19:26 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/03 13:07:19 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,9 @@ void cache_fd(int *fd)
 int ret_to(t_node *tree)
 {
     int fd;
-    // ft_printf("test\n");
+    ft_printf("Here\n");
     fd = open(tree->r->r->data, O_RDWR | O_CREAT, 0666);
+    ft_printf("Here\n");
     if(fd == ERR)
         return(perror(tree->r->r->data), ERR);
     if(dup2(fd, STDOUT_FILENO) == ERR)
@@ -182,10 +183,13 @@ int simple_command(t_node *tree, int *fd, char **envp)
     
     r = 0;
     args = iterate_tree(tree, init_args());
-    execute_command(args, envp);
+    if(check_builtin(args[0]))
+        r = execute_builtin(args);
+    else
+       r = execute_command(args, envp);
     if(fd[0] != -1)
         restore_fd(fd);
-    return 1;
+    return r;
 }
 int exec_tree(t_node *tree, char **envp)
 {
@@ -199,7 +203,7 @@ int exec_tree(t_node *tree, char **envp)
     if(n)
     {
         ft_printf("Found pipe \n");
-        return ;
+        return 0;
     }
     else
     {
@@ -207,4 +211,5 @@ int exec_tree(t_node *tree, char **envp)
         if(handle_redirects(tree, 0) != ERR)
             r = simple_command(tree, fd, envp);
     }
+    return 1;
 }

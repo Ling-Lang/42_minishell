@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/02 19:36:55 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/03 13:00:06 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int arg_len(char **arg);
 char **init_args(void);
 int execute_command(char **arg, char **envp);
 int exec_tree(t_node *tree, char **envp);
+int check_builtin(char *arg);
 /* Parser */
 t_node *parser(t_token *input, t_ptable **table);
 int push_state(t_stack **stack, int state);
