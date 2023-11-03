@@ -1,1 +1,0 @@
-gcc src/debug/parser_test.c src/debug/stack_utils.c src/utils/lexer/*.c GNL/get_next_line.c GNL/get_next_line_utils.c Libft/libft.a -lreadline -g

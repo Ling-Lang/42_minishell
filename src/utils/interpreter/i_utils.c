@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:39:47 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/01 18:47:11 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/03 12:59:54 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,10 @@ int arg_len(char **arg)
     while(arg[i])
         i++;
     return i;
+}
+int check_builtin(char *arg)
+{
+    if(!ft_strcmp(arg, "cd") || !ft_strcmp(arg, "export") || !ft_strcmp(arg, "echo") || !ft_strcmp(arg, "pwd") || !ft_strcmp(arg, "exit") || !ft_strcmp(arg, "unset") || !ft_strcmp(arg, "env"))
+        return 1;
+    return 0;
 }
