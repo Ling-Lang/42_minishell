@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:39:47 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/03 12:59:54 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/06 15:01:06 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,14 @@ int check_builtin(char *arg)
     if(!ft_strcmp(arg, "cd") || !ft_strcmp(arg, "export") || !ft_strcmp(arg, "echo") || !ft_strcmp(arg, "pwd") || !ft_strcmp(arg, "exit") || !ft_strcmp(arg, "unset") || !ft_strcmp(arg, "env"))
         return 1;
     return 0;
+}
+int	find_symbol(t_node *tree, int to_find, int n)
+{
+	if (!tree)
+		return (n);
+	if (tree->type == to_find)
+		n++;
+	n = find_symbol(tree->l, to_find, n);
+	n = find_symbol(tree->r, to_find, n);
+	return (n);
 }

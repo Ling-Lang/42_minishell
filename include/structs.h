@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:29:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/02 19:30:53 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/06 13:48:06 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_env
 {
     const char *name;
     char *value;
+    struct s_env *next;
 } t_env;
 
 typedef struct s_token
@@ -37,6 +38,11 @@ typedef struct s_quote
     int d_quote;
     int s_quote;
 } t_quote;
+typedef enum e_pipe_ends
+{
+	READ_END,
+	WRITE_END
+}	t_pipe_ends;
 
 typedef struct s_ptable
 {
@@ -111,4 +117,10 @@ typedef enum e_tree_types
     A_FILE,
     A_LIMITER
 } t_tree_types;
+
+typedef enum e_fds
+{
+    READ,
+    WRITE
+} t_fds;
 #endif

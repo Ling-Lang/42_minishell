@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/03 13:00:06 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/06 15:11:49 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,14 @@ char **iterate_tree(t_node *node, char **args);
 void free_str_array(char **str);
 int arg_len(char **arg);
 char **init_args(void);
-int execute_command(char **arg, char **envp);
-int exec_tree(t_node *tree, char **envp);
+int execute_command(char **arg, t_env *env);
+int exec_tree(t_node *tree, t_env *env);
 int check_builtin(char *arg);
+void	cache_fd(int *fd);
+int	restore_fd(int *fd);
+int handle_redirects(t_node *tree, int r);
+int	find_symbol(t_node *tree, int to_find, int n);
+
 /* Parser */
 t_node *parser(t_token *input, t_ptable **table);
 int push_state(t_stack **stack, int state);
@@ -68,10 +73,16 @@ void	add_token(t_token **tokens, t_token *new_token);
 void init_quote_struct(t_quote *q);
 
 /* Utils */
-void ft_init(char **envp, t_env **env);
+t_env *ft_init(char **envp);
 t_ptable **init_table(void);
 void ft_free(char ***arg);
 char *ft_strncpy(char *src, char *dst, int n);
 void ft_redirect(char **arg, bool redirect, int fd, t_env *env);
 int	ft_get_next_line(int fd, char **line, int to_free);
+
+/* envs */
+void	add_env(t_env **env, t_env *new);
+t_env	*new_env(char *env);
+char	**t_env_to_envp(t_env *env);
+int get_bin(char **arg, t_env *env);
 #endif

@@ -25,6 +25,9 @@ SRC = 	src/main.c \
 		src/utils/parser/gnl.c \
 		src/utils/interpreter/i_main.c \
 		src/utils/interpreter/i_utils.c \
+		src/utils/interpreter/i_cmd.c \
+		src/utils/interpreter/i_fd.c \
+		src/utils/interpreter/i_redirects.c \
 		src/utils/builtins/echo.c \
 		src/utils/builtins/cd.c \
 		src/utils/builtins/pwd.c \
@@ -32,7 +35,9 @@ SRC = 	src/main.c \
 		src/utils/builtins/env.c \
 		src/utils/builtins/b_main.c \
 		src/utils/builtins/exit.c \
-		src/utils/init.c 
+		src/utils/init.c \
+		src/utils/env/e_main.c \
+		src/utils/env/e_paths.c
 
 OBJ = $(SRC:.c=.o)
 
