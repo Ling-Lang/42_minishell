@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/06 15:18:44 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/07 18:46:45 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,23 @@ int execute_command(char **arg, t_env *env)
     pid_t child_pid = fork();
     get_bin(&arg[0], env);
     char **envp;
-    
+
+    ft_printf("bin: %s", arg[0]);
     envp = t_env_to_envp(env);
     if(!envp)
         return ERR;
-    if (child_pid == 0) {
-        // Child process
-        if (execve(arg[0], arg, envp) == -1) {
+    if (child_pid == 0)
+    {
+        if (execve(arg[0], arg, envp) == -1) 
+        {
             perror("minishell");
             exit(1);
         }
-    } else if (child_pid < 0) {
-        perror("fork");
-    } else {
-        // Parent process
-        waitpid(child_pid, NULL, 0);
     }
+    else if (child_pid < 0) 
+        perror("fork");
+    else
+        waitpid(child_pid, NULL, 0);
     return 0;
 }
 int simple_command(t_node *tree, int *fd, t_env *env)
