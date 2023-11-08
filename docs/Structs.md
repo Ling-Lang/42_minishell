@@ -124,4 +124,31 @@ typedef struct s_stack
 ```
 
 The `t_stack` struct is more or less a simplified version of the [t_ptable](#t_ptable) struct with only the most important values and the differene that it is a linked list. In our program it serves as a temporary state between the [t_token](#t_token) and the [t_node](#t_node).
+* `void *data`
+    * Like in the other structs this stores the contents of our token in it's rawest form.
+* `int type`
+    * This contains the type of the stack for example it could be a [token type](#t_token) or a [RULE](#t_rule).
+* `int state`
+    * Here we just store the current state.
+* `struct s_stack *next`
+    * Like almost every struct we use this is a linked list making this the pointer to the next node.
+
+---
+
+### t_node
+
+```c
+typedef struct s_node
+{
+    int type;
+    int reduce;
+    void *data;
+    struct s_node *l;
+    struct s_node *r;
+    struct s_node *n;
+}   t_node;
+```
+
+The `t_node` struct is the "final" struct it is the output of the [parser](Parser.md) and the input for the [interpreter]() and represents our `abstract syntax tree`. It is a special kind of linked list since we use a LR Parser which is the standard AST that bison uses. In here we store the input in.
+
 ## Enums
