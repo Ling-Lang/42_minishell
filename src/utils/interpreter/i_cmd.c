@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/07 18:46:45 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:35:51 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@ int execute_command(char **arg, t_env *env)
     get_bin(&arg[0], env);
     char **envp;
 
-    ft_printf("bin: %s", arg[0]);
     envp = t_env_to_envp(env);
     if(!envp)
         return ERR;
     if (child_pid == 0)
     {
-        if (execve(arg[0], arg, envp) == -1) 
+        if (execvp(arg[0], arg) == -1) 
         {
             perror("minishell");
             exit(1);
