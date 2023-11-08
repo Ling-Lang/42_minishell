@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/06 14:56:59 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/07 18:52:08 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(int argc, char **argv, char **envp)
 		input = init_tokens(str);
 		// ft_print_tokens(input);
 		ast = parser(input, table);
-		args = iterate_tree(ast, init_args());
+		// args = iterate_tree(ast, init_args());
 		// ft_printf("%s", args[0]);
 		// execvp(args[0], args);
 		exec_tree(ast, env);
