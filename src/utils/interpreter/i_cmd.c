@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/08 17:35:51 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/08 18:56:30 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int execute_command(char **arg, t_env *env)
         return ERR;
     if (child_pid == 0)
     {
-        if (execvp(arg[0], arg) == -1) 
+        if (execve(arg[0], arg, envp) == -1) 
         {
             perror("minishell");
             exit(1);
@@ -47,7 +47,7 @@ int simple_command(t_node *tree, int *fd, t_env *env)
         if(args[0])
         {
             if(check_builtin(args[0]))
-                r = execute_builtin(args);
+                r = execute_builtin(args, env);
             else
                 r = execute_command(args, env);
         }

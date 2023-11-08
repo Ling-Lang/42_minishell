@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:55:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/06 14:56:41 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/08 18:53:38 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_env	*new_env(char *env)
 	if (!res)
 		return (NULL);
 	name = ft_substr(env, 0, ft_strchr(env, '=') - env);
-	value = ft_substr(env, ft_strchr(env, '=') - env, ft_strlen(env)
+	value = ft_substr(env, ft_strchr(env, '=') - env + 1, ft_strlen(env)
 			- ft_strlen(name) - 1);
 	if (!name || !value)
 	{
@@ -62,10 +62,11 @@ char	**t_env_to_envp(t_env *env)
 	tmp = env;
 	while (tmp && ++i)
 		tmp = tmp->next;
-	envp = (char **)malloc(sizeof(char *) * i + 1);
+	envp = (char **)malloc(sizeof(*envp) * (i + 1));
 	if (!envp)
 		return (NULL);
 	envp[i] = NULL;
+	tmp = env;
 	i = -1;
 	while (tmp)
 	{
@@ -78,3 +79,4 @@ char	**t_env_to_envp(t_env *env)
 	}
 	return (envp);
 }
+

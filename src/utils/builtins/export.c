@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:08:50 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/23 22:44:55 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/08 18:45:29 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 void ft_export(t_env *env, char **arg)
 {
     int i = 0;
+    t_env *tmp;
+    tmp = env;
     if(arg[1] == NULL)
     {
-        while(env[i].name != NULL)
+        while(tmp->next != NULL)
         {
-            printf("%s=%s\n", env[i].name, env[i].value);
-            i++;
+            printf("%s=%s\n", tmp->name, tmp->value);
+            tmp = tmp->next;
         }
     }
     else

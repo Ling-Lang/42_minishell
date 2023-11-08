@@ -6,13 +6,13 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:02:29 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/03 13:25:39 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/08 18:43:43 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int execute_builtin(char **arg)
+int execute_builtin(char **arg, t_env *env)
 {
     int r;
     
@@ -25,5 +25,7 @@ int execute_builtin(char **arg)
         ft_exit(&arg);
     if(!ft_strcmp(arg[0], "echo"))
         ft_echo(arg);
+    if(!ft_strcmp(arg[0], "export"))
+        ft_export(env, arg);
     return r;
 }

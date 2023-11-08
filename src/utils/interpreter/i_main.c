@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:38:35 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/06 15:01:01 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/08 18:39:35 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ char	**iterate_tree(t_node *node, char **args)
 			args = add_arg_back(args, node->data);
 	}
 	return (args);
-}
+} 
 
 
