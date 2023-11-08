@@ -123,7 +123,7 @@ typedef struct s_stack
 }   t_stack;
 ```
 
-The `t_stack` struct is more or less a simplified version of the [t_ptable](#t_ptable) struct with only the most important values and the differene that it is a linked list. In our program it serves as a temporary state between the [t_token](#t_token) and the [t_node](#t_node).
+The `t_stack` struct is more or less a simplified version of the [t_ptable](#t_ptable) struct with only the most important values and the differene that it is a binary tree. In our program it serves as a temporary state between the [t_token](#t_token) and the [t_node](#t_node).
 * `void *data`
     * Like in the other structs this stores the contents of our token in it's rawest form.
 * `int type`
@@ -149,6 +149,13 @@ typedef struct s_node
 }   t_node;
 ```
 
-The `t_node` struct is the "final" struct it is the output of the [parser](Parser.md) and the input for the [interpreter]() and represents our `abstract syntax tree`. It is a special kind of linked list since we use a LR Parser which is the standard AST that bison uses. In here we store the input in.
+The `t_node` struct is the "final" struct it is the output of the [parser](Parser.md) and the input for the [interpreter]() and represents our `abstract syntax tree`. It is a special kind of linked list since we use a LR Parser which is the standard AST that bison uses. In here we store the input in it's most reduced form consisting of only the value and the type.
+* `int type`
+    * This stores the type which is defined in the [t_tree_type](#t_tree_type) enum and dictates how we execute the input.
+* `int reduce`
+    * This determines which [t_rules](#t_rules) it has.
+* `struct s_node *l`
+
 
 ## Enums
+
