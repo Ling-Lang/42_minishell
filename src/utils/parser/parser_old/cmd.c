@@ -6,11 +6,9 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/10/23 16:34:32 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/02 17:16:58 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../../include/minishell.h"
 
 void clear()
 {
@@ -76,20 +74,19 @@ char *my_join(char *str1, char *str2) {
     return result;
 }
 
-char *ft_read_file(int fd)
-{
-    int BUFFER_SIZE = 42;
-    char buffer[BUFFER_SIZE];
-    char *res = "";
-    ssize_t bytesRead;
+// char *ft_read_file(int fd)
+// {
+//     char buffer[BUFFER_SIZE];
+//     char *res = "";
+//     ssize_t bytesRead;
 
-    while ((bytesRead = read(fd, buffer, BUFFER_SIZE)) > 0) {
-        buffer[bytesRead] = '\0'; // Null-terminate the buffer.
-        res = my_join(res, buffer);
-    }
-    // ft_printf("%s", res);
-    return res;
-}
+//     while ((bytesRead = read(fd, buffer, BUFFER_SIZE)) > 0) {
+//         buffer[bytesRead] = '\0'; // Null-terminate the buffer.
+//         res = my_join(res, buffer);
+//     }
+//     // ft_printf("%s", res);
+//     return res;
+// }
 /*TODO check if first arg is '<' then open and redirect to (arguments?) and execute command;
 *
 */

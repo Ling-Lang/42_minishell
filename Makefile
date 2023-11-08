@@ -10,15 +10,34 @@ YELLOW = \033[1;33m
 RESET = \033[0m
 
 SRC = 	src/main.c \
-		src/utils/lexer/split.c \
-		src/utils/parser/cmd.c \
-		src/utils/parser/loop.c \
+		src/utils/lexer/l_strutils.c \
+		src/utils/lexer/l_main.c \
+		src/utils/lexer/l_quotes.c \
+		src/utils/lexer/l_tokens.c \
+		src/utils/lexer/l_utils.c \
+		src/utils/parser/p_main.c \
+		src/utils/parser/p_action.c \
+		src/utils/parser/p_clean.c \
+		src/utils/parser/p_other.c \
+		src/utils/parser/p_stack.c \
+		src/utils/parser/p_tree.c \
+		src/utils/parser/p_table.c \
+		src/utils/parser/gnl.c \
+		src/utils/interpreter/i_main.c \
+		src/utils/interpreter/i_utils.c \
+		src/utils/interpreter/i_cmd.c \
+		src/utils/interpreter/i_fd.c \
+		src/utils/interpreter/i_redirects.c \
 		src/utils/builtins/echo.c \
 		src/utils/builtins/cd.c \
 		src/utils/builtins/pwd.c \
 		src/utils/builtins/export.c \
 		src/utils/builtins/env.c \
-		src/utils/init.c
+		src/utils/builtins/b_main.c \
+		src/utils/builtins/exit.c \
+		src/utils/init.c \
+		src/utils/env/e_main.c \
+		src/utils/env/e_paths.c
 
 OBJ = $(SRC:.c=.o)
 

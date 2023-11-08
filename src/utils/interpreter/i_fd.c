@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   i_fd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 13:14:50 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/06 13:29:15 by jkulka           ###   ########.fr       */
+/*   Created: 2023/11/06 14:54:51 by jkulka            #+#    #+#             */
+/*   Updated: 2023/11/06 14:56:58 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int ft_cd(char **arg)
+void	cache_fd(int *fd)
 {
-    char *home;
-    home = getenv("HOME");
-    if(!arg[1])
-        return(chdir(home));
-    return(chdir(arg[1]));
+	fd[READ] = dup(STDIN_FILENO);
+	fd[WRITE] = dup(STDOUT_FILENO);
+}
+
+int	restore_fd(int *fd)
+{
+	fd[READ] = dup2(fd[READ], STDIN_FILENO);
+	fd[WRITE] = dup2(fd[WRITE], STDOUT_FILENO);
+	return (0);
 }

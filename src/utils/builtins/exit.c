@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 13:14:50 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/06 13:29:15 by jkulka           ###   ########.fr       */
+/*   Created: 2023/11/03 13:13:05 by jkulka            #+#    #+#             */
+/*   Updated: 2023/11/03 13:15:46 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int ft_cd(char **arg)
+void ft_exit(char ***args)
 {
-    char *home;
-    home = getenv("HOME");
-    if(!arg[1])
-        return(chdir(home));
-    return(chdir(arg[1]));
+    // free_str_array(&args);
+    exit(EXIT_SUCCESS);
 }
