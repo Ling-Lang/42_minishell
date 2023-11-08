@@ -1,3 +1,4 @@
 # <p align="center"> Minishell </p>
-<hr />
+
+Our implementation of the bash shell
 
