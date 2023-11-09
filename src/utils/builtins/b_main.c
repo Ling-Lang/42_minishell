@@ -6,13 +6,13 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:02:29 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/08 18:43:43 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/09 12:26:28 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int execute_builtin(char **arg, t_env *env)
+int execute_builtin(char **arg, t_env **env)
 {
     int r;
     

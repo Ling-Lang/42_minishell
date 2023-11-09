@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/08 16:56:19 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/09 12:27:15 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void free_str_array(char **str);
 int arg_len(char **arg);
 char **init_args(void);
 int execute_command(char **arg, t_env *env);
-int exec_tree(t_node *tree, t_env *env);
+int exec_tree(t_node *tree, t_env **env);
 int check_builtin(char *arg);
 void	cache_fd(int *fd);
 int	restore_fd(int *fd);

@@ -4,4 +4,4 @@ minishell
 .vscode
 *.log
 *.dSYM
-test
+test.*

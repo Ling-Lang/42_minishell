@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/08 18:56:30 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/09 12:34:57 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int execute_command(char **arg, t_env *env)
         waitpid(child_pid, NULL, 0);
     return 0;
 }
-int simple_command(t_node *tree, int *fd, t_env *env)
+int simple_command(t_node *tree, int *fd, t_env **env)
 {
     char **args;
     int r;
@@ -49,7 +49,7 @@ int simple_command(t_node *tree, int *fd, t_env *env)
             if(check_builtin(args[0]))
                 r = execute_builtin(args, env);
             else
-                r = execute_command(args, env);
+                r = execute_command(args, *env);
         }
         free_str_array(args);
     }
@@ -57,7 +57,7 @@ int simple_command(t_node *tree, int *fd, t_env *env)
         restore_fd(fd);
     return r;
 }
-int exec_tree(t_node *tree, t_env *env)
+int exec_tree(t_node *tree, t_env **env)
 {
     int r;
     int n;

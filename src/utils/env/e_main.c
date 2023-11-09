@@ -6,32 +6,31 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:55:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/08 18:53:38 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:02:13 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	add_env(t_env **env, t_env *new)
+void add_env(t_env **env, t_env *new)
 {
-	t_env	*cur;
+    t_env *cur;
 
-	if (!(*env))
-	{
-		(*env) = new;
-		return ;
-	}
-	cur = (*env);
-	while (cur->next != NULL)
-		cur = cur->next;
-	cur->next = new;
+    if (!(*env))
+    {
+        (*env) = new;
+        return;
+    }
+    cur = (*env);
+    while (cur->next != NULL)
+        cur = cur->next;
+    cur->next = new;
 }
 t_env	*new_env(char *env)
 {
 	t_env	*res;
 	char	*name;
 	char	*value;
-
 	res = (t_env *)malloc(sizeof(*res));
 	if (!res)
 		return (NULL);
