@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:08:50 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/09 13:12:46 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/10 05:31:14 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,39 @@ t_env *set_env(char *envp)
 
 int ft_export(t_env **env, char **arg)
 {
+    int i;
+    i = 1;
     t_env *tmp;
-    if(!arg[1])
+    printf("absad\n");
+    if (!arg[1])
     {
         tmp = *env;
-        while(tmp->next != NULL)
+        while (tmp != NULL)
         {
             printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
             tmp = tmp->next;
         }
         return OK;
     }
-    add_env(env, set_env(arg[1]));
-    add_env(env, set_env(arg[1]));
+    else
+    {
+        while(arg[i])
+        {
+            add_env(env, set_env(arg[i]));
+            printf("ab\n");
+            i++;
+        }
+    }
     return OK;
 }
 
 
-void ft_export_print(t_env *env, char **arg)
+
+/*void ft_export_print(t_env *env, char **arg)
 {
     if(arg)
     {
         env[1].name = "sdfsF";
         env[1].value = "itekir";
     }
-}
+}*/
