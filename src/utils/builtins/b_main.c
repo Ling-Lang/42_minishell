@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:02:29 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/09 12:26:28 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/10 05:18:55 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,9 @@ int execute_builtin(char **arg, t_env **env)
         ft_echo(arg);
     if(!ft_strcmp(arg[0], "export"))
         ft_export(env, arg);
+    if(!ft_strcmp(arg[0], "env"))
+        ft_env(env);
+    //if(!ft_strcmp(arg[0], "unset"))
+       // ft_unset(env, arg);
     return r;
 }
