@@ -15,6 +15,7 @@ SRC = 	src/main.c \
 		src/utils/lexer/l_quotes.c \
 		src/utils/lexer/l_tokens.c \
 		src/utils/lexer/l_utils.c \
+		src/utils/lexer/expander/le_main.c \
 		src/utils/parser/p_main.c \
 		src/utils/parser/p_action.c \
 		src/utils/parser/p_clean.c \

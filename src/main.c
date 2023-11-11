@@ -6,10 +6,14 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/09 12:34:23 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/11 16:29:41 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+Include the header file containing function declarations for builtin commands.
+This allows the builtin commands to be called from this file.
+*/
 #include "../include/builtins.h"
 #include "../include/minishell.h"
 
@@ -21,6 +25,8 @@ void	handlectrl(int signum)
 	rl_redisplay();
 	ft_printf(BLU "\n>> " WHT);
 }
+/* What does this do? */
+
 void	print_var(char **envp)
 {
 	int	i;
@@ -45,6 +51,24 @@ void	ft_print_tokens(t_token *token)
 		cur = cur->next;
 	}
 }
+/*
+main - Entry point and main loop of the minishell program
+
+The main function handles initialization of required data structures like the 
+parsing table and environment variables list. It then enters a read-eval-print 
+loop to repeatedly prompt for user input, tokenize and parse it, build an AST,
+execute the AST, and free the AST before the next loop iteration.
+
+It handles SIGINT signals to allow graceful handling of Ctrl-C interrupts.
+
+Parameters:
+- argc: Argument count, passed from shell
+- argv: Argument vector, passed from shell
+- envp: Environment pointer, passed from shell
+
+Returns:
+- Exit status, 0 for success
+*/
 int	main(int argc, char **argv, char **envp)
 {
 	char		*str;
@@ -72,6 +96,7 @@ int	main(int argc, char **argv, char **envp)
 		if (str[0] != '\0')
 			add_history(str);
 		input = init_tokens(str);
+		ft_check_for_var(&input, env);
 		// ft_print_tokens(input);
 		ast = parser(input, table);
 		exec_tree(ast, &env);

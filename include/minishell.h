@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/09 12:27:15 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:55:28 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ int	get_token_type(char *str, int len);
 void	add_token(t_token **tokens, t_token *new_token);
 void init_quote_struct(t_quote *q);
 
+
+/* Expander */
+void ft_check_for_var(t_token **input, t_env *env);
+
+
 /* Utils */
 t_env *ft_init(char **envp);
 t_ptable **init_table(void);
@@ -84,5 +89,6 @@ int	ft_get_next_line(int fd, char **line, int to_free);
 void	add_env(t_env **env, t_env *new);
 t_env	*new_env(char *env);
 char	**t_env_to_envp(t_env *env);
+char *get_env(char *find, t_env *env);
 int get_bin(char **arg, t_env *env);
 #endif
