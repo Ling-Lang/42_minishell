@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/12 15:07:28 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/13 13:38:00 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,7 @@ void	ft_print_tokens(t_token *token)
 		cur = cur->next;
 	}
 }
-/*
-main - Entry point and main loop of the minishell program
 
-The main function handles initialization of required data structures like the 
-parsing table and environment variables list. It then enters a read-eval-print 
-loop to repeatedly prompt for user input, tokenize and parse it, build an AST,
-execute the AST, and free the AST before the next loop iteration.
-
-It handles SIGINT signals to allow graceful handling of Ctrl-C interrupts.
-
-Parameters:
-- argc: Argument count, passed from shell
-- argv: Argument vector, passed from shell
-- envp: Environment pointer, passed from shell
-
-Returns:
-- Exit status, 0 for success
-*/
 int	main(int argc, char **argv, char **envp)
 {
 	char		*str;
@@ -97,8 +80,10 @@ int	main(int argc, char **argv, char **envp)
 			add_history(str);
 		input = init_tokens(str);
 		ft_check_for_var(&input, env);
-		ft_print_tokens(input);
+		// ft_print_tokens(input);
 		ast = parser(input, table);
+		// write(1, "1", 1);
+		// ft_printf("%s, %d\n", ast->r->l->r->data, ast->r->l->r->reduce);
 		exec_tree(ast, &env);
 		free_tree(&ast);
 	}

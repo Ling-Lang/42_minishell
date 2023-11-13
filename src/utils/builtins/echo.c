@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:07:09 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/10 05:18:20 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/13 13:28:06 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void ft_echo(char **arg)
 {
+    // ft_printf("%s", arg[1]);
     int i = 1;
     if(arg[1] == NULL)
     {

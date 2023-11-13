@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/11 16:04:44 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/13 11:58:06 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,21 @@ char *ft_expand_var(t_token *token, t_env *env)
 void ft_check_for_var(t_token **input, t_env *env)
 {
     t_token *tmp = *input;
+    t_token *start = *input;
     int i = 0;
-
     while (tmp->next)
     {
         if (*((char *)tmp->value) == '$')
         {
             // ft_printf("Found var\n");
             char *expanded_value = ft_expand_var(tmp, env);
-            free(tmp->value); // Assuming you need to free the old value
+            // free(tmp->value); // Assuming you need to free the old value
             tmp->value = expanded_value;
             break;
         }
         i++;
         tmp = tmp->next;
     }
+    // tmp = start;
 }
 

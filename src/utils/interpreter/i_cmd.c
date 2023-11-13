@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/09 12:34:57 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/13 13:55:49 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int execute_command(char **arg, t_env *env)
         return ERR;
     if (child_pid == 0)
     {
-        if (execve(arg[0], arg, envp) == -1) 
+        if (execve(arg[0], arg, envp) == -1)
         {
             perror("minishell");
             exit(1);
@@ -39,19 +39,23 @@ int simple_command(t_node *tree, int *fd, t_env **env)
 {
     char **args;
     int r;
-    
     r = 0;
+    // ft_printf("%s\n", tree->r->l->r->data);
     args = iterate_tree(tree, init_args());
     if(args)
     {
+    // ft_printf("%s\n", args[2]);
         if(args[0])
         {
+            // ft_printf("%s\n", args[0]);
             if(check_builtin(args[0]))
+            {
                 r = execute_builtin(args, env);
+            }
             else
                 r = execute_command(args, *env);
         }
-        free_str_array(args);
+        // free_str_array(args);
     }
     if(fd[0] != -1)
         restore_fd(fd);
@@ -73,9 +77,11 @@ int exec_tree(t_node *tree, t_env **env)
     }
     else
     {
-        cache_fd(fd);
+        cache_fd((int *)fd);
         if(handle_redirects(tree, 0) != ERR)
+        {
             r = simple_command(tree, fd, env);
+        }
     }
     return r;
 }
