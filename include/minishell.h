@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/11 15:55:28 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/14 14:02:45 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void ft_free(char ***arg);
 char *ft_strncpy(char *src, char *dst, int n);
 void ft_redirect(char **arg, bool redirect, int fd, t_env *env);
 int	ft_get_next_line(int fd, char **line, int to_free);
-
+void *free_str_null(char **str);
 /* envs */
 void	add_env(t_env **env, t_env *new);
 t_env	*new_env(char *env);

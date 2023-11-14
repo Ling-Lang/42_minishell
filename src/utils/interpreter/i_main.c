@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:38:35 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/13 14:13:13 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/14 14:04:11 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	**add_arg_back(char **arg, char *data)
 
 	if (!arg)
 		return (NULL);
-	res = (char **)malloc(sizeof(char) *(arg_len(arg) + 2));
+	res = (char **)malloc(sizeof(*res) *(arg_len(arg) + 2));
 	if (!res)
-		return (free_str_array(arg), NULL);
+		return (free_str_null(arg));
 	i = -1;
 	while (arg[++i])
 	{
@@ -29,13 +29,13 @@ char	**add_arg_back(char **arg, char *data)
 		if (!res[i])
 		{
 			free_str_array(arg);
-			return (free_str_array(res), NULL);
+			return (free_str_null(res));
 		}
 	}
 	free_str_array(arg);
 	res[i] = ft_strdup(data);
 	if (!res[i])
-		return (free_str_array(res), NULL);
+		return (free_str_null(res));
 	res[i + 1] = NULL;
 	return (res);
 }
@@ -58,14 +58,14 @@ char	**add_cmd(char **args, t_node *node)
 			j = -1;
 			while (split[++j])
 				free(split[j]);
-			free(split[j]);
+			free(split);
 			return (NULL);
 		}
 	}
 	j = -1;
 	while (split[++j])
 		free(split[j]);
-	free(split[j]);
+	free(split);
 	return (args);
 }
 

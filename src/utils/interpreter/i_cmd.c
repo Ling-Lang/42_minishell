@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/13 13:55:49 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/14 14:19:04 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,13 @@ int simple_command(t_node *tree, int *fd, t_env **env)
             else
                 r = execute_command(args, *env);
         }
-        // free_str_array(args);
+        free_str_array(args);
     }
+    else
+        r = ERR;
     if(fd[0] != -1)
-        restore_fd(fd);
+        if(restore_fd(fd) == ERR)
+            r = ERR;
     return r;
 }
 int exec_tree(t_node *tree, t_env **env)
@@ -83,5 +86,6 @@ int exec_tree(t_node *tree, t_env **env)
             r = simple_command(tree, fd, env);
         }
     }
+    // ft_printf("%d", r);
     return r;
 }

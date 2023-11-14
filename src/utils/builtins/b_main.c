@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:02:29 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/13 13:53:18 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/14 13:26:42 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,12 @@
 int execute_builtin(char **arg, t_env **env)
 {
     int r;
+    int i;
+    
+    i = 0;
     r = 0;
+    while(arg[i])
+        ++i;
     // ft_printf("%s\n", arg[0]);
     // write(1, "1\n", 1);
     if(!ft_strcmp(arg[0], "cd"))
@@ -25,7 +30,7 @@ int execute_builtin(char **arg, t_env **env)
     if(!ft_strcmp(arg[0], "exit"))
         ft_exit(&arg);
     if(!ft_strcmp(arg[0], "echo"))
-        ft_echo(arg);
+        r = ft_echo(arg, i);
     if(!ft_strcmp(arg[0], "export"))
         ft_export(env, arg);
     if(!ft_strcmp(arg[0], "env"))

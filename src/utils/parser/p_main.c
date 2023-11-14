@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:16:19 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/11 14:44:46 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/14 14:22:30 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ t_node *parser(t_token *input, t_ptable **table)
             r = 1;
         else
         {
+            // write(1, "1\n", 2);
             r = -1;
         }
     }

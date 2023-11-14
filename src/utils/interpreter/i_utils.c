@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:39:47 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/13 12:42:39 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/14 14:02:51 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char **init_args(void)
 {
     char **res;
-    
+
     res = (char **)malloc(sizeof(*res));
     if(!res)
         return NULL;
@@ -37,6 +37,11 @@ void free_str_array(char **str)
         }
         free(start);
     }
+}
+void *free_str_null(char **str)
+{
+    free_str_array(str);
+    return (NULL);
 }
 int arg_len(char **arg)
 {
