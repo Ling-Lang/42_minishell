@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:02:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/06 15:17:50 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/14 15:53:37 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char *get_env(char *find, t_env *env)
     tmp = env;
     while(tmp)
     {
-        if(!ft_strcmp(find, tmp->name))
+        if(!ft_strncmp(find, tmp->name, ft_strlen(find)))
             return(tmp->value);
         tmp = tmp->next;
     }

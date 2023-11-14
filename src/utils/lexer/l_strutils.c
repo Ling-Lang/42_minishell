@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:28:05 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/02 13:53:46 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/14 16:13:48 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,27 @@ char	**ft_new_split(char *str)
 	}
 	res[k] = NULL;
 	return (res);
+}
+
+void ft_free_tokens(t_token *tokens)
+{
+    t_token *current = tokens;
+    t_token *next_token;
+
+    while (current)
+    {
+        next_token = current->next;
+
+        // Free the value within the token
+        free(current->value);
+        
+        // Free the token itself
+        free(current);
+
+        current = next_token;
+    }
+
+    // Set the original pointer to NULL to indicate all tokens are freed
+    // *tokens = NULL;
 }
 

@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/14 14:23:13 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/14 17:02:49 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ int	main(int argc, char **argv, char **envp)
 			add_history(str);
 		input = init_tokens(str);
 		ft_check_for_var(&input, env);
-		// ft_print_tokens(input);
 		ast = parser(input, table);
 		// ft_printf("%s, %d\n", ast->data, ast->reduce);
 		exec_tree(ast, &env);
 		free_tree(&ast);
+		// clear_token(input);
 		// write(1, "1", 1);
 	}
 }
