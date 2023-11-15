@@ -1,7 +1,7 @@
 NAME = libft.a
 RM = rm -f
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -ggdb3
 AR		= ar
 ARFLAGS = -rcs
 INCFLAG	= -I .
