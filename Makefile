@@ -1,9 +1,10 @@
 NAME = minishell
 RM = rm -f
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra 
-DEBUG = -Wall -Wextra -ggdb3
-LIB = -I ./Libft/src/ ./Libft/libft.a -lreadline
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
+DEBUG = -ggdb3
+INCLUDE = -I ./Libft/src/ -L ./Libft/ 
+LIB = -lft -lreadline
 
 GREEN = \033[0;32m
 YELLOW = \033[1;33m
@@ -44,16 +45,16 @@ OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ) | lft
 	@echo "$(GREEN)Compiling $@$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIB)
+	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIB) -o $(NAME) 
 	@echo "$(GREEN)Finished compiling: $@$(RESET)"
 
 %.o: %.c
-	@$(CC) -c $< -o $@ $(DEBUG)
+	$(CC) -c $< -o $@ $(DEBUG)
 lft:
 	@cd Libft && make
 
 debug: clean $(OBJ) | lft
-	$(CC) $(OBJ) -o $(NAME) $(LIB) $(DEBUG)
+	$(CC) $(DEBUG) $(INCLUDE) $(OBJ) -o $(NAME) $(LIB) 
 
 clean:
 	@echo "$(YELLOW)Cleaning object files$(RESET)"
@@ -64,7 +65,6 @@ fclean: clean
 	@echo "$(YELLOW)Cleaning executable $(NAME)$(RESET)"
 	@$(RM) $(NAME)
 	@$(RM) ./valgrind.log 
-	@$(RM) -r ./minishell.dSYM
 	@(cd Libft && make fclean)
 
 all: $(NAME)
