@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:09:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/14 16:16:28 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/15 13:55:12 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void clear_token(t_token *token)
         free(token);
         token = n;
     }
-    token = NULL;
 }
 void clean_parser(t_node **tree, t_stack *stack, t_token *input, int r)
 {
