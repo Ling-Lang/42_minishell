@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/15 17:05:01 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/16 00:00:58 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ void	handlectrl(int signum)
 	rl_replace_line("", 0);
 	rl_redisplay();
 	ft_printf(BLU "\n>> " WHT);
+}
+void handle_siqquit(int signum)
+{
+	(void)signum;
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 /* What does this do? */
 
@@ -60,6 +66,7 @@ int	main(int argc, char **argv, char **envp)
 	t_token		*input;
 	t_node		*ast;
 	char		**args;
+	struct sigaction act;
 
 	(void)argc;
 	(void)argv;
@@ -67,7 +74,11 @@ int	main(int argc, char **argv, char **envp)
 	table = init_table();
 	env = ft_init(envp);
 	signal(SIGINT, handlectrl);
-	while ((str = readline(">> ")))
+	// signal(SIGQUIT, handle_siqquit);
+	act.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &act, NULL);
+
+	while ((str = readline(BLU">> "WHT)))
 	{
 		if (str == NULL || str[0] == EOF)
 		{
