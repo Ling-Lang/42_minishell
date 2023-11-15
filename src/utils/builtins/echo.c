@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:07:09 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/14 13:27:16 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/15 15:03:41 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int ft_echo(char **arg, int argc)
     start = true;
     has_flag = false;
     i = 0;
+    if(!ft_strcmp(arg[1], "$?"))
+        return 0;
     // ft_printf("%s", "test");
     while(arg[++i] && ft_check_n(arg[i]))
         has_flag = true;

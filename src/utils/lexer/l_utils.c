@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:07:48 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/01 18:22:30 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/15 15:58:27 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ int	get_token_len(char *str)
 	}
 	if (is_separator(*str) == 1)
 		len = leading_separators(str, len);
+	if (q.d_quote % 2 != 0 || q.s_quote % 2 != 0) {
+		ft_printf("Unclosed quotes!\n");
+		exit(-1); // Return error (-1) if quotes are unclosed at the end
+	}
 	return (len);
 }
 

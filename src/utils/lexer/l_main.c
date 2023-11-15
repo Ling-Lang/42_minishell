@@ -6,13 +6,13 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:07:53 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/14 17:03:06 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/15 16:59:23 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-t_token	*init_tokens(char *str)
+t_token	*init_tokens(char *str, t_env *env)
 {
 	t_token	*tokens;
 	int		len;
@@ -27,15 +27,15 @@ t_token	*init_tokens(char *str)
 		len = get_token_len(str);
 		if (!len)
 			break ;
-		new_token = create_token(str, len);
+		new_token = create_token(str, len, env);
 		add_token(&tokens, new_token);
 		str = str + len;
 	}
-	add_token(&tokens, create_token(NULL, 0));
+	add_token(&tokens, create_token(NULL, 0, env));
 	return (tokens);
 }
 
-t_token	*create_token(char *str, int len)
+t_token	*create_token(char *str, int len, t_env *env)
 {
 	t_token	*token;
 	token = (t_token *)malloc(sizeof(t_token));
@@ -45,17 +45,18 @@ t_token	*create_token(char *str, int len)
 		exit(1);
 	}
 	token->type = get_token_type(str, len);
-	if(!str || len == 0)
-	{
-		token->value = (char *)malloc(len + 1);
-		token->value = NULL;
-		return (token);
-	}
 	token->value = (char *)malloc(len + 1);
 	if (token->value == NULL)
 	{
 		perror("minishell");
 		exit(1);
+	}
+	if(!str || len == 0)
+	{
+		free(token->value);
+		token->value = NULL;
+		token->next = NULL;
+		return (token);
 	}
 	ft_strncpy(str, (char *)(token->value), len);
 	((char *)(token->value))[len] = '\0';

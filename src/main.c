@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/14 17:02:49 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/15 17:05:01 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	// ft_printf("%s", TBL_PATH);
 	table = init_table();
 	env = ft_init(envp);
 	signal(SIGINT, handlectrl);
-	while ((str = readline(BLU ">> " WHT)))
+	while ((str = readline(">> ")))
 	{
 		if (str == NULL || str[0] == EOF)
 		{
@@ -78,8 +79,9 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (str[0] != '\0')
 			add_history(str);
-		input = init_tokens(str);
-		ft_check_for_var(&input, env);
+		input = init_tokens(str, env);
+		ft_sanitize_tokens(&input, env);
+		// ft_print_tokens(input);
 		ast = parser(input, table);
 		// ft_printf("%s, %d\n", ast->data, ast->reduce);
 		exec_tree(ast, &env);
