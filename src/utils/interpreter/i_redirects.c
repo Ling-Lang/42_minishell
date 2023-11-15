@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:52:30 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/14 14:17:16 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/15 15:24:33 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int ret_to(t_node *tree)
 {
     int fd;
-    ft_printf("ret\n");
     fd = open(tree->r->r->data, O_RDWR | O_CREAT, 0666);
     if(fd == ERR)
         return(perror(tree->r->r->data), ERR);

@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/14 14:19:04 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/15 17:03:05 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int execute_command(char **arg, t_env *env)
     pid_t child_pid = fork();
     get_bin(&arg[0], env);
     char **envp;
-
+    int i = 0;
     envp = t_env_to_envp(env);
     if(!envp)
         return ERR;
@@ -33,8 +33,12 @@ int execute_command(char **arg, t_env *env)
         perror("fork");
     else
         waitpid(child_pid, NULL, 0);
+    while(envp[i])
+        free(envp[i++]);
+    free(envp);
     return 0;
 }
+
 int simple_command(t_node *tree, int *fd, t_env **env)
 {
     char **args;
