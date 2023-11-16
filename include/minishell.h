@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/15 18:21:37 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/16 17:18:39 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <stdbool.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 #	define RED "\e[0;31m"
 #	define YEL "\e[0;33m"
@@ -75,7 +76,7 @@ void init_quote_struct(t_quote *q);
 
 
 /* Expander */
-void    ft_sanitize_tokens(t_token **input, t_env *env);
+void    ft_sanitize_tokens(t_token **input, t_env *env, int l_ret);
 
 
 /* Utils */
@@ -87,7 +88,10 @@ void ft_redirect(char **arg, bool redirect, int fd, t_env *env);
 int	ft_get_next_line(int fd, char **line, int to_free);
 void *free_str_null(char **str);
 void clear_token(t_token *token);
-
+void ft_error(char *arg, int r);
+void ft_handle_signals(void);
+void ft_ignore_signals(void);
+int ft_get_exit_code(int e_code);
 /* envs */
 void	add_env(t_env **env, t_env *new);
 t_env	*new_env(char *env);

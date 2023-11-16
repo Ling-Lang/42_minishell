@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:02:29 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/16 00:49:24 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/16 12:42:46 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int execute_builtin(char **arg, t_env **env)
     if(!ft_strcmp(arg[0], "pwd"))
         r = ft_pwd();
     if(!ft_strcmp(arg[0], "exit"))
-        ft_exit(&arg);
+        r = ft_exit(arg, i);
     if(!ft_strcmp(arg[0], "echo"))
         r = ft_echo(arg, i);
     if(!ft_strcmp(arg[0], "export"))

@@ -40,13 +40,15 @@ SRC = 	src/main.c \
 		src/utils/builtins/exit.c \
 		src/utils/init.c \
 		src/utils/env/e_main.c \
-		src/utils/env/e_paths.c
+		src/utils/env/e_paths.c \
+		src/utils/error.c \
+		src/utils/signals.c
 
 OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ) | lft
 	@echo "$(GREEN)Compiling $@$(RESET)"
-	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIB) -o $(NAME) 
+	$(CC) $(INCLUDE) $(OBJ) $(LIB) -o $(NAME) $(CFLAGS) 
 	@echo "$(GREEN)Finished compiling: $@$(RESET)"
 
 %.o: %.c

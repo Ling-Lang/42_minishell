@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/16 00:00:58 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/16 17:28:55 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	handlectrl(int signum)
 }
 void handle_siqquit(int signum)
 {
-	(void)signum;
-	rl_replace_line("", 0);
-	rl_redisplay();
+	struct sigaction act;
+
+	sigignore(signum);
 }
 /* What does this do? */
 
@@ -58,28 +58,21 @@ void	ft_print_tokens(t_token *token)
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
+int	ft_main(t_env **env)
 {
 	char		*str;
 	t_ptable	**table;
-	t_env		*env;
 	t_token		*input;
 	t_node		*ast;
-	char		**args;
-	struct sigaction act;
+	int r;
 
-	(void)argc;
-	(void)argv;
-	// ft_printf("%s", TBL_PATH);
+	r = 0;
 	table = init_table();
-	env = ft_init(envp);
 	signal(SIGINT, handlectrl);
-	// signal(SIGQUIT, handle_siqquit);
-	act.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &act, NULL);
-
-	while ((str = readline(BLU">> "WHT)))
+	signal(SIGQUIT, handle_siqquit);
+	while(r >= 0)
 	{
+		str = readline(BLU">> "WHT);
 		if (str == NULL || str[0] == EOF)
 		{
 			ft_printf("exit");
@@ -90,14 +83,26 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (str[0] != '\0')
 			add_history(str);
-		input = init_tokens(str, env);
-		ft_sanitize_tokens(&input, env);
-		// ft_print_tokens(input);
+		input = init_tokens(str, *env);
+		free(str);
+		ft_sanitize_tokens(&input, *env, r);
 		ast = parser(input, table);
-		// ft_printf("%s, %d\n", ast->data, ast->reduce);
-		exec_tree(ast, &env);
+		r = exec_tree(ast, env);
 		free_tree(&ast);
-		// clear_token(input);
-		// write(1, "1", 1);
 	}
+	return r;
+}
+int main(int argc, char **argv, char **envp)
+{
+	int ret;
+	(void)argc;
+	(void)argv;
+	t_env *env;
+
+	env = ft_init(envp);
+	ret = ft_main(&env);
+	if(ret == ERR)
+		return(EXIT_FAILURE);
+	// ft_printf("%d\n", (ret * -1) - 2);
+	return ((ret * -1) -2);
 }

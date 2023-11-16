@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/15 17:53:21 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/16 16:57:10 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,14 @@ char	*ft_expand_var(t_token *token, t_env *env)
 	// ft_printf("%s\n", var);
 	return (var);
 }
-void	ft_handle_var(t_token **input, t_env *env)
+char *ft_get_last_ret(t_token *token, int l_ret)
+{
+	char *var;
+
+	var = ft_strdup(ft_itoa(l_ret));
+	return (var);
+}
+void	ft_handle_var(t_token **input, t_env *env, int l_ret)
 {
 	t_token	*tmp;
 	char	*expanded_value;
@@ -37,8 +44,9 @@ void	ft_handle_var(t_token **input, t_env *env)
 		if (*((char *)tmp->value) == '$')
 		{
 			if (!ft_strcmp(tmp->value, "$?"))
-				break ;
-			expanded_value = ft_expand_var(tmp, env);
+				expanded_value = ft_get_last_ret(tmp, l_ret);
+			else
+				expanded_value = ft_expand_var(tmp, env);
 			free(tmp->value);
 			tmp->value = ft_strdup(expanded_value);
 			free(expanded_value);
@@ -75,7 +83,7 @@ void ft_remove_quote(char **str, int *quote)
     // ft_printf("%s\n", new_str);
 }
 
-void	ft_sanitize_tokens(t_token **input, t_env *env)
+void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 {
 	t_token	*tmp;
 	char	*value;
@@ -91,7 +99,7 @@ void	ft_sanitize_tokens(t_token **input, t_env *env)
 		tmp->value = ft_strdup(value);
 		free(value);
 		if (quote == 0 || quote == -1)
-			ft_handle_var(&tmp, env);
+			ft_handle_var(&tmp, env, l_ret);
 		tmp = tmp->next;
 	}
 }
