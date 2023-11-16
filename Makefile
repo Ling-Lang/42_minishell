@@ -34,6 +34,7 @@ SRC = 	src/main.c \
 		src/utils/builtins/cd.c \
 		src/utils/builtins/pwd.c \
 		src/utils/builtins/export.c \
+		src/utils/builtins/unset.c \
 		src/utils/builtins/env.c \
 		src/utils/builtins/b_main.c \
 		src/utils/builtins/exit.c \
