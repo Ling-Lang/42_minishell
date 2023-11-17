@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:48:30 by ahocuk            #+#    #+#             */
-/*   Updated: 2023/11/16 01:01:00 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/17 09:43:15 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void free_env(t_env *env)
 {
     if (env) 
     {
-        free(env->name);
+        free((void *)env->name);
         free(env->value);
         free(env);
     }

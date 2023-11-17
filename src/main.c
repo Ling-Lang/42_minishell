@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/16 17:28:55 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/17 09:33:13 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	handlectrl(int signum)
 	rl_redisplay();
 	ft_printf(BLU "\n>> " WHT);
 }
-void handle_siqquit(int signum)
-{
-	struct sigaction act;
 
-	sigignore(signum);
+void handle_sigquit(int signum)
+{
+	(void)signum;
+	signal(SIGQUIT, SIG_IGN);
 }
 /* What does this do? */
 
@@ -69,7 +69,7 @@ int	ft_main(t_env **env)
 	r = 0;
 	table = init_table();
 	signal(SIGINT, handlectrl);
-	signal(SIGQUIT, handle_siqquit);
+	signal(SIGQUIT, handle_sigquit);
 	while(r >= 0)
 	{
 		str = readline(BLU">> "WHT);
@@ -83,7 +83,7 @@ int	ft_main(t_env **env)
 			continue ;
 		if (str[0] != '\0')
 			add_history(str);
-		input = init_tokens(str, *env);
+		input = init_tokens(str);
 		free(str);
 		ft_sanitize_tokens(&input, *env, r);
 		ast = parser(input, table);

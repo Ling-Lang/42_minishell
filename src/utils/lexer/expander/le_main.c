@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/16 16:57:10 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/17 09:42:36 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_expand_var(t_token *token, t_env *env)
 	// ft_printf("%s\n", var);
 	return (var);
 }
-char *ft_get_last_ret(t_token *token, int l_ret)
+char *ft_get_last_ret(int l_ret)
 {
 	char *var;
 
@@ -44,7 +44,7 @@ void	ft_handle_var(t_token **input, t_env *env, int l_ret)
 		if (*((char *)tmp->value) == '$')
 		{
 			if (!ft_strcmp(tmp->value, "$?"))
-				expanded_value = ft_get_last_ret(tmp, l_ret);
+				expanded_value = ft_get_last_ret(l_ret);
 			else
 				expanded_value = ft_expand_var(tmp, env);
 			free(tmp->value);
@@ -58,13 +58,10 @@ void	ft_handle_var(t_token **input, t_env *env, int l_ret)
 
 void ft_remove_quote(char **str, int *quote)
 {
-	char	*new_str;
 	int		len;
-	int		i;
 
-	new_str = NULL;
+	// new_str = NULL;
 	len = ft_strlen(*str);
-	i = 0;
 	if (len >= 2 && (((*str)[0] == '"' && (*str)[len - 1] == '"')))
 	{
 		// Double quotes
