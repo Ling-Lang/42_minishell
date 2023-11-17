@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/16 17:18:39 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/17 11:51:46 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void free_tree(t_node **node);
 
 /* Lexer */
 char **ft_new_split(char *str);
-t_token	*init_tokens(char *str, t_env *env);
+t_token	*init_tokens(char *str);
 int	get_token_len(char *str);
 int	is_separator(char s);
 int	leading_separators(char *str, int len);
-t_token	*create_token(char *str, int len, t_env *env);
+t_token	*create_token(char *str, int len);
 int	get_token_type(char *str, int len);
 void	add_token(t_token **tokens, t_token *new_token);
 void init_quote_struct(t_quote *q);
@@ -77,6 +77,7 @@ void init_quote_struct(t_quote *q);
 
 /* Expander */
 void    ft_sanitize_tokens(t_token **input, t_env *env, int l_ret);
+int ft_str_len_quotes(char *str);
 
 
 /* Utils */
