@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/17 11:51:46 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/17 16:07:41 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void init_quote_struct(t_quote *q);
 /* Expander */
 void    ft_sanitize_tokens(t_token **input, t_env *env, int l_ret);
 int ft_str_len_quotes(char *str);
-
+char *ft_rem_quotes(char *str, char *q, t_env *env, int l_ret);
+char *ft_get_last_ret(int l_ret);
 
 /* Utils */
 t_env *ft_init(char **envp);

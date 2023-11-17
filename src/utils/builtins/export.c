@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:08:50 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/15 17:43:55 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/17 15:53:57 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_env *set_env(char *envp)
 int ft_export(t_env **env, char **arg)
 {
     int i;
-    i = 1;
+    i = 0;
     t_env *tmp;
     if (!arg[1])
     {
@@ -42,12 +42,8 @@ int ft_export(t_env **env, char **arg)
     }
     else
     {
-        while(arg[i])
-        {
+        while(arg[++i])
             add_env(env, set_env(arg[i]));
-            // printf("ab\n");
-            i++;
-        }
     }
     return OK;
 }

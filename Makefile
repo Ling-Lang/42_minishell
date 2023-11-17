@@ -2,7 +2,7 @@ NAME = minishell
 RM = rm -f
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-DEBUG = -ggdb3  -fsanitize=address
+DEBUG = -ggdb3 
 INCLUDE = -I ./Libft/src/ -L ./Libft/  -I ./include
 LIB = -lft -lreadline
 
@@ -53,7 +53,7 @@ $(NAME): $(OBJ) | lft
 	@echo "$(GREEN)Finished compiling: $@$(RESET)"
 
 %.o: %.c
-	@$(CC) -c $< -o $@ $(CFLAGS)
+	@$(CC) -c $< -o $@ $(DEBUG)
 lft:
 	@cd Libft && make
 

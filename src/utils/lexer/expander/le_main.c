@@ -6,12 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/17 14:17:54 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/17 17:31:51 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../include/minishell.h"
-char *ft_rem_quotes(char *str, int len, char *q);
 
 char	*ft_expand_var(t_token *token, t_env *env)
 {
@@ -69,12 +68,13 @@ void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 	{
 		value = ft_strdup(tmp->value);
 		// ft_printf("%s\n", ft_rem_quotes(value, ft_str_len_quotes(value), &quote));
-
+		value = ft_rem_quotes(value, &quote, env, l_ret);
+		// ft_printf("\t%s\n", value);
 		free(tmp->value);
 		tmp->value = ft_strdup(value);
 		free(value);
-		if (quote == 0 || quote == '\"')
-			ft_handle_var(&tmp, env, l_ret);
+		// if (quote == 0 || quote == '\"')
+		// 	ft_handle_var(&tmp, env, l_ret);
 		tmp = tmp->next;
 	}
 }
