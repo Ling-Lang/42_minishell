@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:16:19 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/03 13:09:31 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/17 15:25:10 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,3 +19,4 @@ int ft_pwd(void)
     ft_printf("%s\n", cwd);
     return OK;
 }
+//TEst
