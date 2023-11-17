@@ -6,11 +6,12 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/17 09:42:36 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/17 14:17:54 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../include/minishell.h"
+char *ft_rem_quotes(char *str, int len, char *q);
 
 char	*ft_expand_var(t_token *token, t_env *env)
 {
@@ -56,46 +57,23 @@ void	ft_handle_var(t_token **input, t_env *env, int l_ret)
 	}
 }
 
-void ft_remove_quote(char **str, int *quote)
-{
-	int		len;
-
-	// new_str = NULL;
-	len = ft_strlen(*str);
-	if (len >= 2 && (((*str)[0] == '"' && (*str)[len - 1] == '"')))
-	{
-		// Double quotes
-		*str = ft_strtrim((*str), "\"");
-		*quote = 0;
-	}
-	else if (len >= 2 && ((*str)[0] == '\'' && (*str)[len - 1] == '\''))
-	{
-		*str = ft_strtrim((*str), "'");
-		*quote = 1;
-	}
-	else
-	{
-		*quote = -1;
-	}
-    // ft_printf("%s\n", new_str);
-}
-
 void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 {
 	t_token	*tmp;
 	char	*value;
-	int		quote;
+	char		quote;
 
 	quote = 0;
 	tmp = *input;
 	while (tmp->next)
 	{
 		value = ft_strdup(tmp->value);
-        ft_remove_quote(&value, &quote);
+		// ft_printf("%s\n", ft_rem_quotes(value, ft_str_len_quotes(value), &quote));
+
 		free(tmp->value);
 		tmp->value = ft_strdup(value);
 		free(value);
-		if (quote == 0 || quote == -1)
+		if (quote == 0 || quote == '\"')
 			ft_handle_var(&tmp, env, l_ret);
 		tmp = tmp->next;
 	}

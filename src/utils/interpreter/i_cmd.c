@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/16 17:37:47 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/17 10:28:25 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ int execute_command(char **arg, t_env *env)
         return (ERR);
     if(child_pid == 0)
     {
-        ft_handle_signals();
+        // ft_handle_signals();
         ret = ft_execve(arg, env);
         free_str_array(arg);
         exit(ret);
     }
     else
     {
-        ft_ignore_signals();
+        // ft_ignore_signals();
         wait_pid = waitpid(child_pid, &exit_code, 0);
         if(wait_pid == ERR)
             return (ERR);

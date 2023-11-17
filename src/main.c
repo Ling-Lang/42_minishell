@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/17 09:33:13 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/17 11:13:31 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	ft_main(t_env **env)
 		if (str[0] != '\0')
 			add_history(str);
 		input = init_tokens(str);
+		// ft_print_tokens(input);
 		free(str);
 		ft_sanitize_tokens(&input, *env, r);
 		ast = parser(input, table);
