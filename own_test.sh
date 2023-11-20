@@ -18,7 +18,7 @@ function exec_test()
     if [ "$TEST1" == "$TEST2" ] && [ "$ES_1" == "$ES_2" ]; then
 		printf "✓ "
     else
-        printf "$ES_1\t$ES_2\n$TEST1\t$TEST2\n"
+        printf "$ES_1\t$ES_2\nMINISHELL:\n$TEST1\n\nBASH:\n$TEST2\n"
     fi
     echo
     sleep 0.1
@@ -49,6 +49,9 @@ exec_test 'pwd'
 exec_test 'echo "$PWD"'
 # exec_diff_test 'echo test >> file'
 exec_test 'ls'
+# exec_test 'export'
+exec_test 'echo H"e'l'l"o'
+# exec_test 'env'
 
 rm -rf ./out
 rm -rf ./bout

@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/17 17:31:51 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/20 15:15:30 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,19 @@ void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 	t_token	*tmp;
 	char	*value;
 	char		quote;
+	char *tmps;
 
 	quote = 0;
 	tmp = *input;
 	while (tmp->next)
 	{
-		value = ft_strdup(tmp->value);
-		// ft_printf("%s\n", ft_rem_quotes(value, ft_str_len_quotes(value), &quote));
-		value = ft_rem_quotes(value, &quote, env, l_ret);
-		// ft_printf("\t%s\n", value);
+		// value = ft_strdup(tmp->value);
+		value = ft_rem_quotes(tmp->value, env, l_ret);
+		// ft_printf("\t%s\n", tmps);
 		free(tmp->value);
 		tmp->value = ft_strdup(value);
 		free(value);
-		// if (quote == 0 || quote == '\"')
-		// 	ft_handle_var(&tmp, env, l_ret);
+
 		tmp = tmp->next;
 	}
 }

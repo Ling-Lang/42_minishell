@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/17 11:13:31 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/20 18:32:05 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	ft_main(t_env **env)
 		r = exec_tree(ast, env);
 		free_tree(&ast);
 	}
+	free_table(table);
 	return r;
 }
 int main(int argc, char **argv, char **envp)
@@ -102,8 +103,9 @@ int main(int argc, char **argv, char **envp)
 
 	env = ft_init(envp);
 	ret = ft_main(&env);
+	ft_free_env(&env);
 	if(ret == ERR)
 		return(EXIT_FAILURE);
-	// ft_printf("%d\n", (ret * -1) - 2);
-	return ((ret * -1) -2);
+	// ft_printf("%d\n", ret);
+	return (-ret - 2);
 }

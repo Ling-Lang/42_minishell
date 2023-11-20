@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:55:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/15 17:00:54 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/20 15:12:19 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,16 @@ char	**t_env_to_envp(t_env *env)
 	return (envp);
 }
 
+void ft_free_env(t_env **env)
+{
+	t_env *tmp;
+	
+	while(*env)
+	{
+		tmp = (*env)->next;
+		free((void *)(*env)->name);
+		free((*env)->value);
+		free((*env));
+		*env = tmp;
+	}
+}
