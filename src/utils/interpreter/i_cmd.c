@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/17 10:28:25 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/22 15:31:01 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,48 @@ int simple_command(t_node *tree, int *fd, t_env **env)
             if(!check_builtin(args[0]) && r > 0 && r < 128)
                 ft_error(args[0], r);
         }
-        free_str_array(args);
+        //free_str_array(args);
+    }
+    else
+        r = ERR;
+    
+    if(fd[0] != -1)
+        if(restore_fd(fd) == ERR)
+            r = ERR;
+    return r;
+}
+
+int simple_command2(t_node *tree, int *fd, t_env **env)
+{
+    char **args;
+    char **tmp;
+    int r;
+    r = 0;
+    args = iterate_tree2(tree, init_args());
+    if(args)
+    {
+        while(args[0] != NULL)
+        {
+            if(check_builtin(args[0]) == 1)
+            {
+                tmp = copy_string_array(args);
+                remove_pipe_symbol(tmp);
+                r = execute_builtin(tmp, env);
+                while(check_builtin(args[0]) != 5 && args[0] != NULL)
+                    shift_elements(args, 0);
+            }
+            if(check_builtin(args[0]) == 5)
+                shift_elements(args, 0);
+            if(check_builtin(args[0]) == 0 && args[0] != NULL) 
+            {   
+                tmp = copy_string_array(args);
+                remove_pipe_symbol(tmp);
+                r = execute_command(tmp, *env);
+                while(check_builtin(args[0]) != 5 && args[0] != NULL)
+                    shift_elements(args, 0);
+            }
+        }
+        free_str_array(args); 
     }
     else
         r = ERR;
@@ -87,6 +128,90 @@ int simple_command(t_node *tree, int *fd, t_env **env)
             r = ERR;
     return r;
 }
+
+char** copy_string_array(char **original) 
+{
+    if (original == NULL)
+        return NULL;
+
+    int size; 
+    size =  0;
+    while (original[size] != NULL)
+        size++;
+
+    char **copy = (char **)malloc((size + 1) * sizeof(char *));
+    if (copy == NULL) 
+        return NULL;
+    int i;
+    i = 0;
+    while (i <= size) 
+    {
+        if (original[i] != NULL) 
+        {
+            copy[i] = strdup(original[i]);
+            if (copy[i] == NULL) 
+            {
+                free_string_array(copy);
+                return NULL;
+            }
+        } 
+        else 
+            copy[i] = NULL;
+        i++;
+    }
+
+    return copy;
+}
+
+void free_string_array(char **array) 
+{
+    if (array == NULL)
+        return;
+
+    int i;
+    i = 0;
+    while (array[i] != NULL)
+    {
+        free(array[i]);
+        i++;
+    }
+
+    free(array);
+}
+
+void remove_pipe_symbol(char **args) {
+    int i = 0;
+    while (args[i] != NULL && strchr(args[i], '|') == NULL)
+        ++i;
+
+    if (args[i] != NULL) 
+    {
+        args[i] = NULL;
+        while (args[++i] != NULL) 
+            args[i] = NULL;
+    }
+}
+
+
+void shift_elements(char **array, int position) 
+{
+    if (array == NULL || position < 0) 
+        return;
+    
+    if(array[position + 1] == NULL)
+    {
+        array[position] = NULL;
+        return;
+    }
+
+    free(array[position]);
+
+    while (array[position] = array[position + 1]) 
+        ++position;
+    array[position] = NULL;
+}
+
+
 int exec_tree(t_node *tree, t_env **env)
 {
     int r;
@@ -98,8 +223,13 @@ int exec_tree(t_node *tree, t_env **env)
     n = find_symbol(tree, A_PIPE, 0);
     if(n)
     {
+        cache_fd((int *)fd);
+        if(handle_redirects2(tree, 0) != ERR)
+        {
+            r = simple_command2(tree, fd, env);
+        }
         ft_printf("Found pipe \n");
-        return 0;
+        //return 0;
     }
     else
     {

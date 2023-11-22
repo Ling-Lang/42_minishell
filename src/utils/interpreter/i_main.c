@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:38:35 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/14 14:04:11 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/21 02:17:52 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,23 @@ char	**iterate_tree(t_node *node, char **args)
 	args = iterate_tree(node->l, args);
 	args = iterate_tree(node->r, args);
 	if (node->type == A_PARAM || node->type == A_CMD)
+	{
+		if (node->type == A_CMD && ft_strchr(node->data, ' '))
+			args = add_cmd(args, node);
+		else
+			args = add_arg_back(args, node->data);
+	}
+	return (args);
+}
+
+char	**iterate_tree2(t_node *node, char **args)
+{
+	
+	if (!args || !node)
+		return (args);
+	args = iterate_tree2(node->l, args);
+	args = iterate_tree2(node->r, args);
+	if (node->type == A_PARAM || node->type == A_CMD || node->type == A_PIPE)
 	{
 		if (node->type == A_CMD && ft_strchr(node->data, ' '))
 			args = add_cmd(args, node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:39:47 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/14 14:02:51 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/21 17:24:56 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int check_builtin(char *arg)
         ft_strcmp(arg, "unset") == 0 || \
         ft_strcmp(arg, "env") == 0)
         return 1;
+    if(ft_strcmp(arg, "|") == 0)
+        return(5);
     return 0;
 }
 int	find_symbol(t_node *tree, int to_find, int n)
