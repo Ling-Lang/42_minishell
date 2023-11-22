@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_redirects.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:52:30 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/15 15:24:33 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/20 22:35:09 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,28 @@ int handle_redirects(t_node *tree, int r)
             r = ret_from(tree);
         if(tree->l->type == A_GREATER)
             r = append_to(tree);
+    }
+    return r;
+}
+
+int handle_redirects2(t_node *tree, int r)
+{
+    if(!tree)
+        return r;
+    r = handle_redirects(tree->l, r);
+    r = handle_redirects(tree->r, r);
+    if(r == ERR)
+        return ERR;
+    if(tree->reduce == R_IOFILE)
+    {
+        if(tree->l->type == A_R_TO_FILE)
+            r = ret_to(tree);
+        if(tree->l->type == A_RET_FROM_FILE)
+            r = ret_from(tree);
+        if(tree->l->type == A_GREATER)
+            r = append_to(tree);
+        if(tree->l->type == A_PIPE)
+            return r;
     }
     return r;
 }
