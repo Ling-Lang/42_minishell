@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:08:50 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/24 18:22:26 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/24 18:58:10 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,11 @@ int ft_export(t_env **env, char **arg)
         }
     }
     return OK;
+}
+
+void ft_export_special(char ****commands, int index, t_env **env) 
+{
+    char **export_args = (*commands)[index];
+ 
+    ft_export(env, export_args);
 }

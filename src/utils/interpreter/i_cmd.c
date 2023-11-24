@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/24 18:24:51 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/24 18:57:40 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,7 @@ int simple_command(t_node *tree, int *fd, t_env **env)
             r = ERR;
     return r;
 }
-void execute_piped_commands(char ****commands, int num_commands) 
-{
+void execute_piped_commands(char ****commands, int num_commands, t_env **env) {
     int prev_pipe_fd = -1;
     int pipe_fd[2];
 
@@ -132,8 +131,7 @@ void execute_piped_commands(char ****commands, int num_commands)
             exit(EXIT_FAILURE);
         }
 
-        if (child_pid == 0) 
-        {  // Child process
+        if (child_pid == 0) {  // Child process
             if (prev_pipe_fd != -1) {
                 dup2(prev_pipe_fd, STDIN_FILENO);
                 close(prev_pipe_fd);
@@ -144,16 +142,20 @@ void execute_piped_commands(char ****commands, int num_commands)
                 close(pipe_fd[1]);
             }
 
-            execute_command2((*commands)[i]);
-            exit(EXIT_SUCCESS);
-        } 
-        else 
-        {  // Parent process
-            if (prev_pipe_fd != -1)
-                close(prev_pipe_fd);
+            if (strcmp((*commands)[i][0], "export") == 0) {
+                // Handle export command here
+                ft_export_special(commands, i, env);
+            } else {
+                execute_command2((*commands)[i]);
+            }
 
-            if (i < num_commands - 1) 
-            {
+            exit(EXIT_SUCCESS);
+        } else {  // Parent process
+            if (prev_pipe_fd != -1) {
+                close(prev_pipe_fd);
+            }
+
+            if (i < num_commands - 1) {
                 close(pipe_fd[1]);
                 prev_pipe_fd = pipe_fd[0];
             }
@@ -163,7 +165,6 @@ void execute_piped_commands(char ****commands, int num_commands)
 
         ++i;
     }
-
 }
 
 int simple_command2(t_node *tree, int *fd, t_env **env)
@@ -201,7 +202,7 @@ int simple_command2(t_node *tree, int *fd, t_env **env)
             shift_elements(args, 0); 
         shift_elements(args, 0);
     }
-    execute_piped_commands(&commands, num_commands);
+    execute_piped_commands(&commands, num_commands, env);
 
     for (int i = 0; i < num_commands; ++i) {
         free(commands[i]);
