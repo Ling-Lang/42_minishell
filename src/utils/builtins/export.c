@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:08:50 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/21 17:45:27 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/24 18:22:26 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,12 @@ int ft_export(t_env **env, char **arg)
     {
         while(arg[i] != NULL)
         {
-            printf("%s%dzart\n", arg[i], i);
             if (strcmp(arg[i], "|") == 0)
                 return OK;
             add_env(env, set_env(arg[i]));
             i++;
             if(arg[i] == NULL)
                 return OK;
-            printf("%s%dbomboma \n", arg[i], i);
         }
     }
     return OK;
