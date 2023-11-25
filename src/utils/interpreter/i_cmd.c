@@ -365,19 +365,13 @@ int exec_tree(t_node *tree, t_env **env)
     {
         cache_fd((int *)fd);
         if(handle_redirects2(tree, 0) != ERR)
-        {
             r = simple_command2(tree, fd, env);
-        }
-        ft_printf("Found pipe \n");
-        //return 0;
     }
     else
     {
         cache_fd((int *)fd);
         if(handle_redirects(tree, 0) != ERR)
-        {
             r = simple_command(tree, fd, env);
-        }
     }
     return r;
 }
