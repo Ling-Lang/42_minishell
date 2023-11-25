@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/22 15:31:01 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/24 18:57:40 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int ft_execve(char **args, t_env *env)
     }
     return (ret);
 }
+
 int execute_command(char **arg, t_env *env)
 {
     pid_t child_pid;
@@ -59,6 +60,27 @@ int execute_command(char **arg, t_env *env)
     return ft_get_exit_code(exit_code);
 }
 
+void execute_command2(char **args) {
+    pid_t child_pid;
+    int status;
+
+    child_pid = fork();
+
+    if (child_pid == -1) {
+        perror("fork");
+        exit(EXIT_FAILURE);
+    }
+
+    if (child_pid == 0) {  // Child process
+        
+        execvp(args[0], args);
+        perror("execvp");
+        exit(EXIT_FAILURE);
+    } else {  // Parent process
+        waitpid(child_pid, &status, 0);
+    }
+}
+
 int simple_command(t_node *tree, int *fd, t_env **env)
 {
     char **args;
@@ -74,7 +96,9 @@ int simple_command(t_node *tree, int *fd, t_env **env)
                 r = execute_builtin(args, env);
             }
             else
+            {
                 r = execute_command(args, *env);
+            }
             if(!check_builtin(args[0]) && r > 0 && r < 128)
                 ft_error(args[0], r);
         }
@@ -88,14 +112,130 @@ int simple_command(t_node *tree, int *fd, t_env **env)
             r = ERR;
     return r;
 }
+void execute_piped_commands(char ****commands, int num_commands, t_env **env) {
+    int prev_pipe_fd = -1;
+    int pipe_fd[2];
+
+    int i = 0;
+    while (i < num_commands) {
+        if (i < num_commands - 1) {
+            if (pipe(pipe_fd) == -1) {
+                perror("pipe");
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        pid_t child_pid = fork();
+        if (child_pid == -1) {
+            perror("fork");
+            exit(EXIT_FAILURE);
+        }
+
+        if (child_pid == 0) {  // Child process
+            if (prev_pipe_fd != -1) {
+                dup2(prev_pipe_fd, STDIN_FILENO);
+                close(prev_pipe_fd);
+            }
+
+            if (i < num_commands - 1) {
+                dup2(pipe_fd[1], STDOUT_FILENO);
+                close(pipe_fd[1]);
+            }
+
+            if (strcmp((*commands)[i][0], "export") == 0) {
+                // Handle export command here
+                ft_export_special(commands, i, env);
+            } else {
+                execute_command2((*commands)[i]);
+            }
+
+            exit(EXIT_SUCCESS);
+        } else {  // Parent process
+            if (prev_pipe_fd != -1) {
+                close(prev_pipe_fd);
+            }
+
+            if (i < num_commands - 1) {
+                close(pipe_fd[1]);
+                prev_pipe_fd = pipe_fd[0];
+            }
+
+            waitpid(child_pid, NULL, 0);
+        }
+
+        ++i;
+    }
+}
 
 int simple_command2(t_node *tree, int *fd, t_env **env)
 {
     char **args;
     char **tmp;
+    char **tmp2;
     int r;
     r = 0;
+    int a;
+    a =0;
+    int pipe;
+    pipe = 1;
+    char ***commands = NULL;
+    int num_commands = 0;
     args = iterate_tree2(tree, init_args());
+    while(args[a] != NULL)
+    {
+        if(strcmp(args[a], "|") == 0)
+            pipe++;
+        a++;
+    }
+    commands = (char ***)malloc(64 * sizeof(char **)); // 64 is max commands
+    if (commands == NULL) 
+    {
+        perror("malloc");
+        exit(EXIT_FAILURE);
+    }
+    while(args[0] != NULL)
+    {
+        tmp = copy_string_array(args);
+        remove_pipe_symbol(tmp);
+        commands[num_commands++] = tmp;
+        while(check_builtin(args[0]) != 5 && args[0] != NULL)
+            shift_elements(args, 0); 
+        shift_elements(args, 0);
+    }
+    execute_piped_commands(&commands, num_commands, env);
+
+    for (int i = 0; i < num_commands; ++i) {
+        free(commands[i]);
+    }
+    free(commands);
+
+    return 0;
+    /*while (args[a]) // testing sm
+    {
+        if(strcmp(args[a], "grep") == 0)
+        {
+            a = a + 3; 
+            if(args[a] == NULL || (strcmp(args[a], "|") == 0))
+            {
+                a = a - 5;
+                if((strcmp(args[a], "ls") == 0) || (strcmp(args[a], "-l") == 0))
+                {
+                    tmp = copy_string_array(args);
+                    remove_pipe_symbol(tmp);
+                    while(check_builtin(args[0]) != 5)
+                        shift_elements(args, 0);
+                    shift_elements(args, 0);
+                    tmp2 = copy_string_array(args);
+                    remove_pipe_symbol(tmp2);
+                    execute_pipe_commands(tmp, tmp2);
+                    return r;
+                }
+            }
+
+        }
+        a++;
+    }
+    
     if(args)
     {
         while(args[0] != NULL)
@@ -111,7 +251,7 @@ int simple_command2(t_node *tree, int *fd, t_env **env)
             if(check_builtin(args[0]) == 5)
                 shift_elements(args, 0);
             if(check_builtin(args[0]) == 0 && args[0] != NULL) 
-            {   
+            {  
                 tmp = copy_string_array(args);
                 remove_pipe_symbol(tmp);
                 r = execute_command(tmp, *env);
@@ -126,7 +266,7 @@ int simple_command2(t_node *tree, int *fd, t_env **env)
     if(fd[0] != -1)
         if(restore_fd(fd) == ERR)
             r = ERR;
-    return r;
+    return r; */
 }
 
 char** copy_string_array(char **original) 
