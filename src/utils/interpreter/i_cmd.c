@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/24 18:57:40 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/26 04:19:49 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int simple_command(t_node *tree, int *fd, t_env **env)
     char **args;
     int r;
     r = 0;
+    
     args = iterate_tree(tree, init_args());
     if(args)
     {
@@ -357,21 +358,34 @@ int exec_tree(t_node *tree, t_env **env)
     int r;
     int n;
     int fd[2];
+    int g;
 
     fd[0] = -1;
     r = 1;
     n = find_symbol(tree, A_PIPE, 0);
+    g = find_symbol(tree, T_LESS, 0);
+    if(g)
+    {
+        ft_heredoc(tree, env);
+        return r;
+    }
     if(n)
     {
         cache_fd((int *)fd);
         if(handle_redirects2(tree, 0) != ERR)
+        {
             r = simple_command2(tree, fd, env);
+        }
+        ft_printf("Found pipe \n");
+        //return 0;
     }
     else
     {
         cache_fd((int *)fd);
         if(handle_redirects(tree, 0) != ERR)
+        {
             r = simple_command(tree, fd, env);
+        }
     }
     return r;
 }

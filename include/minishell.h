@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/23 22:43:04 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/26 03:49:26 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,12 @@ void remove_pipe_symbol(char **args);
 char** copy_string_array(char **original);
 void parse_and_execute(char **command);
 void execute_command2(char **args);
+void execute_command32(char **args, t_env *env);
+char** parse_command(const char** command);
+void set_environment(t_env *env);
 void free_string_array(char **array);
+void free_str_array2(char **array);
+int ft_heredoc(t_node *tree, t_env **env);
 int	find_symbol(t_node *tree, int to_find, int n);
 
 /* Parser */
