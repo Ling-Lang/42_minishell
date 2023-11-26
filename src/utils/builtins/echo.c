@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:07:09 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/15 15:03:41 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/26 19:13:25 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,23 @@ int ft_echo(char **arg, int argc)
     int i;
     bool has_flag;
     bool start;
+    int a;
     
     start = true;
     has_flag = false;
     i = 0;
     if(!ft_strcmp(arg[1], "$?"))
+    {
+        ft_printf("%d", 0);
         return 0;
-    // ft_printf("%s", "test");
+    }
+    if(contains_symbol(arg, '$'))
+    {
+        a = contains_symbol(arg, '$');
+        if(!ft_strcmp(arg[a], "$PWD"))
+            return(ft_pwd());
+        return 0;
+    }
     while(arg[++i] && ft_check_n(arg[i]))
         has_flag = true;
     while(i < argc)
@@ -79,4 +89,28 @@ int ft_echo(char **arg, int argc)
     if(argc >= 1 && !has_flag)
         ft_putchar_fd('\n', 1);
     return 0;
+}
+
+int contains_symbol(char **args, char symbol) 
+{
+    int i;
+    i = 0;
+    while (*args != NULL) 
+    {
+        char *arg = *args;
+        while (*arg != '\0') 
+        {
+            if (*arg == symbol) 
+            {
+                ++arg;
+                if(*arg == ' ')
+                    return 0;
+                return (i);
+            }
+            ++arg;
+        }
+        ++args;
+        i++;
+    }
+    return 0; 
 }
