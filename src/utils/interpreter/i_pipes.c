@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:58:22 by ahocuk            #+#    #+#             */
-/*   Updated: 2023/11/27 04:31:17 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 11:53:59 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,15 @@
 int	simple_command2(t_node *tree, int *fd, t_env **env)
 {
 	char	**args;
-	char	**tmp;
-	int		a;
-	int		pipe;
 	char	***commands;
 	int		num_commands;
-	int		i;
 
-	a = 0;
-	pipe = 1;
 	commands = NULL;
 	num_commands = 0;
 	args = iterate_tree2(tree, init_args());
-	while (args[a] != NULL)
-	{
-		if (strcmp(args[a], "|") == 0)
-			pipe++;
-		a++;
-	}
-	commands = (char ***)malloc(64 * sizeof(char **)); // 64 is max commands
-	while (args[0] != NULL)
-	{
-		tmp = copy_string_array(args);
-		remove_pipe_symbol(tmp);
-		commands[num_commands++] = tmp;
-		while (check_builtin(args[0]) != 5 && args[0] != NULL)
-			shift_elements(args, 0);
-		shift_elements(args, 0);
-	}
+	commands = add_pipe(args, &num_commands);
 	execute_piped_commands(&commands, num_commands, env);
-	i = 0;
-	while (i < num_commands)
-	{
-		free(commands[i]);
-		++i;
-	}
-	free(commands);
+	pipe_free(commands, num_commands);
 	return (0);
 }
 
@@ -68,17 +41,11 @@ void	execute_piped_commands(char ****commands, int num_commands, t_env **env)
 		if (i < num_commands - 1)
 		{
 			if (pipe(pipe_fd) == -1)
-			{
-				perror("pipe");
 				exit(EXIT_FAILURE);
-			}
 		}
 		child_pid = fork();
 		if (child_pid == -1)
-		{
-			perror("fork");
 			exit(EXIT_FAILURE);
-		}
 		if (child_pid == 0)
 		{
 			if (prev_pipe_fd != -1)
@@ -94,17 +61,13 @@ void	execute_piped_commands(char ****commands, int num_commands, t_env **env)
 			if (strcmp((*commands)[i][0], "export") == 0)
 				ft_export_special(commands, i, env);
 			else
-			{
 				execute_command2((*commands)[i]);
-			}
 			exit(EXIT_SUCCESS);
 		}
 		else
 		{
 			if (prev_pipe_fd != -1)
-			{
 				close(prev_pipe_fd);
-			}
 			if (i < num_commands - 1)
 			{
 				close(pipe_fd[1]);
@@ -164,4 +127,37 @@ char	**copy_string_array(char **original)
 		i++;
 	}
 	return (copy);
+}
+void	pipe_free(char ***commands, int num_commands)
+{
+	int	i;
+
+	i = 0;
+	while (i < num_commands)
+	{
+		free(commands[i]);
+		++i;
+	}
+	free(commands);
+}
+
+char	***add_pipe(char **args, int *num_commands)
+{
+	char	***commands;
+	int		command_index;
+	char	**tmp;
+
+	commands = (char ***)malloc(64 * sizeof(char **));
+	command_index = 0;
+	while (args[0] != NULL)
+	{
+		tmp = copy_string_array(args);
+		remove_pipe_symbol(tmp);
+		commands[command_index++] = tmp;
+		while (check_builtin(args[0]) != 5 && args[0] != NULL)
+			shift_elements(args, 0);
+		shift_elements(args, 0);
+	}
+	*num_commands = command_index;
+	return (commands);
 }

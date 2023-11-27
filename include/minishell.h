@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 04:03:33 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 11:54:20 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,7 @@ char	**t_env_to_envp(t_env *env);
 char *get_env(char *find, t_env *env);
 int get_bin(char **arg, t_env *env);
 void ft_free_env(t_env **env);
+void pipe_free(char	***commands, int num_commands);
+char***	add_pipe(char** args, int* num_commands);
+
 #endif
