@@ -6,34 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:07:09 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 13:06:09 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 21:27:29 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-// void ft_echo(char **arg)
-// {
-//     // ft_printf("%s", arg[1]);
-//     int i = 1;
-//     if(arg[1] == NULL)
-//     {
-//         ft_printf("\n");
-//         return ;
-//     }
-//     if (arg[i] != NULL && ft_strcmp(arg[i], "-n") == 0)
-//         i++;
-//     while (arg[i] != NULL)
-//     {
-//         ft_printf("%s", arg[i]);
-//         if (arg[i + 1] != NULL)
-//             ft_printf(" ");
-//         i++;
-//     }
-//     if (arg[1] != NULL && ft_strcmp(arg[1], "-n") != 0)
-//         ft_printf("\n");
-// }
-// Look if cur str has -n only or -n and after the n no other than n -nn == -n
 
 bool	ft_check_n(char *str)
 {
@@ -63,8 +40,6 @@ int	ft_echo(char **arg, int argc)
 	start = true;
 	has_flag = false;
 	i = 0;
-	// if (ft_check_dollars(arg))
-	// 	return (0);
 	while (arg[++i] && ft_check_n(arg[i]))
 		has_flag = true;
 	while (i < argc)
@@ -79,54 +54,4 @@ int	ft_echo(char **arg, int argc)
 	if (argc >= 1 && !has_flag)
 		ft_putchar_fd('\n', 1);
 	return (0);
-}
-
-int	contains_symbol(char **args, char symbol)
-{
-	int		i;
-	char	*arg;
-
-	i = 0;
-	while (*args != NULL)
-	{
-		arg = *args;
-		while (*arg != '\0')
-		{
-			if (*arg == symbol)
-			{
-				++arg;
-				if (*arg == ' ')
-					return (0);
-				return (i);
-			}
-			++arg;
-		}
-		++args;
-		i++;
-	}
-	return (0);
-}
-
-int	ft_dollar(char **args, char symbol)
-{
-	int	a;
-
-	a = contains_symbol(args, '$');
-	if (!ft_strcmp(args[a], "$PWD"))
-		return (ft_pwd());
-	return (0);
-}
-
-int	ft_check_dollars(char **args)
-{
-	if (!ft_strcmp(args[1], "$?"))
-	{
-		ft_printf("%d\n", 0);
-		return (1);
-	}
-	if (contains_symbol(args, '$'))
-	{
-		ft_dollar(args, '$');
-		return (1);
-	}
 }

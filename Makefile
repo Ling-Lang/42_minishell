@@ -17,7 +17,7 @@ SRC = 	src/main.c \
 		src/utils/lexer/l_tokens.c \
 		src/utils/lexer/l_utils.c \
 		src/utils/lexer/expander/le_main.c \
-		src/utils/lexer/expander/le_quotes.c \
+		src/utils/lexer/expander/le_var.c \
 		src/utils/parser/p_main.c \
 		src/utils/parser/p_action.c \
 		src/utils/parser/p_clean.c \
@@ -46,11 +46,11 @@ SRC = 	src/main.c \
 		src/utils/builtins/env.c \
 		src/utils/builtins/b_main.c \
 		src/utils/builtins/exit.c \
-		src/utils/init.c \
 		src/utils/env/e_main.c \
 		src/utils/env/e_paths.c \
-		src/utils/error.c \
-		src/utils/signals.c \
+		src/utils/misc/init.c \
+		src/utils/misc/error.c \
+		src/utils/misc/signals.c
 
 OBJ = $(SRC:.c=.o)
 

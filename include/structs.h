@@ -3,73 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:29:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 03:17:37 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 21:49:46 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
-#include "minishell.h"
+# include "minishell.h"
 
 # define DEFAULT -1
 # define NO_ACTION -1
 # define TO_PROMOTE 0
 # define TO_CHILD 1
 # define ROOT -2
+
 typedef struct s_env
 {
-	const char *name;
-	char *value;
-	struct s_env *next;
-} t_env;
+	const char		*name;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct s_token
 {
-	int type;
-	void *value;
-	struct s_token *next;
-} t_token;
+	int				type;
+	void			*value;
+	struct s_token	*next;
+}					t_token;
 
 typedef struct s_quote
 {
-	int d_quote;
-	int s_quote;
-} t_quote;
+	int				d_quote;
+	int				s_quote;
+}					t_quote;
 typedef enum e_pipe_ends
 {
 	READ_END,
 	WRITE_END
-}	t_pipe_ends;
+}					t_pipe_ends;
 
 typedef struct s_ptable
 {
-	int state;
-	int token;
-	int action;
-	int n_state;
-	int reduce;
-}   t_ptable;
+	int				state;
+	int				token;
+	int				action;
+	int				n_state;
+	int				reduce;
+}					t_ptable;
 
 typedef struct s_stack
 {
-	void *data;
-	int type;
-	int state;
-	struct s_stack *next;
-}   t_stack;
+	void			*data;
+	int				type;
+	int				state;
+	struct s_stack	*next;
+}					t_stack;
 
 typedef struct s_node
 {
-	int type;
-	int reduce;
-	void *data;
-	struct s_node *l;
-	struct s_node *r;
-	struct s_node *n;
-}   t_node;
+	int				type;
+	int				reduce;
+	void			*data;
+	struct s_node	*l;
+	struct s_node	*r;
+	struct s_node	*n;
+}					t_node;
 
 typedef enum e_ttype
 {
@@ -80,7 +81,7 @@ typedef enum e_ttype
 	T_GREATER,
 	T_LESS,
 	T_PIPE,
-} t_ttype;
+}					t_ttype;
 
 typedef enum e_action
 {
@@ -88,7 +89,7 @@ typedef enum e_action
 	REDUCE,
 	ACCEPT,
 	REJECT,
-} t_action;
+}					t_action;
 
 typedef enum e_rules
 {
@@ -103,7 +104,7 @@ typedef enum e_rules
 	R_FILENAME,
 	R_IO_HERE,
 	R_HERE_END,
-} t_rules;
+}					t_rules;
 
 typedef enum e_tree_types
 {
@@ -116,11 +117,11 @@ typedef enum e_tree_types
 	A_PARAM,
 	A_FILE,
 	A_LIMITER
-} t_tree_types;
+}					t_tree_types;
 
 typedef enum e_fds
 {
 	READ,
 	WRITE
-} t_fds;
+}					t_fds;
 #endif

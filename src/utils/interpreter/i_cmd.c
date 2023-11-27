@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 18:34:02 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 21:45:23 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,7 @@ int	exec_tree(t_node *tree, t_env **env)
 		if (handle_redirects(tree, 0, here_fd) != ERR)
 		{
 			if (n)
-			{
-				if(handle_redirects2(tree, 0, here_fd) != ERR)
-					r = simple_command2(tree, fd, env);
-			}
+				r = simple_command2(tree, fd, env);
 			else
 				r = simple_command(tree, fd, env);
 		}

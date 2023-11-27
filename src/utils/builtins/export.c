@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:08:50 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 03:00:24 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 22:37:12 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,43 @@ t_env	*set_env(char *envp)
 		return (NULL);
 	add_env(&env, tmp);
 	return (env);
+}
+
+bool	ft_find_var(char *name, t_env *env)
+{
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp->next)
+	{
+		if (!ft_strcmp(tmp->name, name))
+			return (true);
+		tmp = tmp->next;
+	}
+	return (false);
+}
+
+void	ft_modify(char *arg, t_env **env)
+{
+	char	*name;
+	char	*value;
+	t_env	*tmp;
+
+	tmp = *env;
+	name = ft_substr(arg, 0, ft_strchr(arg, '=') - arg);
+	value = ft_substr(arg, ft_strchr(arg, '=') - arg + 1, ft_strlen(arg)
+			- ft_strlen(name) - 1);
+	if (ft_find_var(name, *env) == true)
+	{
+		while (tmp->next)
+		{
+			if (!ft_strcmp(tmp->name, name))
+				tmp->value = ft_strdup(value);
+			tmp = tmp->next;
+		}
+	}
+	else
+		add_env(env, set_env(arg));
 }
 
 int	ft_export(t_env **env, char **arg)
@@ -45,7 +82,7 @@ int	ft_export(t_env **env, char **arg)
 	{
 		while (arg[i] != NULL)
 		{
-			add_env(env, set_env(arg[i]));
+			ft_modify(arg[i], env);
 			i++;
 			if (arg[i] == NULL)
 				return (OK);

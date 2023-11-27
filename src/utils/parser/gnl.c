@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 14:29:23 by twagner           #+#    #+#             */
-/*   Updated: 2023/11/27 03:10:07 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 21:54:22 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/get_next_line.h"
+#include "../../../include/minishell.h"
 
 static int	ft_fill_buffer_until_n(char **bufline, int fd)
 {

@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:58:22 by ahocuk            #+#    #+#             */
-/*   Updated: 2023/11/27 18:37:43 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 21:46:04 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	simple_command2(t_node *tree, int *fd, t_env **env)
 	pipe_free(commands, num_commands);
 	if (fd[0] != -1)
 		if (restore_fd(fd) == ERR)
-			return(ERR);
+			return (ERR);
 	return (0);
 }
 
