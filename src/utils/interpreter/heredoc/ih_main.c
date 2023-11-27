@@ -6,12 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:05:13 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 15:49:31 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 19:27:55 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../include/minishell.h"
-
 
 int	ft_create_heredoc(t_node *tree, int ret, int *fd, int *num)
 {
@@ -31,14 +30,16 @@ int	ft_create_heredoc(t_node *tree, int ret, int *fd, int *num)
 				content = ft_get_next_tmp(tree->data, 1);
 			else
 				content = ft_get_next_tmp(tree->data, 0);
-			if (content && ft_write_here(tmp_fd, &content, ft_strlen(content)) >= 0
-				&& !ft_open_fd(tmp_fd, file, fd, *num))
-                return (0);
+			if (content && ft_write_here(tmp_fd, &content,
+					ft_strlen(content)) >= 0 && !ft_open_fd(tmp_fd, file, fd,
+					*num))
+				return (0);
 		}
-	}	
+	}
 	free(file);
 	return (ERR);
 }
+
 char	*ft_finalize_heredoc(char **buffer, char *p_limit)
 {
 	int		l_limit;
@@ -76,6 +77,7 @@ int	ft_exec_heredoc(t_node *tree, int ret, int *fd, int *num)
 	ret = ft_exec_heredoc(tree->r, ret, fd, num);
 	return (ret);
 }
+
 int	*ft_heredoc(t_node *tree, int symbol, int *stop)
 {
 	int	*fd;
