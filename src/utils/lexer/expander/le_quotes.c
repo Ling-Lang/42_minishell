@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:14:13 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 15:43:22 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 20:50:34 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,6 @@ char	*ft_rem_quotes(char *str, t_env *env, int l_ret)
 	int		inside;
 	int		j;
 	char	*ret;
-	char	*tmp;
-	int		k;
 
 	i = 0;
 	inside = 0;
@@ -152,15 +150,6 @@ char	*ft_rem_quotes(char *str, t_env *env, int l_ret)
 	{
 		if (inside == 0 && (str[i] == '\'' || str[i] == '\"'))
 		{
-			if (str[i] == '\"')
-			{
-				tmp = ft_check_for_var(&str[i + 1], env, l_ret);
-				k = 0;
-				while (tmp[k])
-					ret[j++] = tmp[k++];
-				i += k;
-				free(tmp);
-			}
 			inside = 1;
 			i++;
 		}
