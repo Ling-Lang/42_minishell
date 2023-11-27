@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 17:44:10 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 16:06:12 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../Libft/src/libft.h"
 #include "builtins.h"
 #include "structs.h"
+#include "get_next_line.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -45,8 +46,8 @@ int exec_tree(t_node *tree, t_env **env);
 int check_builtin(char *arg);
 void	cache_fd(int *fd);
 int	restore_fd(int *fd);
-int handle_redirects(t_node *tree, int r);
-int handle_redirects2(t_node *tree, int r);
+int	handle_redirects(t_node *tree, int r, int *h_fd);
+int handle_redirects2(t_node *tree, int r, int *h_fd);
 void shift_elements(char **array, int position);
 void remove_pipe_symbol(char **args);
 char** copy_string_array(char **original);
@@ -56,8 +57,16 @@ void free_string_array(char **array);
 int	find_symbol(t_node *tree, int to_find, int n);
 int	simple_command2(t_node *tree, int *fd, t_env **env);
 void	execute_piped_commands(char ****commands, int num_commands, t_env **env);
-void	child_process(char ****commands, int *params, int pipe_fd[2], t_env **env);
-void handle_pipe(int prev_pipe_fd, int pipe_fd[2]);
+/* Heredoc */
+int *ft_heredoc(t_node *tree, int symbol, int *stop);
+char *ft_tmp_file(int num);
+char *ft_find_limit(char *buffer, char *limit);
+void ft_redo_buffer(char **save);
+char *ft_finalize_heredoc(char **buffer, char *p_limit);
+int ft_open_fd(int fd, char *file, int *here_fd, int num);
+int ft_write_here(int fd, char **str, int len);
+char *ft_get_next_tmp(char *limit, int free);
+
 /* Parser */
 t_node *parser(t_token *input, t_ptable **table);
 int push_state(t_stack **stack, int state);
@@ -104,8 +113,9 @@ void *free_str_null(char **str);
 void clear_token(t_token *token);
 void ft_error(char *arg, int r);
 void ft_handle_signals(void);
-void ft_ignore_signals(void);
+void	ft_restore_default(void);
 int ft_get_exit_code(int e_code);
+
 /* envs */
 void	add_env(t_env **env, t_env *new);
 t_env	*new_env(char *env);
