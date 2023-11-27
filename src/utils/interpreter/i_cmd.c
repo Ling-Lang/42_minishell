@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 17:57:12 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 17:48:42 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,26 +87,50 @@ int	simple_command(t_node *tree, int *fd, t_env **env)
 	return (r);
 }
 
+int	ft_check_heredoc(t_node *tree, int *stop, int **fd)
+{
+	int	symbol;
+
+	symbol = find_symbol(tree, A_LESS, 0);
+	if (symbol)
+	{
+		ft_handle_signals();
+		*fd = ft_heredoc(tree, symbol, stop);
+		if (!fd)
+			return (ERR);
+		ft_restore_default();
+		dup2((*fd)[symbol], STDIN_FILENO);
+		close((*fd)[symbol]);
+		(*fd)[symbol] = -1;
+	}
+	return (0);
+}
+
 int	exec_tree(t_node *tree, t_env **env)
 {
 	int	r;
 	int	n;
 	int	fd[2];
+	int	*here_fd;
+	int	stop;
 
+	stop = 0;
 	fd[0] = -1;
 	r = 1;
-	n = find_symbol(tree, A_PIPE, 0);
-	if (n)
+	here_fd = NULL;
+	if (ft_check_heredoc(tree, &stop, &here_fd) == ERR)
+		return (ERR);
+	if (!stop)
 	{
 		cache_fd((int *)fd);
-		if (handle_redirects2(tree, 0) != ERR)
-			r = simple_command2(tree, fd, env);
-	}
-	else
-	{
-		cache_fd((int *)fd);
-		if (handle_redirects(tree, 0) != ERR)
-			r = simple_command(tree, fd, env);
+		n = find_symbol(tree, A_PIPE, 0);
+		if (handle_redirects(tree, 0, here_fd) != ERR)
+		{
+			if (n)
+				r = simple_command2(tree, fd, env);
+			else
+				r = simple_command(tree, fd, env);
+		}
 	}
 	return (r);
 }
