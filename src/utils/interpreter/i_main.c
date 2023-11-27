@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:38:35 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/21 02:17:52 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:53:57 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**add_arg_back(char **arg, char *data)
 
 	if (!arg)
 		return (NULL);
-	res = (char **)malloc(sizeof(*res) *(arg_len(arg) + 2));
+	res = (char **)malloc(sizeof(*res) * (arg_len(arg) + 2));
 	if (!res)
 		return (free_str_null(arg));
 	i = -1;
@@ -71,7 +71,6 @@ char	**add_cmd(char **args, t_node *node)
 
 char	**iterate_tree(t_node *node, char **args)
 {
-	
 	if (!args || !node || (node && node->type == A_PIPE))
 		return (args);
 	args = iterate_tree(node->l, args);
@@ -88,7 +87,6 @@ char	**iterate_tree(t_node *node, char **args)
 
 char	**iterate_tree2(t_node *node, char **args)
 {
-	
 	if (!args || !node)
 		return (args);
 	args = iterate_tree2(node->l, args);
@@ -101,6 +99,4 @@ char	**iterate_tree2(t_node *node, char **args)
 			args = add_arg_back(args, node->data);
 	}
 	return (args);
-} 
-
-
+}

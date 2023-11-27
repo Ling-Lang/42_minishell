@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/23 22:43:04 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 04:03:33 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void parse_and_execute(char **command);
 void execute_command2(char **args);
 void free_string_array(char **array);
 int	find_symbol(t_node *tree, int to_find, int n);
+int	simple_command2(t_node *tree, int *fd, t_env **env);
+void	execute_piped_commands(char ****commands, int num_commands, t_env **env);
 
 /* Parser */
 t_node *parser(t_token *input, t_ptable **table);

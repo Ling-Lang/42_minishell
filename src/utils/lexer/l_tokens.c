@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   l_tokens.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:06:28 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/02 14:23:30 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:08:30 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	add_token(t_token **tokens, t_token *new_token)
 int	get_token_type(char *str, int len)
 {
 	char	*tmp;
-	if(!str)
+
+	if (!str)
 		return (T_END);
 	tmp = (char *)malloc(sizeof(char) * len + 1);
 	ft_strncpy(str, tmp, len);

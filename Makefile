@@ -28,6 +28,8 @@ SRC = 	src/main.c \
 		src/utils/parser/gnl.c \
 		src/utils/interpreter/i_main.c \
 		src/utils/interpreter/i_utils.c \
+		src/utils/interpreter/i_utils2.c \
+		src/utils/interpreter/i_pipes.c \
 		src/utils/interpreter/i_cmd.c \
 		src/utils/interpreter/i_fd.c \
 		src/utils/interpreter/i_redirects.c \

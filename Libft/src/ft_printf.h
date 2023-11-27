@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:46:44 by jkulka            #+#    #+#             */
-/*   Updated: 2023/10/20 11:39:56 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:19:30 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft.h"
 # include <stdarg.h>
 # include <stdlib.h>
+
 int		ft_printf(const char *str, ...);
 void	ft_check_arg(const char c, va_list *arg, int *count);
 int		ft_printchar(char arg);

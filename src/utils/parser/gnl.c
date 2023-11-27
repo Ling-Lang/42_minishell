@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 14:29:23 by twagner           #+#    #+#             */
-/*   Updated: 2023/11/01 18:26:33 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:10:07 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static int	ft_update_bufline(char **bufline)
 
 	tofree = *bufline;
 	nl_index = ft_strchr(*bufline, '\n') - *bufline;
-	*bufline = ft_substr(*bufline, nl_index + 1, \
-		(ft_strchr(*bufline, 0) - *bufline) - (nl_index + 1));
+	*bufline = ft_substr(*bufline, nl_index + 1, (ft_strchr(*bufline, 0)
+				- *bufline) - (nl_index + 1));
 	if (!*bufline)
 	{
 		*bufline = tofree;
@@ -58,7 +58,7 @@ static int	ft_update_bufline(char **bufline)
 
 static int	ft_return_line(char **line, char **bufline, int status)
 {
-	int		nl_index;
+	int	nl_index;
 
 	if (status == -1)
 		return (-1);

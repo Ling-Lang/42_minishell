@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   le_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/20 15:15:30 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:04:05 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,17 @@ char	*ft_expand_var(t_token *token, t_env *env)
 			ft_strlen((const char *)token->value));
 	var = ft_strdup(get_env(find, tmp));
 	free(find);
-	// ft_printf("%s\n", var);
 	return (var);
 }
-char *ft_get_last_ret(int l_ret)
+
+char	*ft_get_last_ret(int l_ret)
 {
-	char *var;
+	char	*var;
 
 	var = ft_strdup(ft_itoa(l_ret));
 	return (var);
 }
+
 void	ft_handle_var(t_token **input, t_env *env, int l_ret)
 {
 	t_token	*tmp;
@@ -60,20 +61,17 @@ void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 {
 	t_token	*tmp;
 	char	*value;
-	char		quote;
-	char *tmps;
+	char	quote;
+	char	*tmps;
 
 	quote = 0;
 	tmp = *input;
 	while (tmp->next)
 	{
-		// value = ft_strdup(tmp->value);
 		value = ft_rem_quotes(tmp->value, env, l_ret);
-		// ft_printf("\t%s\n", tmps);
 		free(tmp->value);
 		tmp->value = ft_strdup(value);
 		free(value);
-
 		tmp = tmp->next;
 	}
 }

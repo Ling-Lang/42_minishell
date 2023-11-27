@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_stack.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:07:19 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/06 14:57:02 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:13:13 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	clear_stack(t_stack *stack)
 
 t_stack	*init_stack(void)
 {
-	t_stack *init;
+	t_stack	*init;
 
 	init = (t_stack *)malloc(sizeof(*init));
 	if (!init)

@@ -3,34 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   e_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:55:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/20 15:12:19 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:01:49 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void add_env(t_env **env, t_env *new)
+void	add_env(t_env **env, t_env *new)
 {
-    t_env *cur;
+	t_env	*cur;
 
-    if (!(*env))
-    {
-        (*env) = new;
-        return;
-    }
-    cur = (*env);
-    while (cur->next != NULL)
-        cur = cur->next;
-    cur->next = new;
+	if (!(*env))
+	{
+		(*env) = new;
+		return ;
+	}
+	cur = (*env);
+	while (cur->next != NULL)
+		cur = cur->next;
+	cur->next = new;
 }
+
 t_env	*new_env(char *env)
 {
 	t_env	*res;
 	char	*name;
 	char	*value;
+
 	res = (t_env *)malloc(sizeof(*res));
 	if (!res)
 		return (NULL);
@@ -79,11 +81,11 @@ char	**t_env_to_envp(t_env *env)
 	return (envp);
 }
 
-void ft_free_env(t_env **env)
+void	ft_free_env(t_env **env)
 {
-	t_env *tmp;
-	
-	while(*env)
+	t_env	*tmp;
+
+	while (*env)
 	{
 		tmp = (*env)->next;
 		free((void *)(*env)->name);

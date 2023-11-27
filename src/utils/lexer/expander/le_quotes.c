@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   le_quotes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:14:13 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/20 16:26:51 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:04:26 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*ft_get_env_name(char *str)
 	ret = ft_substr(str, 0, i);
 	return (ret);
 }
+
 bool	ft_find_var(char *name, t_env *env)
 {
 	t_env	*tmp;
@@ -88,7 +89,9 @@ char	*ft_check_for_var(char *str, t_env *env, int l_ret)
 		{
 			var_start = i + 1;
 			i += 2;
-			sub = ft_strjoin(ft_strjoin(ft_substr(ret, 0, var_start - 1), ft_itoa(l_ret)), ft_substr(ret, i + 1, ft_strlen(ret) - i + 1));
+			sub = ft_strjoin(ft_strjoin(ft_substr(ret, 0, var_start - 1),
+						ft_itoa(l_ret)), ft_substr(ret, i + 1, ft_strlen(ret)
+						- i + 1));
 			free(ret);
 			ret = ft_strdup(sub);
 			free(sub);

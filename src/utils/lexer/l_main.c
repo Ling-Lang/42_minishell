@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   l_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:07:53 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/17 09:34:01 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:07:12 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_token	*init_tokens(char *str)
 t_token	*create_token(char *str, int len)
 {
 	t_token	*token;
+
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 	{
@@ -51,7 +52,7 @@ t_token	*create_token(char *str, int len)
 		perror("minishell");
 		exit(1);
 	}
-	if(!str || len == 0)
+	if (!str || len == 0)
 	{
 		free(token->value);
 		token->value = NULL;

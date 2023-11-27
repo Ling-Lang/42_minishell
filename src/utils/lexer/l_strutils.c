@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   l_strutils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:28:05 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/14 16:13:48 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:07:50 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 char	*ft_strncpy(char *src, char *dst, int n)
 {
 	int	i;
-	if(n == 0 || !src)
+
+	if (n == 0 || !src)
 		return (NULL);
 	i = 0;
 	while (i < n)
@@ -85,25 +86,21 @@ char	**ft_new_split(char *str)
 	return (res);
 }
 
-void ft_free_tokens(t_token *tokens)
+void	ft_free_tokens(t_token *tokens)
 {
-    t_token *current = tokens;
-    t_token *next_token;
+	t_token	*current;
+	t_token	*next_token;
 
-    while (current)
-    {
-        next_token = current->next;
-
-        // Free the value within the token
-        free(current->value);
-        
-        // Free the token itself
-        free(current);
-
-        current = next_token;
-    }
-
-    // Set the original pointer to NULL to indicate all tokens are freed
-    // *tokens = NULL;
+	current = tokens;
+	while (current)
+	{
+		next_token = current->next;
+		// Free the value within the token
+		free(current->value);
+		// Free the token itself
+		free(current);
+		current = next_token;
+	}
+	// Set the original pointer to NULL to indicate all tokens are freed
+	// *tokens = NULL;
 }
-

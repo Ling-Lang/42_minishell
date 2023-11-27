@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/20 18:32:05 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:16:42 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	handlectrl(int signum)
 	ft_printf(BLU "\n>> " WHT);
 }
 
-void handle_sigquit(int signum)
+void	handle_sigquit(int signum)
 {
 	(void)signum;
 	signal(SIGQUIT, SIG_IGN);
@@ -44,6 +44,7 @@ void	print_var(char **envp)
 		i++;
 	}
 }
+
 const char	*ttype_names[] = {"END", "WORD", "R_TO_FILE", "R_FROM_FILE",
 		"GREATER", "LESS", "PIPE"};
 void	ft_print_tokens(t_token *token)
@@ -64,15 +65,15 @@ int	ft_main(t_env **env)
 	t_ptable	**table;
 	t_token		*input;
 	t_node		*ast;
-	int r;
+	int			r;
 
 	r = 0;
 	table = init_table();
 	signal(SIGINT, handlectrl);
 	signal(SIGQUIT, handle_sigquit);
-	while(r >= 0)
+	while (r >= 0)
 	{
-		str = readline(BLU">> "WHT);
+		str = readline(BLU ">> " WHT);
 		if (str == NULL || str[0] == EOF)
 		{
 			ft_printf("exit");
@@ -92,20 +93,20 @@ int	ft_main(t_env **env)
 		free_tree(&ast);
 	}
 	free_table(table);
-	return r;
+	return (r);
 }
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	int ret;
+	int		ret;
+	t_env	*env;
+
 	(void)argc;
 	(void)argv;
-	t_env *env;
-
 	env = ft_init(envp);
 	ret = ft_main(&env);
 	ft_free_env(&env);
-	if(ret == ERR)
-		return(EXIT_FAILURE);
+	if (ret == ERR)
+		return (EXIT_FAILURE);
 	// ft_printf("%d\n", ret);
 	return (-ret - 2);
 }

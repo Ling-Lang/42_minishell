@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   l_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:07:48 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/15 15:58:27 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 03:08:36 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	get_token_len(char *str)
 	}
 	if (is_separator(*str) == 1)
 		len = leading_separators(str, len);
-	if (q.d_quote % 2 != 0 || q.s_quote % 2 != 0) {
+	if (q.d_quote % 2 != 0 || q.s_quote % 2 != 0)
+	{
 		ft_printf("Unclosed quotes!\n");
 		exit(-1); // Return error (-1) if quotes are unclosed at the end
 	}
@@ -63,8 +64,8 @@ int	get_token_len(char *str)
 
 int	get_token_ammount(char *str)
 {
-	int		len;
-	int		c;
+	int	len;
+	int	c;
 
 	len = 0;
 	c = 0;
