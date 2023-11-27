@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 16:06:12 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 18:28:13 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ void free_string_array(char **array);
 int	find_symbol(t_node *tree, int to_find, int n);
 int	simple_command2(t_node *tree, int *fd, t_env **env);
 void	execute_piped_commands(char ****commands, int num_commands, t_env **env);
+void	child_process(char ****commands, int *params, int pipe_fd[2], t_env **env);
+void handle_pipe(int prev_pipe_fd, int pipe_fd[2]);
+void ft_ignore_signals(void);
 /* Heredoc */
 int *ft_heredoc(t_node *tree, int symbol, int *stop);
 char *ft_tmp_file(int num);

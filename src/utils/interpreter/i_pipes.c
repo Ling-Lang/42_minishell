@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_pipes.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:58:22 by ahocuk            #+#    #+#             */
-/*   Updated: 2023/11/27 11:53:59 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 18:37:43 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,60 +24,77 @@ int	simple_command2(t_node *tree, int *fd, t_env **env)
 	commands = add_pipe(args, &num_commands);
 	execute_piped_commands(&commands, num_commands, env);
 	pipe_free(commands, num_commands);
+	if (fd[0] != -1)
+		if (restore_fd(fd) == ERR)
+			return(ERR);
 	return (0);
+}
+
+void	handle_pipe(int prev_pipe_fd, int pipe_fd[2])
+{
+	if (prev_pipe_fd != -1)
+	{
+		dup2(prev_pipe_fd, STDIN_FILENO);
+		close(prev_pipe_fd);
+	}
+	if (pipe_fd[1] != -1)
+	{
+		dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[1]);
+	}
+}
+
+void	child_process(char ****commands, int *params, int pipe_fd[2],
+		t_env **env)
+{
+	int		i;
+	int		prev_pipe_fd;
+	pid_t	child_pid;
+
+	i = params[0];
+	prev_pipe_fd = params[1];
+	child_pid = fork();
+	if (child_pid == -1)
+		exit(EXIT_FAILURE);
+	if (child_pid == 0)
+	{
+		handle_pipe(prev_pipe_fd, pipe_fd);
+		if (strcmp((*commands)[i][0], "export") == 0)
+			ft_export_special(commands, i, env);
+		else
+			execute_command2((*commands)[i]);
+		exit(EXIT_SUCCESS);
+	}
+	waitpid(child_pid, NULL, 0);
 }
 
 void	execute_piped_commands(char ****commands, int num_commands, t_env **env)
 {
-	int		prev_pipe_fd;
-	int		pipe_fd[2];
-	int		i;
-	pid_t	child_pid;
+	int	prev_pipe_fd;
+	int	pipe_fd[2];
+	int	i;
+	int	cp_call_params[2];
 
 	prev_pipe_fd = -1;
 	i = 0;
 	while (i < num_commands)
 	{
+		if (i < num_commands - 1 && pipe(pipe_fd) == -1)
+			exit(EXIT_FAILURE);
+		cp_call_params[0] = i;
+		cp_call_params[1] = prev_pipe_fd;
+		child_process(commands, cp_call_params, pipe_fd, env);
+		if (prev_pipe_fd != -1)
+			close(prev_pipe_fd);
 		if (i < num_commands - 1)
 		{
-			if (pipe(pipe_fd) == -1)
-				exit(EXIT_FAILURE);
-		}
-		child_pid = fork();
-		if (child_pid == -1)
-			exit(EXIT_FAILURE);
-		if (child_pid == 0)
-		{
-			if (prev_pipe_fd != -1)
-			{
-				dup2(prev_pipe_fd, STDIN_FILENO);
-				close(prev_pipe_fd);
-			}
-			if (i < num_commands - 1)
-			{
-				dup2(pipe_fd[1], STDOUT_FILENO);
-				close(pipe_fd[1]);
-			}
-			if (strcmp((*commands)[i][0], "export") == 0)
-				ft_export_special(commands, i, env);
-			else
-				execute_command2((*commands)[i]);
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			if (prev_pipe_fd != -1)
-				close(prev_pipe_fd);
-			if (i < num_commands - 1)
-			{
-				close(pipe_fd[1]);
-				prev_pipe_fd = pipe_fd[0];
-			}
-			waitpid(child_pid, NULL, 0);
+			close(pipe_fd[1]);
+			prev_pipe_fd = pipe_fd[0];
 		}
 		++i;
 	}
 }
+
 void	execute_command2(char **args)
 {
 	pid_t	child_pid;
@@ -99,65 +116,4 @@ void	execute_command2(char **args)
 	{
 		waitpid(child_pid, &status, 0);
 	}
-}
-char	**copy_string_array(char **original)
-{
-	int		size;
-	char	**copy;
-	int		i;
-
-	size = 0;
-	while (original[size] != NULL)
-		size++;
-	copy = (char **)malloc((size + 1) * sizeof(char *));
-	i = 0;
-	while (i <= size)
-	{
-		if (original[i] != NULL)
-		{
-			copy[i] = strdup(original[i]);
-			if (copy[i] == NULL)
-			{
-				free_string_array(copy);
-				return (NULL);
-			}
-		}
-		else
-			copy[i] = NULL;
-		i++;
-	}
-	return (copy);
-}
-void	pipe_free(char ***commands, int num_commands)
-{
-	int	i;
-
-	i = 0;
-	while (i < num_commands)
-	{
-		free(commands[i]);
-		++i;
-	}
-	free(commands);
-}
-
-char	***add_pipe(char **args, int *num_commands)
-{
-	char	***commands;
-	int		command_index;
-	char	**tmp;
-
-	commands = (char ***)malloc(64 * sizeof(char **));
-	command_index = 0;
-	while (args[0] != NULL)
-	{
-		tmp = copy_string_array(args);
-		remove_pipe_symbol(tmp);
-		commands[command_index++] = tmp;
-		while (check_builtin(args[0]) != 5 && args[0] != NULL)
-			shift_elements(args, 0);
-		shift_elements(args, 0);
-	}
-	*num_commands = command_index;
-	return (commands);
 }

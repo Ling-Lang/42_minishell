@@ -37,6 +37,7 @@ SRC = 	src/main.c \
 		src/utils/interpreter/heredoc/ih_main.c \
 		src/utils/interpreter/heredoc/ih_other.c \
 		src/utils/interpreter/heredoc/ih_limit.c \
+		src/utils/interpreter/i_pipes2.c \
 		src/utils/builtins/echo.c \
 		src/utils/builtins/cd.c \
 		src/utils/builtins/pwd.c \
