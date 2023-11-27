@@ -46,11 +46,8 @@ function exec_diff_test()
 TEST_FILE="file"
 # exec_test 'echo test'
 exec_test 'pwd'
-exec_test 'echo "$PWD"'
-# exec_diff_test 'echo test >> file'
-exec_test 'ls'
-# exec_test 'export'
-exec_test 'echo H"e'l'l"o'
+exec_test 'ls -l | wc -l'
+exec_diff_test 'echo test > file'
 # exec_test 'env'
 
 rm -rf ./out

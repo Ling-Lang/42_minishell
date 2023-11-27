@@ -33,6 +33,10 @@ SRC = 	src/main.c \
 		src/utils/interpreter/i_cmd.c \
 		src/utils/interpreter/i_fd.c \
 		src/utils/interpreter/i_redirects.c \
+		src/utils/interpreter/heredoc/ih_file.c \
+		src/utils/interpreter/heredoc/ih_main.c \
+		src/utils/interpreter/heredoc/ih_other.c \
+		src/utils/interpreter/heredoc/ih_limit.c \
 		src/utils/builtins/echo.c \
 		src/utils/builtins/cd.c \
 		src/utils/builtins/pwd.c \

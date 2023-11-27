@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_paths.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:02:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 03:02:43 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 13:24:26 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	*get_path(char **dir, char *arg)
 
 char	*get_env(char *find, t_env *env)
 {
+	
 	t_env	*tmp;
 
 	tmp = env;

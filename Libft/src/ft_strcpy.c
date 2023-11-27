@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 17:14:34 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 13:58:50 by jkulka           ###   ########.fr       */
+/*   Created: 2023/11/27 15:06:45 by jkulka            #+#    #+#             */
+/*   Updated: 2023/11/27 17:49:17 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-void	ft_sig(int sig)
+char	*ft_strcpy(char *dst, const char *src)
 {
-	if(sig == SIGINT)
+	size_t	i;
+
+	i = -1;
+	if (!src)
 	{
-		write(1, "\n", 1);
-		close(0);
+		dst[0] = 0;
+		return (dst);
 	}
-}
-
-void	ft_handle_signals(void)
-{
-	signal(SIGINT, ft_sig);
-	signal(SIGQUIT, ft_sig);
-}
-
-void	ft_restore_default(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-}
-
-int	ft_get_exit_code(int e_code)
-{
-	if (WIFSIGNALED(e_code))
-		return (128 + WTERMSIG(e_code));
-	return (WEXITSTATUS(e_code));
+	while (src[++i])
+		dst[i] = src[i];
+	dst[i] = '\0';
+	return (dst);
 }

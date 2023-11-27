@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:07:09 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/26 23:56:57 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 13:06:09 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	ft_echo(char **arg, int argc)
 	start = true;
 	has_flag = false;
 	i = 0;
-	if (ft_check_dollars(arg))
-		return (0);
+	// if (ft_check_dollars(arg))
+	// 	return (0);
 	while (arg[++i] && ft_check_n(arg[i]))
 		has_flag = true;
 	while (i < argc)

@@ -40,7 +40,8 @@ SRC = src/ft_atoi.c \
 		src/ft_substr.c \
 		src/ft_tolower.c \
 		src/ft_toupper.c \
-		src/ft_strcmp.c
+		src/ft_strcmp.c \
+		src/ft_strcpy.c
 BONUS = src/ft_lstadd_back_bonus.c \
 		src/ft_lstadd_front_bonus.c \
 		src/ft_lstclear_bonus.c \

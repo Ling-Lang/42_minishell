@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 03:16:42 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 15:49:23 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	ft_main(t_env **env)
 		if (str[0] != '\0')
 			add_history(str);
 		input = init_tokens(str);
-		// ft_print_tokens(input);
 		free(str);
 		ft_sanitize_tokens(&input, *env, r);
 		ast = parser(input, table);
