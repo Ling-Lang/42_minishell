@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:28:05 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 03:07:50 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 20:39:58 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,8 @@ void	ft_free_tokens(t_token *tokens)
 	while (current)
 	{
 		next_token = current->next;
-		// Free the value within the token
 		free(current->value);
-		// Free the token itself
 		free(current);
 		current = next_token;
 	}
-	// Set the original pointer to NULL to indicate all tokens are freed
-	// *tokens = NULL;
 }

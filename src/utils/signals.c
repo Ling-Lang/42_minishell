@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:14:34 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 13:58:50 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 21:09:51 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_sig(int sig)
 {
-	if(sig == SIGINT)
+	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
 		close(0);

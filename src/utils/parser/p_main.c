@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:16:19 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 13:14:43 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 20:03:50 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,25 +88,14 @@ t_node	*parser(t_token *input, t_ptable **table)
 	while (r == OK)
 	{
 		entry = get_entry(input, table, stack);
-		// if(entry)
-// ft_printf("Current state %d\nCurrent Token %d\n", entry->state,entry->token);
 		if (entry && entry->action == SHIFT)
-		{
-			// ft_printf("Shift to state %d\n", entry->n_state);
 			r = shift(&stack, &input, entry->n_state);
-		}
 		else if (entry && entry->action == REDUCE)
-		{
-			// ft_printf("Reducing using rule %d\n", entry->n_state);
 			r = reduce(&stack, table, entry, &tree);
-		}
 		else if (entry && entry->action == ACCEPT)
 			r = 1;
 		else
-		{
-			// write(1, "1\n", 2);
 			r = -1;
-		}
 	}
 	clean_parser(&tree, stack, start, r);
 	return (fix_types(tree));

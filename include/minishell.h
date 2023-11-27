@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 18:28:13 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 20:10:45 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	get_token_len(char *str);
 int	is_separator(char s);
 int	leading_separators(char *str, int len);
 t_token	*create_token(char *str, int len);
+void	token_free(t_token *token);
 int	get_token_type(char *str, int len);
 void	add_token(t_token **tokens, t_token *new_token);
 void init_quote_struct(t_quote *q);

@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:07:53 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 03:07:12 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 20:10:24 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,18 @@ t_token	*create_token(char *str, int len)
 	}
 	if (!str || len == 0)
 	{
-		free(token->value);
-		token->value = NULL;
-		token->next = NULL;
+		token_free(token);
 		return (token);
 	}
 	ft_strncpy(str, (char *)(token->value), len);
 	((char *)(token->value))[len] = '\0';
 	token->next = NULL;
 	return (token);
+}
+
+void	token_free(t_token *token)
+{
+	free(token->value);
+	token->value = NULL;
+	token->next = NULL;
 }

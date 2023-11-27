@@ -6,7 +6,7 @@
 /*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:06:28 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 03:08:30 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/27 21:07:01 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,10 @@ int	get_token_type(char *str, int len)
 		return (free(tmp), T_GREATER);
 	else
 		return (free(tmp), T_WORD);
+}
+
+void	init_quote_struct(t_quote *q)
+{
+	q->d_quote = 0;
+	q->s_quote = 0;
 }

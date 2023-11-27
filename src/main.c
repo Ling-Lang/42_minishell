@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 15:49:23 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/27 21:12:17 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,5 @@ int	main(int argc, char **argv, char **envp)
 	ft_free_env(&env);
 	if (ret == ERR)
 		return (EXIT_FAILURE);
-	// ft_printf("%d\n", ret);
 	return (-ret - 2);
 }
