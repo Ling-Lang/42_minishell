@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 21:52:59 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:59:07 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <sys/wait.h>
-# include <readline/readline.h>
 # include <readline/history.h>
+# include <readline/readline.h>
 
 # define RED "\e[0;31m"
 # define YEL "\e[0;33m"
@@ -42,7 +42,7 @@ void		free_str_array(char **str);
 int			arg_len(char **arg);
 char		**init_args(void);
 int			execute_command(char **arg, t_env *env);
-int			exec_tree(t_node *tree, t_env **env);
+void		exec_tree(t_node *tree, t_env **env, t_return *ret);
 int			check_builtin(char *arg);
 void		cache_fd(int *fd);
 int			restore_fd(int *fd);

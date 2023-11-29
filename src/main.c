@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 21:25:26 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/29 13:03:38 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,14 @@ void	handle_sigquit(int signum)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-int	ft_main(t_env **env, t_ptable **table)
+void	ft_main(t_env **env, t_ptable **table, t_return *ret)
 {
 	char		*str;
 	t_token		*input;
 	t_node		*ast;
-	int			r;
 
-	r = 0;
-	while (r >= 0)
+	ret->r_code = 0;
+	while (ret->should_exit == false)
 	{
 		str = readline(BLU ">> " WHT);
 		if (str == NULL || str[0] == EOF)
@@ -52,30 +51,31 @@ int	ft_main(t_env **env, t_ptable **table)
 			add_history(str);
 		input = init_tokens(str);
 		free(str);
-		ft_sanitize_tokens(&input, *env, r);
+		ft_sanitize_tokens(&input, *env, ret->r_code);
 		ast = parser(input, table);
-		r = exec_tree(ast, env);
+		exec_tree(ast, env, ret);
 		free_tree(&ast);
 	}
 	free_table(table);
-	return (r);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	int			ret;
+	t_return	ret;
 	t_env		*env;
 	t_ptable	**table;
 
 	(void)argc;
 	(void)argv;
+	ret.r_code = 0;
+	ret.should_exit = false;
 	signal(SIGINT, handlectrl);
-	signal(SIGQUIT, handle_sigquit);
+	signal(SIGQUIT, SIG_IGN);
 	table = init_table();
 	env = ft_init(envp);
-	ret = ft_main(&env, table);
+	ft_main(&env, table, &ret);
 	ft_free_env(&env);
-	if (ret == ERR)
+	if (ret.r_code == ERR)
 		return (EXIT_FAILURE);
-	return (-ret - 2);
+	return (ret.r_code);
 }

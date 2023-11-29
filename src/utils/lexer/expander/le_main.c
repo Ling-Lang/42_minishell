@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 22:22:02 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:59:33 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_str_len_quotes(char *str)
 	return (len);
 }
 
-char	*ft_rem_quotes(char *str, t_env *env)
+char	*ft_rem_quotes(char *str)
 {
 	int		i;
 	int		inside;
@@ -141,7 +141,7 @@ void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 				break ;
 			}
 		}
-		value = ft_rem_quotes(value, env);
+		value = ft_rem_quotes(value);
 		tmp->value = value;
 		tmp = tmp->next;
 	}

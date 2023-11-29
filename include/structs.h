@@ -6,14 +6,14 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:29:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 21:49:46 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:56:40 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 # include "minishell.h"
-
+# include <stdbool.h>
 # define DEFAULT -1
 # define NO_ACTION -1
 # define TO_PROMOTE 0
@@ -39,11 +39,6 @@ typedef struct s_quote
 	int				d_quote;
 	int				s_quote;
 }					t_quote;
-typedef enum e_pipe_ends
-{
-	READ_END,
-	WRITE_END
-}					t_pipe_ends;
 
 typedef struct s_ptable
 {
@@ -71,6 +66,12 @@ typedef struct s_node
 	struct s_node	*r;
 	struct s_node	*n;
 }					t_node;
+
+typedef struct s_return
+{
+	int		r_code;
+	bool	should_exit;
+}	t_return;	
 
 typedef enum e_ttype
 {

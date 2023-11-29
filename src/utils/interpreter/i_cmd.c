@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 21:45:23 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:57:21 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,33 +58,29 @@ int	execute_command(char **arg, t_env *env)
 	return (ft_get_exit_code(exit_code));
 }
 
-int	simple_command(t_node *tree, int *fd, t_env **env)
+void	simple_command(t_node *tree, int *fd, t_env **env, t_return *ret)
 {
 	char	**args;
-	int		r;
 
-	r = 0;
+	ret->r_code = 0;
 	args = iterate_tree(tree, init_args());
 	if (args)
 	{
 		if (args[0])
 		{
 			if (check_builtin(args[0]))
-			{
-				r = execute_builtin(args, env);
-			}
+				execute_builtin(args, env, ret);
 			else
-				r = execute_command(args, *env);
-			if (!check_builtin(args[0]) && r > 0 && r < 128)
-				ft_error(args[0], r);
+				ret->r_code = execute_command(args, *env);
+			if (!check_builtin(args[0]) && ret->r_code > 0 && ret->r_code < 128)
+				ft_error(args[0], ret->r_code);
 		}
 	}
 	else
-		r = ERR;
+		ret->r_code = ERR;
 	if (fd[0] != -1)
 		if (restore_fd(fd) == ERR)
-			r = ERR;
-	return (r);
+			ret->r_code = ERR;
 }
 
 int	ft_check_heredoc(t_node *tree, int *stop, int **fd)
@@ -106,9 +102,8 @@ int	ft_check_heredoc(t_node *tree, int *stop, int **fd)
 	return (0);
 }
 
-int	exec_tree(t_node *tree, t_env **env)
+void	exec_tree(t_node *tree, t_env **env, t_return *ret)
 {
-	int	r;
 	int	n;
 	int	fd[2];
 	int	*here_fd;
@@ -116,10 +111,10 @@ int	exec_tree(t_node *tree, t_env **env)
 
 	stop = 0;
 	fd[0] = -1;
-	r = 1;
+	ret->r_code = 1;
 	here_fd = NULL;
 	if (ft_check_heredoc(tree, &stop, &here_fd) == ERR)
-		return (ERR);
+		return ;
 	if (!stop)
 	{
 		cache_fd((int *)fd);
@@ -127,10 +122,9 @@ int	exec_tree(t_node *tree, t_env **env)
 		if (handle_redirects(tree, 0, here_fd) != ERR)
 		{
 			if (n)
-				r = simple_command2(tree, fd, env);
+				ret->r_code = simple_command2(tree, fd, env);
 			else
-				r = simple_command(tree, fd, env);
+				simple_command(tree, fd, env, ret);
 		}
 	}
-	return (r);
 }

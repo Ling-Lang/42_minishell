@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:13:05 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 00:24:39 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:57:39 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,27 @@ int	ft_sanitize_error(char **args, int argc)
 	return (ret);
 }
 
-int	ft_exit(char **args, int argc)
+void	ft_exit(char **args, int argc, t_return *ret)
 {
-	int	opt;
-	int	ret;
-
-	ret = ft_sanitize_error(args, argc);
-	if (ret == -2)
-		return (1);
-	if (ret == -1)
-		return (-257);
-	if (ret != 0)
-		opt = ft_atoi(args[1]);
-	if (argc == 2)
+	if (argc == 1)
 	{
-		if (opt < 0)
-			opt = 256 + (opt % 256);
-		return (-2 + (opt * -1));
+		ret->r_code = 0;
+		ret->should_exit = true;
 	}
-	return (-2);
+	else if (argc > 2)
+	{
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		ret->r_code = 1;
+		return ;
+	}
+	else if (ft_check_exit_arg(args[1]))
+		ret->r_code = (unsigned int)ft_atoi(args[1]);
+	else
+	{
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(args[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		ret->r_code = 255;
+	}
+	ret->should_exit = true;
 }

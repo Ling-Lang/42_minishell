@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:25:44 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 03:18:16 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:33:42 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "minishell.h"
 # include "structs.h"
 
-int		execute_builtin(char **arg, t_env **env);
+void	execute_builtin(char **arg, t_env **env, t_return (*ret));
 int		ft_echo(char **arg, int argc);
 void	clear(void);
 int		ft_cd(char **arg);
@@ -24,7 +24,7 @@ int		ft_export(t_env **env, char **arg);
 // void ft_export_print(t_env *env, char **arg);
 void	ft_export_special(char ****commands, int index, t_env **env);
 void	ft_env(t_env **env);
-int		ft_exit(char **args, int argc);
+void	ft_exit(char **args, int argc, t_return (*ret));
 int		ft_unset(t_env **env, char **arg);
 int		remove_env(t_env **env, char *arg);
 void	free_env(t_env *env);
