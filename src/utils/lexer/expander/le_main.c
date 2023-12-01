@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/29 12:59:33 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/01 14:28:18 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	ft_expander(char **str, t_env *env, int l_ret)
 	char	*before;
 	char	*res;
 	char	*tmp;
-
 	i = -1;
 	while ((*str)[++i])
 	{
@@ -53,12 +52,11 @@ void	ft_expander(char **str, t_env *env, int l_ret)
 		{
 			len = ft_get_var_len((*str + i));
 			before = ft_substr(*str, 0, i);
+			tmp = ft_get_val((*str + i), len, env, l_ret);
 			res = ft_substr(*str, i + len, ft_strlen(*str) - (i + len));
-			tmp = *str;
-			*str = ft_update_str(before, ft_get_val((*str + i), len, env,
-						l_ret), res, len);
-			free(tmp);
+			*str = ft_update_str(before, tmp, res, len);
 			free(before);
+			free(tmp);
 			free(res);
 			if (!*str)
 				return ;
@@ -126,6 +124,7 @@ void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 	bool	within_single_quotes;
 	int		i;
 
+	within_single_quotes = false;
 	tmp = *input;
 	while (tmp->next)
 	{
@@ -138,11 +137,17 @@ void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 			else if (within_single_quotes == false)
 			{
 				ft_expander(&(&value)[i], env, l_ret);
+				value = ft_rem_quotes(value);
+				free(tmp->value);
+				tmp->value = ft_strdup(value);
+				free(value);
 				break ;
 			}
 		}
 		value = ft_rem_quotes(value);
-		tmp->value = value;
+		free(tmp->value);
+		tmp->value = ft_strdup(value);
+		free(value);
 		tmp = tmp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/29 13:03:38 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/01 12:23:21 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_free_env(&env);
 	if (ret.r_code == ERR)
 		return (EXIT_FAILURE);
+	system("leaks minishell");
 	return (ret.r_code);
 }

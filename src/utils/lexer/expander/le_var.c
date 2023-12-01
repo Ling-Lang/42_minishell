@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 21:38:12 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 21:42:11 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/01 14:30:24 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ char	*ft_get_val(char *str, int len, t_env *env, int l_ret)
 {
 	char	*org;
 	char	*res;
-	t_env	*tmp;
 
-	tmp = env;
 	org = (char *)malloc(sizeof(char) * len);
 	if (!org)
 		return (NULL);
@@ -27,7 +25,7 @@ char	*ft_get_val(char *str, int len, t_env *env, int l_ret)
 	if (org[0] == '?')
 		res = ft_itoa(l_ret);
 	else
-		res = get_env(org, tmp);
+		res = get_env(org, env);
 	free(org);
 	return (res);
 }
