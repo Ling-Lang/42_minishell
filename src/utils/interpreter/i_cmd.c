@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/12/01 12:20:30 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/02 00:33:30 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	simple_command(t_node *tree, int *fd, t_env **env, t_return *ret)
 			if (!check_builtin(args[0]) && ret->r_code > 0 && ret->r_code < 128)
 				ft_error(args[0], ret->r_code);
 		}
+		free_str_array(args);
 	}
 	else
 		ret->r_code = ERR;
