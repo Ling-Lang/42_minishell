@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/12/01 14:28:18 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/04 16:44:58 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ char	*ft_update_str(char *before, char *expanded, char *after, int len)
 		s_1 = ft_strjoin(before, "$");
 		if (!s_1)
 			return (NULL);
-		res = ft_strjoin(s_1, after);
-		free(s_1);
+		res = ft_strjoin_free(s_1, after);
 		return (res);
 	}
 	else if (!expanded)
@@ -56,8 +55,8 @@ void	ft_expander(char **str, t_env *env, int l_ret)
 			res = ft_substr(*str, i + len, ft_strlen(*str) - (i + len));
 			*str = ft_update_str(before, tmp, res, len);
 			free(before);
-			free(tmp);
 			free(res);
+			// free(tmp);
 			if (!*str)
 				return ;
 		}
@@ -123,30 +122,29 @@ void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 	char	*value;
 	bool	within_single_quotes;
 	int		i;
+	char *tmp_str;
 
 	within_single_quotes = false;
 	tmp = *input;
 	while (tmp->next)
 	{
 		i = -1;
-		value = (char *)tmp->value;
+		value = (tmp->value);
 		while (value[++i])
 		{
 			if (value[i] == '\'')
 				within_single_quotes = !within_single_quotes;
 			else if (within_single_quotes == false)
 			{
+				// ft_printf("\t%s\n", tmp->value);
 				ft_expander(&(&value)[i], env, l_ret);
-				value = ft_rem_quotes(value);
-				free(tmp->value);
-				tmp->value = ft_strdup(value);
-				free(value);
+				// free(tmp->value);
 				break ;
 			}
 		}
-		value = ft_rem_quotes(value);
-		free(tmp->value);
-		tmp->value = ft_strdup(value);
+		tmp_str = ft_rem_quotes(value);
+		tmp->value = ft_strdup(tmp_str);
+		free(tmp_str);
 		free(value);
 		tmp = tmp->next;
 	}

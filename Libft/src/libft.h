@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 11:53:20 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 15:07:29 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/04 15:41:14 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char				*ft_strnstr(const char *haystack, const char *needle,
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_substr(char const *str, unsigned int start, size_t n);
+char				*ft_strjoin_free(char *s1, char const *s2);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 int					ft_strcmp(const char *s1, const char *s2);

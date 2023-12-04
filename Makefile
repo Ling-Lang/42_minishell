@@ -1,6 +1,6 @@
 NAME = minishell
 RM = rm -f
-CC = gcc
+CC = gcc -g
 CFLAGS = -Wall -Werror -Wextra
 DEBUG = -ggdb3 
 INCLUDE = -I ./Libft/src/ -L ./Libft/  -I ./include

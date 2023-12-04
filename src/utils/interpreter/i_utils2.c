@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_utils2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 04:07:29 by ahocuk            #+#    #+#             */
-/*   Updated: 2023/11/27 04:10:03 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/12/04 16:57:29 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	remove_pipe_symbol(char **args)
 	int	i;
 
 	i = 0;
-	while (args[i] != NULL && strchr(args[i], '|') == NULL)
+	while (args[i] != NULL && ft_strchr(args[i], '|') == NULL)
 		++i;
 	if (args[i] != NULL)
 	{

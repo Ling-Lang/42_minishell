@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:55:38 by ahocuk            #+#    #+#             */
-/*   Updated: 2023/11/27 21:47:13 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/04 17:11:40 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ char	**copy_string_array(char **original)
 	return (copy);
 }
 
-void	pipe_free(char ***commands, int num_commands)
+void	pipe_free(char ***commands)
 {
 	int	i;
 
 	i = 0;
-	while (i < num_commands)
+	while (commands[i] != NULL)
 	{
-		free(commands[i]);
+		free_str_array(commands[i]);
 		++i;
 	}
 	free(commands);
@@ -66,10 +66,11 @@ char	***add_pipe(char **args, int *num_commands)
 	{
 		tmp = copy_string_array(args);
 		remove_pipe_symbol(tmp);
-		commands[command_index++] = tmp;
+		commands[command_index++] =copy_string_array(tmp);
 		while (check_builtin(args[0]) != 5 && args[0] != NULL)
 			shift_elements(args, 0);
 		shift_elements(args, 0);
+		free_str_array(tmp);
 	}
 	*num_commands = command_index;
 	return (commands);
