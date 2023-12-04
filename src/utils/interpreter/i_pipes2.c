@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_pipes2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:55:38 by ahocuk            #+#    #+#             */
-/*   Updated: 2023/12/04 17:11:40 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/05 00:17:10 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ char	**copy_string_array(char **original)
 	return (copy);
 }
 
-void	pipe_free(char ***commands)
+void	pipe_free(char ***commands,  int num_commands)
 {
 	int	i;
 
 	i = 0;
-	while (commands[i] != NULL)
+	while (i < num_commands)
 	{
 		free_str_array(commands[i]);
 		++i;

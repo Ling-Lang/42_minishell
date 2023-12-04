@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_pipes.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:58:22 by ahocuk            #+#    #+#             */
-/*   Updated: 2023/12/04 17:13:10 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/05 00:17:29 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	simple_command2(t_node *tree, int *fd, t_env **env)
 	args = iterate_tree2(tree, init_args());
 	commands = add_pipe(args, &num_commands);
 	execute_piped_commands(&commands, num_commands, env);
-	pipe_free(commands);
+	pipe_free(commands, num_commands);
 	if (fd[0] != -1)
 		if (restore_fd(fd) == ERR)
 			return (ERR);

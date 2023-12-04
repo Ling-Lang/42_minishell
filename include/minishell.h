@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/12/04 17:12:10 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/05 00:18:37 by ahocuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ char		**t_env_to_envp(t_env *env);
 char		*get_env(char *find, t_env *env);
 int			get_bin(char **arg, t_env *env);
 void		ft_free_env(t_env **env);
-void		pipe_free(char ***commands);
+void		pipe_free(char ***commands,  int num_commands);
 char		***add_pipe(char **args, int *num_commands);
 
 #endif
