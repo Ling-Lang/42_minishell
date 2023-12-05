@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/12/05 00:18:37 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/12/05 16:32:48 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		free_str_array(char **str);
 int			arg_len(char **arg);
 char		**init_args(void);
 int			execute_command(char **arg, t_env *env);
-void		exec_tree(t_node *tree, t_env **env, t_return *ret);
+void		exec_tree(t_node *tree, t_env **env, t_return(*ret));
 int			check_builtin(char *arg);
 void		cache_fd(int *fd);
 int			restore_fd(int *fd);
@@ -69,6 +69,7 @@ char		*ft_finalize_heredoc(char **buffer, char *p_limit);
 int			ft_open_fd(int fd, char *file, int *here_fd, int num);
 int			ft_write_here(int fd, char **str, int len);
 char		*ft_get_next_tmp(char *limit, int free);
+void		clean_here(int *fd);
 
 /* Parser */
 t_node		*parser(t_token *input, t_ptable **table);
@@ -88,7 +89,6 @@ void		free_tree(t_node **node);
 void		free_table(t_ptable **table);
 
 /* Lexer */
-// char **ft_new_split(char *str);
 t_token		*init_tokens(char *str);
 int			get_token_len(char *str);
 int			is_separator(char s);
@@ -101,17 +101,16 @@ void		init_quote_struct(t_quote *q);
 
 /* Expander */
 void		ft_sanitize_tokens(t_token **input, t_env *env, int l_ret);
-// int			ft_str_len_quotes(char *str);
-// char		*ft_rem_quotes(char *str, t_env *env, int l_ret);
 char		*ft_get_val(char *str, int len, t_env *env, int l_ret);
 int			ft_get_var_len(char *str);
 char		*ft_get_last_ret(int l_ret);
+char		*ft_rem_quotes(char *str);
+void		copy_value(t_token **tmp, char **value);
+
 /* Utils */
 t_env		*ft_init(char **envp);
 t_ptable	**init_table(void);
-// void		ft_free(char ***arg);
 char		*ft_strncpy(char *src, char *dst, int n);
-// void		ft_redirect(char **arg, bool redirect, int fd, t_env *env);
 int			ft_get_next_line(int fd, char **line, int to_free);
 void		*free_str_null(char **str);
 void		clear_token(t_token *token);
@@ -127,7 +126,7 @@ char		**t_env_to_envp(t_env *env);
 char		*get_env(char *find, t_env *env);
 int			get_bin(char **arg, t_env *env);
 void		ft_free_env(t_env **env);
-void		pipe_free(char ***commands,  int num_commands);
+void		pipe_free(char ***commands, int num_commands);
 char		***add_pipe(char **args, int *num_commands);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:53:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/12/02 00:33:30 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/05 16:33:45 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,4 +128,5 @@ void	exec_tree(t_node *tree, t_env **env, t_return *ret)
 				simple_command(tree, fd, env, ret);
 		}
 	}
+	clean_here(here_fd);
 }

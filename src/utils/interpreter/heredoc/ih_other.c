@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:37:10 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 19:28:03 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/05 16:41:48 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,17 @@ int	ft_open_fd(int fd, char *file, int *here_fd, int num)
 	}
 	free(file);
 	return (ERR);
+}
+
+void	clean_here(int *fd)
+{
+	int	i;
+
+	if (fd)
+	{
+		i = -1;
+		while (fd[++i] > 0)
+			close(fd[i]);
+		free(fd);
+	}
 }

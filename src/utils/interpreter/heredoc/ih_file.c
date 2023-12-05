@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:15:39 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 19:26:44 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/05 16:41:32 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 char	*ft_tmp_file(int num)
 {
 	char	*name;
+	char	*tmp;
 
 	name = ft_itoa(num);
 	if (name)
 	{
+		tmp = name;
 		name = ft_strjoin(name, (const char *)".tmp");
+		free(tmp);
 		if (name)
 			return (name);
 	}

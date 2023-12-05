@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:29:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/29 12:56:40 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/05 16:22:34 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_env
 typedef struct s_token
 {
 	int				type;
-	void			*value;
+	char			*value;
 	struct s_token	*next;
 }					t_token;
 

@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/12/04 16:44:58 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/05 16:30:02 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_expander(char **str, t_env *env, int l_ret)
 	char	*before;
 	char	*res;
 	char	*tmp;
+
 	i = -1;
 	while ((*str)[++i])
 	{
@@ -51,12 +52,13 @@ void	ft_expander(char **str, t_env *env, int l_ret)
 		{
 			len = ft_get_var_len((*str + i));
 			before = ft_substr(*str, 0, i);
-			tmp = ft_get_val((*str + i), len, env, l_ret);
+			tmp = *str;
 			res = ft_substr(*str, i + len, ft_strlen(*str) - (i + len));
-			*str = ft_update_str(before, tmp, res, len);
+			*str = ft_update_str(before, ft_get_val((*str + i), len, env,
+						l_ret), res, len);
 			free(before);
+			free(tmp);
 			free(res);
-			// free(tmp);
 			if (!*str)
 				return ;
 		}
@@ -122,30 +124,24 @@ void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 	char	*value;
 	bool	within_single_quotes;
 	int		i;
-	char *tmp_str;
 
 	within_single_quotes = false;
 	tmp = *input;
+	value = NULL;
 	while (tmp->next)
 	{
 		i = -1;
-		value = (tmp->value);
+		value = ft_strdup(tmp->value);
 		while (value[++i])
 		{
 			if (value[i] == '\'')
 				within_single_quotes = !within_single_quotes;
 			else if (within_single_quotes == false)
 			{
-				// ft_printf("\t%s\n", tmp->value);
 				ft_expander(&(&value)[i], env, l_ret);
-				// free(tmp->value);
 				break ;
 			}
 		}
-		tmp_str = ft_rem_quotes(value);
-		tmp->value = ft_strdup(tmp_str);
-		free(tmp_str);
-		free(value);
-		tmp = tmp->next;
+		copy_value(&tmp, &value);
 	}
 }

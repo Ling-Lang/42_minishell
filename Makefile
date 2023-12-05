@@ -60,7 +60,7 @@ $(NAME): $(OBJ) | lft
 	@echo "$(GREEN)Finished compiling: $@$(RESET)"
 
 %.o: %.c
-	@$(CC) -c $< -o $@ $(DEBUG)
+	@$(CC) -c $< -o $@ $(CFLAGS)
 lft:
 	@cd Libft && make
 

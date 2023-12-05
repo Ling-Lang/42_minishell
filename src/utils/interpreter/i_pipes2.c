@@ -41,7 +41,7 @@ char	**copy_string_array(char **original)
 	return (copy);
 }
 
-void	pipe_free(char ***commands,  int num_commands)
+void	pipe_free(char ***commands, int num_commands)
 {
 	int	i;
 
@@ -66,7 +66,7 @@ char	***add_pipe(char **args, int *num_commands)
 	{
 		tmp = copy_string_array(args);
 		remove_pipe_symbol(tmp);
-		commands[command_index++] =copy_string_array(tmp);
+		commands[command_index++] = copy_string_array(tmp);
 		while (check_builtin(args[0]) != 5 && args[0] != NULL)
 			shift_elements(args, 0);
 		shift_elements(args, 0);
