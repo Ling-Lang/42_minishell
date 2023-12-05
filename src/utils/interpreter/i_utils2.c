@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 04:07:29 by ahocuk            #+#    #+#             */
-/*   Updated: 2023/12/04 16:57:29 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/05 17:13:53 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ void	free_string_array(char **array)
 	free(array);
 }
 
-void	remove_pipe_symbol(char **args)
+void	remove_pipe_symbol(char ***args)
 {
 	int	i;
 
 	i = 0;
-	while (args[i] != NULL && ft_strchr(args[i], '|') == NULL)
+	while ((*args)[i] != NULL && ft_strchr((*args)[i], '|') == NULL)
 		++i;
-	if (args[i] != NULL)
+	if ((*args)[i] != NULL)
 	{
-		args[i] = NULL;
-		while (args[++i] != NULL)
-			args[i] = NULL;
+		(*args)[i] = NULL;
+		while ((*args)[++i] != NULL)
+			(*args)[i] = NULL;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/12/05 16:32:48 by jkulka           ###   ########.fr       */
+/*   Updated: 2023/12/05 17:59:58 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		cache_fd(int *fd);
 int			restore_fd(int *fd);
 int			handle_redirects(t_node *tree, int r, int *h_fd);
 void		shift_elements(char **array, int position);
-void		remove_pipe_symbol(char **args);
+void		remove_pipe_symbol(char ***args);
 char		**copy_string_array(char **original);
 void		execute_command2(char **args);
 void		free_string_array(char **array);

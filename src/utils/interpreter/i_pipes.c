@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_pipes.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:58:22 by ahocuk            #+#    #+#             */
-/*   Updated: 2023/12/05 00:17:29 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/12/05 17:59:35 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@ int	simple_command2(t_node *tree, int *fd, t_env **env)
 	args = iterate_tree2(tree, init_args());
 	commands = add_pipe(args, &num_commands);
 	execute_piped_commands(&commands, num_commands, env);
-	pipe_free(commands, num_commands);
 	if (fd[0] != -1)
 		if (restore_fd(fd) == ERR)
 			return (ERR);
+	pipe_free(commands, num_commands);
 	free_str_array(args);
 	return (0);
 }
-// Process 41098: 9 leaks for 176 total leaked bytes.
 
 void	handle_pipe(int prev_pipe_fd, int pipe_fd[2])
 {
@@ -61,7 +60,7 @@ void	child_process(char ****commands, int *params, int pipe_fd[2],
 	if (child_pid == 0)
 	{
 		handle_pipe(prev_pipe_fd, pipe_fd);
-		if (strcmp((*commands)[i][0], "export") == 0)
+		if (ft_strcmp((*commands)[i][0], "export") == 0)
 			ft_export_special(commands, i, env);
 		else
 			ft_execve((*commands)[i], *env);

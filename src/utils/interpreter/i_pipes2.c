@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_pipes2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:55:38 by ahocuk            #+#    #+#             */
-/*   Updated: 2023/12/05 00:17:10 by ahocuk           ###   ########.fr       */
+/*   Updated: 2023/12/05 17:59:48 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ char	**copy_string_array(char **original)
 	size = 0;
 	while (original[size] != NULL)
 		size++;
-	copy = (char **)malloc((size + 1) * sizeof(char *));
+	copy = (char **)malloc((10) * sizeof(char *));
 	i = 0;
 	while (i <= size)
 	{
 		if (original[i] != NULL)
 		{
-			copy[i] = strdup(original[i]);
+			copy[i] = ft_strdup(original[i]);
 			if (copy[i] == NULL)
 			{
 				free_string_array(copy);
@@ -65,12 +65,12 @@ char	***add_pipe(char **args, int *num_commands)
 	while (args[0] != NULL)
 	{
 		tmp = copy_string_array(args);
-		remove_pipe_symbol(tmp);
+		remove_pipe_symbol(&tmp);
 		commands[command_index++] = copy_string_array(tmp);
+		free_str_array(tmp);
 		while (check_builtin(args[0]) != 5 && args[0] != NULL)
 			shift_elements(args, 0);
 		shift_elements(args, 0);
-		free_str_array(tmp);
 	}
 	*num_commands = command_index;
 	return (commands);
