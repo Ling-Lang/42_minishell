@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:16:19 by jkulka            #+#    #+#             */
-/*   Updated: 2023/12/01 12:23:15 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/01/03 13:00:32 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,18 @@ int	reduce(t_stack **stack, t_ptable **ptable, t_ptable *entry, t_node **tree)
 	return (-1);
 }
 
+
+int take_action(t_token *input, t_ptable **table, t_ptable *entry, t_stack **stack, t_node **tree)
+{
+	if(entry && entry->action == SHIFT)
+		return shift(stack, &input, entry->n_state);
+	else if(entry && entry->action == REDUCE)
+		return (reduce(stack, table, entry, tree));
+	else if(entry && entry->action == ACCEPT)
+		return 1;
+	return -1;
+}
+
 t_node	*parser(t_token *input, t_ptable **table)
 {
 	int			r;
@@ -88,15 +100,13 @@ t_node	*parser(t_token *input, t_ptable **table)
 	while (r == OK)
 	{
 		entry = get_entry(input, table, stack);
-		if (entry && entry->action == SHIFT)
-			r = shift(&stack, &input, entry->n_state);
-		else if (entry && entry->action == REDUCE)
-			r = reduce(&stack, table, entry, &tree);
-		else if (entry && entry->action == ACCEPT)
-			r = 1;
-		else
+		ft_printf("%d, %d, %d, %d\n", entry->action, entry->n_state, entry->reduce, entry->state);
+		if(entry)
+			r = take_action(input, table, entry, &stack, &tree);
+		else 
 			r = -1;
 	}
 	clean_parser(&tree, stack, start, r);
 	return (fix_types(tree));
 }
+
