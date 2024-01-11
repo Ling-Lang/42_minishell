@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2023/12/05 17:59:58 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/01/11 19:05:28 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_node		*add_reduce_front(t_node **tree, int reduce);
 t_node		*convert_stack(t_stack *stack);
 t_stack		*init_stack(void);
 t_node		*fix_types(t_node *tree);
-void		clear_stack(t_stack *stack);
+int		clear_stack(t_stack *stack);
 void		clean_parser(t_node **tree, t_stack *stack, t_token *input, int r);
 void		free_tree(t_node **node);
 void		free_table(t_ptable **table);

@@ -52,14 +52,15 @@ SRC = 	src/main.c \
 		src/utils/misc/error.c \
 		src/utils/misc/signals.c
 
-OBJ = $(SRC:.c=.o)
+OBJ = $(patsubst %.c,obj/%.o,$(SRC))
 
 $(NAME): $(OBJ) | lft
 	@echo "$(GREEN)Compiling $@$(RESET)"
 	@$(CC) $(INCLUDE) $(OBJ) $(LIB) -o $(NAME) $(CFLAGS) 
 	@echo "$(GREEN)Finished compiling: $@$(RESET)"
 
-%.o: %.c
+obj/%.o: %.c
+	@mkdir -p $(@D)
 	@$(CC) -c $< -o $@ $(CFLAGS)
 lft:
 	@cd Libft && make
@@ -69,7 +70,7 @@ debug: clean $(OBJ) | lft
 
 clean:
 	@echo "$(YELLOW)Cleaning object files$(RESET)"
-	@$(RM) $(OBJ)
+	@rm -rf obj
 	@(cd Libft && make clean)
 
 fclean: clean
