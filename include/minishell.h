@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2024/01/11 19:05:28 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/01/30 13:46:27 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ t_ptable	**init_table(void);
 char		*ft_strncpy(char *src, char *dst, int n);
 int			ft_get_next_line(int fd, char **line, int to_free);
 void		*free_str_null(char **str);
-void		clear_token(t_token *token);
+// void		clear_token(t_token *token);
 void		ft_error(char *arg, int r);
 void		ft_handle_signals(void);
 void		ft_restore_default(void);

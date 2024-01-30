@@ -6,14 +6,10 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2023/12/05 17:54:59 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/01/30 13:57:46 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-Include the header file containing function declarations for builtin commands.
-This allows the builtin commands to be called from this file.
-*/
 #include "../include/builtins.h"
 #include "../include/minishell.h"
 
@@ -36,7 +32,7 @@ void	ft_main(t_env **env, t_ptable **table, t_return *ret)
 {
 	char		*str;
 	t_token		*input;
-	t_node		*ast;
+	t_node		*tree;
 
 	ret->r_code = 0;
 	while (ret->should_exit == false)
@@ -52,9 +48,9 @@ void	ft_main(t_env **env, t_ptable **table, t_return *ret)
 		input = init_tokens(str);
 		free(str);
 		ft_sanitize_tokens(&input, *env, ret->r_code);
-		ast = parser(input, table);
-		exec_tree(ast, env, ret);
-		free_tree(&ast);
+		tree = parser(input, table);
+		exec_tree(tree, env, ret);
+		free_tree(&tree);
 	}
 	free_table(table);
 }

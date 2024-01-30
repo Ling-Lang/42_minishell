@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_clean.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocuk <ahocuk@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:09:18 by jkulka            #+#    #+#             */
-/*   Updated: 2023/11/27 03:10:45 by ahocuk           ###   ########.fr       */
+/*   Updated: 2024/01/30 13:58:18 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,17 @@ void	free_tree(t_node **node)
 	}
 }
 
-void	clear_token(t_token *token)
-{
-	t_token	*n;
-
-	while (token)
-	{
-		n = token->next;
-		free(token->value);
-		free(token);
-		token = n;
-	}
-}
-
 void	clean_parser(t_node **tree, t_stack *stack, t_token *input, int r)
 {
+	t_token *tmp_token;
 	if (r == ERR)
 		free_tree(tree);
 	clear_stack(stack);
-	clear_token(input);
+	while (input)
+	{
+		tmp_token = input->next;
+		free(input->value);
+		free(input);
+		input = tmp_token;
+	}
 }

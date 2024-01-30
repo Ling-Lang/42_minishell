@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_stack.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:07:19 by jkulka            #+#    #+#             */
-/*   Updated: 2024/01/11 19:04:39 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/01/30 13:58:08 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_node	*convert_stack(t_stack *stack)
 	return (NULL);
 }
 
-int	clear_stack(t_stack *stack)
+int	 clear_stack(t_stack *stack)
 {
 	t_stack	*n;
 
