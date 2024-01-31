@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2024/01/30 13:46:27 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/01/31 13:02:13 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ int		clear_stack(t_stack *stack);
 void		clean_parser(t_node **tree, t_stack *stack, t_token *input, int r);
 void		free_tree(t_node **node);
 void		free_table(t_ptable **table);
+int process_input(t_token **input, t_ptable **table, t_stack **stack, t_node **tree);
+t_ptable	*get_entry(t_token *input, t_ptable **table, t_stack *stack);
+int	shift(t_stack **stack, t_token **input, int n_state);
+int	reduce(t_stack **stack, t_ptable **ptable, t_ptable *entry, t_node **tree);
 
 /* Lexer */
 t_token		*init_tokens(char *str);

@@ -6,34 +6,40 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:07:19 by jkulka            #+#    #+#             */
-/*   Updated: 2024/01/30 13:58:08 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/01/31 12:58:00 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-t_node	*convert_stack(t_stack *stack)
+t_node *initialize_node(t_node *node, t_stack *stack)
 {
-	t_node	*node;
+	node->type = stack->type;
+	node->reduce = -1;
+	if (stack->type >= R_PIPE_SEQUENCE)
+	{
+		node->type = -1;
+		node->reduce = stack->type;
+	}
+	node->data = stack->data;
+	stack->data = NULL;
+	node->l = NULL;
+	node->r = NULL;
+	node->n = NULL;
+	return node;
+}
+
+t_node *convert_stack(t_stack *stack)
+{
+	t_node *node;
 
 	node = (t_node *)malloc(sizeof(*node));
 	if (node)
 	{
-		node->type = stack->type;
-		node->reduce = -1;
-		if (stack->type >= R_PIPE_SEQUENCE)
-		{
-			node->type = -1;
-			node->reduce = stack->type;
-		}
-		node->data = stack->data;
-		stack->data = NULL;
-		node->l = NULL;
-		node->r = NULL;
-		node->n = NULL;
-		return (node);
+		node = initialize_node(node, stack);
+		return node;
 	}
-	return (NULL);
+	return NULL;
 }
 
 int	 clear_stack(t_stack *stack)

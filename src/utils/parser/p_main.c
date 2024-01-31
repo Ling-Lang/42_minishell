@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:16:19 by jkulka            #+#    #+#             */
-/*   Updated: 2024/01/11 19:06:14 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/01/31 13:01:54 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,56 +36,6 @@ t_ptable	*get_entry(t_token *input, t_ptable **table, t_stack *stack)
 		}
 	}
 	return (entry);
-}
-
-int	shift(t_stack **stack, t_token **input, int n_state)
-{
-	if (push_input(stack, *input) == ERR)
-		return (ERR);
-	if (push_state(stack, n_state) == ERR)
-		return (ERR);
-	*input = (*input)->next;
-	return (OK);
-}
-
-int	reduce(t_stack **stack, t_ptable **ptable, t_ptable *entry, t_node **tree)
-{
-	int		n_state;
-	t_stack	*popped;
-
-	popped = pop_stack(stack, entry->reduce);
-	if (!popped)
-		return (-1);
-	if (push_reduce(stack, entry->n_state))
-		return (clear_stack(popped));
-	n_state = get_nstate(*stack, ptable);
-	if (push_state(stack, n_state))
-		return(clear_stack(popped));
-	if (add_tree(tree, &popped, entry->n_state))
-		return(clear_stack(popped));
-	clear_stack(popped);
-	return (OK);
-}
-
-int process_input(t_token **input, t_ptable **table, t_stack **stack, t_node **tree)
-{
-	int			r;
-	t_ptable	*entry;
-
-	r = OK;
-	while (r == OK)
-	{
-		entry = get_entry(*input, table, *stack);
-		if (entry && entry->action == SHIFT)
-			r = shift(stack, input, entry->n_state);
-		else if (entry && entry->action == REDUCE)
-			r = reduce(stack, table, entry, tree);
-		else if (entry && entry->action == ACCEPT)
-			r = 1;
-		else
-			r = -1;
-	}
-	return r;
 }
 
 t_node	*parser(t_token *input, t_ptable **table)
