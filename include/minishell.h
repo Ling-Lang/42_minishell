@@ -6,13 +6,12 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2024/01/31 13:02:13 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/05 12:51:05 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include "../Libft/src/libft.h"
 # include "builtins.h"
 # include "structs.h"
 # include <dirent.h>
@@ -24,6 +23,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <sys/wait.h>
+# include "../lib/Libft/include/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 
@@ -33,8 +33,8 @@
 # define BLU "\e[0;34m"
 # define OK 0
 # define ERR -1
-# define TBL_PATH "./src/utils/parser/table"
-# define BUFFER_SIZE 12
+# define TBL_PATH "./src/parser/table"
+// # define BUFFER_SIZE 12
 /* Interpreter*/
 char		**iterate_tree(t_node *node, char **args);
 char		**iterate_tree2(t_node *node, char **args);
@@ -117,11 +117,11 @@ t_ptable	**init_table(void);
 char		*ft_strncpy(char *src, char *dst, int n);
 int			ft_get_next_line(int fd, char **line, int to_free);
 void		*free_str_null(char **str);
-// void		clear_token(t_token *token);
 void		ft_error(char *arg, int r);
 void		ft_handle_signals(void);
 void		ft_restore_default(void);
 int			ft_get_exit_code(int e_code);
+char	*ft_strjoin_free(char *s1, char const *s2);
 
 /* envs */
 void		add_env(t_env **env, t_env *new);

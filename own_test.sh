@@ -37,7 +37,7 @@ function exec_diff_test()
 	ES_2=$?
     ODIFF=$(diff --brief ./mout ./bout)
     if [ "$TEST1" == "$TEST2" ] && [ "$ES_1" == "$ES_2" ] && [ -z "$ODIFF" ]; then
-		printf "✓ "
+		printf "✓\n"
     else
         printf "$ES_1\t$ES_2\n$TEST1\t$TEST2\n"
     fi
@@ -47,6 +47,7 @@ TEST_FILE="file"
 # exec_test 'echo test'
 exec_test 'pwd'
 exec_test 'ls -l | wc -l'
+exec_test 'cd'
 # exec_diff_test 'echo test > file'
 exec_test 'echo $?'
 # exec_test 'env'
