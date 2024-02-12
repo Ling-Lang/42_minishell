@@ -26,7 +26,6 @@ SRC = 	src/main.c \
 		src/parser/p_stack.c \
 		src/parser/p_tree.c \
 		src/parser/p_table.c \
-		src/parser/gnl.c \
 		src/parser/p_utils.c \
 		src/parser/p_magic.c \
 		src/interpreter/i_main.c \

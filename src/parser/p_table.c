@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:23:31 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/05 12:07:13 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/12 14:51:57 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,55 +64,48 @@ t_ptable	*new_entry(char **arg)
 	return (new);
 }
 
-int	create_entries(int fd, t_ptable **table)
+int	read_table(int fd, t_ptable **table)
 {
-	int		i;
-	int		r;
-	char	*line;
-	char	**args;
+    int		i;
+    char	*line;
+    char	**args;
 
-	line = NULL;
-	r = ft_get_next_line(fd, &line, 0);
-	i = -1;
-	while (r >= 0)
-	{
-		args = ft_split(line, 9);
-		table[++i] = new_entry(args);
-		free_lines(line, args);
-		line = NULL;
-		if (!table[i])
-			return (ERR);
-		if (r == 0)
-			break ;
-		r = ft_get_next_line(fd, &line, 0);
-	}
-	if (r == ERR)
-		return (ERR);
-	return (OK);
+    line = get_next_line(fd);
+    i = -1;
+    while (line != NULL)
+    {
+        args = ft_split(line, 9);
+        table[++i] = new_entry(args);
+        free_lines(line, args);
+        if (!table[i])
+            return (ERR);
+        line = get_next_line(fd);
+    }
+    return (OK);
 }
 
 t_ptable	**init_table(void)
 {
-	int			fd;
-	t_ptable	**table;
+    int			fd;
+    t_ptable	**table;
 
-	table = (t_ptable **)malloc(sizeof(*table) * (100 + 1));
-	if (!table)
-		return (NULL);
-	table[0] = NULL;
-	table[100] = NULL;
+    table = (t_ptable **)calloc(101, sizeof(*table));
+    if (!table)
+	{
+    	return (NULL);
+	}
 	fd = open(TBL_PATH, O_RDONLY);
-	if (fd == ERR)
-	{
-		free_table(table);
-		return (NULL);
-	}
-	if (create_entries(fd, table) == ERR)
-	{
-		free_table(table);
-		close(fd);
-		return (NULL);
-	}
-	close(fd);
-	return (table);
+    if (fd == ERR)
+    {
+        free_table(table);
+        return (NULL);
+    }
+    if (read_table(fd, table) == ERR)
+    {
+        free_table(table);
+        close(fd);
+        return (NULL);
+    }
+    close(fd);
+    return (table);
 }
