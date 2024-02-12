@@ -73,7 +73,7 @@ $(NAME): $(OBJ) | lft
 
 obj/%.o: %.c
 	@mkdir -p $(@D)
-	@$(CC) -c $< -o $@ $(CFLAGS)
+	@$(CC) -c $< -o $@ $(CFLAGS) -g
 
 debug: clean $(OBJ) | lft
 	$(CC) $(CFLAGS) $(HEADERS) $(OBJ) -o $(NAME) $(LIB) 
