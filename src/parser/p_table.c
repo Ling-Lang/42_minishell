@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:23:31 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/12 14:51:57 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/15 12:45:10 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,7 @@ t_ptable	**init_table(void)
 
 	table = (t_ptable **)calloc(101, sizeof(*table));
 	if (!table)
-	{
 		return (NULL);
-	}
 	fd = open(TBL_PATH, O_RDONLY);
 	if (fd == ERR)
 	{

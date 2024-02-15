@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkulka <jkulka@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/14 12:00:48 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/15 12:45:22 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, handlectrl);
 	signal(SIGQUIT, SIG_IGN);
 	table = init_table();
+	if(table == NULL)
+		return (EXIT_FAILURE);
 	env = ft_init(envp);
 	ft_main(&env, table, &ret);
 	ft_free_env(&env);
