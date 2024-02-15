@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:15:39 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/12 15:22:47 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/15 11:37:00 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	ft_manage_buffer(int t_free, char **save)
 char	*ft_check_buffer(char **save, char *buffer, char *limit)
 {
 	char	*tmp;
+
 	tmp = *save;
 	*save = ft_strjoin(*save, buffer);
 	free(tmp);
@@ -67,33 +68,32 @@ char	*ft_check_buffer(char **save, char *buffer, char *limit)
 
 char	*ft_get_next_tmp(char *limit, int to_free)
 {
-    static char	*save;
-    char		*p_limit;
-    char		*buffer;
+	static char	*save;
+	char		*p_limit;
+	char		*buffer;
 
-    if (ft_manage_buffer(to_free, &save) == ERR)
-        return (NULL);
-    p_limit = ft_find_limit(save, limit);
-    if (!p_limit)
-    {
-        buffer = readline("> ");
-		buffer = ft_strjoin(buffer, "\n");
-        while (buffer)
-        {
-            p_limit = ft_check_buffer(&save, buffer, limit);
-            if (p_limit || buffer[0] == '\0')
-            {
-                free(buffer);
-                return (ft_finalize_heredoc(&save, p_limit));
-            }
-            free(buffer);
-            buffer = readline("> ");
-			buffer = ft_strjoin(buffer, "\n");
-        }
-        if (!buffer)
-            ft_redo_buffer(&save);
-    }
-    else
-        return (ft_finalize_heredoc(&save, p_limit));
-    return (NULL);
+	if (ft_manage_buffer(to_free, &save) == ERR)
+		return (NULL);
+	p_limit = ft_find_limit(save, limit);
+	buffer = NULL;
+	if (!p_limit)
+	{
+		buffer = readbuf(buffer);
+		while (buffer)
+		{
+			p_limit = ft_check_buffer(&save, buffer, limit);
+			if (p_limit || buffer[0] == '\0')
+			{
+				free(buffer);
+				return (ft_finalize_heredoc(&save, p_limit));
+			}
+			free(buffer);
+			buffer = readbuf(buffer);
+		}
+		if (!buffer)
+			ft_redo_buffer(&save);
+	}
+	else
+		return (ft_finalize_heredoc(&save, p_limit));
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/05 12:51:05 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/15 11:58:16 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int			ft_open_fd(int fd, char *file, int *here_fd, int num);
 int			ft_write_here(int fd, char **str, int len);
 char		*ft_get_next_tmp(char *limit, int free);
 void		clean_here(int *fd);
+char		*readbuf(char *buffer);
 
 /* Parser */
 t_node		*parser(t_token *input, t_ptable **table);

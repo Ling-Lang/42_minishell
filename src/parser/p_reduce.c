@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_utils.c                                          :+:      :+:    :+:   */
+/*   p_reduce.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 12:59:14 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/15 11:33:27 by jkulka           ###   ########.fr       */
+/*   Created: 2024/02/15 11:54:50 by jkulka            #+#    #+#             */
+/*   Updated: 2024/02/15 11:57:56 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	process_input(t_token **input, t_ptable **table, t_stack **stack,
-		t_node **tree)
+t_stack	*create_new_reduce_node(int reduce)
 {
-	int			r;
-	t_ptable	*entry;
+	t_stack	*new_node;
 
-	r = OK;
-	while (r == OK)
-	{
-		entry = get_entry(*input, table, *stack);
-		if (entry && entry->action == SHIFT)
-			r = shift(stack, input, entry->n_state);
-		else if (entry && entry->action == REDUCE)
-			r = reduce(stack, table, entry, tree);
-		else if (entry && entry->action == ACCEPT)
-			r = 1;
-		else
-			r = -1;
-	}
-	return (r);
+	new_node = (t_stack *)malloc(sizeof(*new_node));
+	if (!new_node)
+		return (NULL);
+	new_node->type = reduce;
+	new_node->state = -1;
+	new_node->data = NULL;
+	return (new_node);
+}
+
+int	push_reduce(t_stack **stack, int reduce)
+{
+	t_stack	*new;
+
+    new = create_new_reduce_node(reduce);
+	if (!new)
+		return (-1);
+	new->next = *stack;
+	*stack = new;
+	return (0);
 }

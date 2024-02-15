@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 void	loop_fix_types(t_node *node)
 {
 	if (!node)

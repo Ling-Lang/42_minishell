@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 int	shift(t_stack **stack, t_token **input, int n_state)
 {
 	if (push_input(stack, *input) == ERR)
@@ -35,9 +34,9 @@ int	reduce(t_stack **stack, t_ptable **ptable, t_ptable *entry, t_node **tree)
 		return (clear_stack(popped));
 	n_state = get_nstate(*stack, ptable);
 	if (push_state(stack, n_state))
-		return(clear_stack(popped));
+		return (clear_stack(popped));
 	if (add_tree(tree, &popped, entry->n_state))
-		return(clear_stack(popped));
+		return (clear_stack(popped));
 	clear_stack(popped);
 	return (OK);
 }

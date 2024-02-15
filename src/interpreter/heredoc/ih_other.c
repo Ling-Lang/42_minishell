@@ -6,12 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:37:10 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/05 12:05:48 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/15 11:35:47 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
 
 int	ft_write_here(int fd, char **str, int len)
 {
@@ -50,4 +49,11 @@ void	clean_here(int *fd)
 			close(fd[i]);
 		free(fd);
 	}
+}
+
+char *readbuf(char *buffer)
+{
+	buffer = readline("> ");
+	buffer = ft_strjoin(buffer, "\n");
+	return (buffer);
 }

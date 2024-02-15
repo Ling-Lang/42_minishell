@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 void	free_table(t_ptable **table)
 {
 	t_ptable	**start;
@@ -66,46 +65,46 @@ t_ptable	*new_entry(char **arg)
 
 int	read_table(int fd, t_ptable **table)
 {
-    int		i;
-    char	*line;
-    char	**args;
+	int		i;
+	char	*line;
+	char	**args;
 
-    line = get_next_line(fd);
-    i = -1;
-    while (line != NULL)
-    {
-        args = ft_split(line, 9);
-        table[++i] = new_entry(args);
-        free_lines(line, args);
-        if (!table[i])
-            return (ERR);
-        line = get_next_line(fd);
-    }
-    return (OK);
+	line = get_next_line(fd);
+	i = -1;
+	while (line != NULL)
+	{
+		args = ft_split(line, 9);
+		table[++i] = new_entry(args);
+		free_lines(line, args);
+		if (!table[i])
+			return (ERR);
+		line = get_next_line(fd);
+	}
+	return (OK);
 }
 
 t_ptable	**init_table(void)
 {
-    int			fd;
-    t_ptable	**table;
+	int			fd;
+	t_ptable	**table;
 
-    table = (t_ptable **)calloc(101, sizeof(*table));
-    if (!table)
+	table = (t_ptable **)calloc(101, sizeof(*table));
+	if (!table)
 	{
-    	return (NULL);
+		return (NULL);
 	}
 	fd = open(TBL_PATH, O_RDONLY);
-    if (fd == ERR)
-    {
-        free_table(table);
-        return (NULL);
-    }
-    if (read_table(fd, table) == ERR)
-    {
-        free_table(table);
-        close(fd);
-        return (NULL);
-    }
-    close(fd);
-    return (table);
+	if (fd == ERR)
+	{
+		free_table(table);
+		return (NULL);
+	}
+	if (read_table(fd, table) == ERR)
+	{
+		free_table(table);
+		close(fd);
+		return (NULL);
+	}
+	close(fd);
+	return (table);
 }

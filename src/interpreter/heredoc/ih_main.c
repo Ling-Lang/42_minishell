@@ -12,7 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-
 int	ft_create_heredoc(t_node *tree, int ret, int *fd, int *num)
 {
 	int		tmp_fd;

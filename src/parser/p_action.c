@@ -6,43 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:44:06 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/05 12:06:47 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/15 12:08:40 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-
-int	push_input(t_stack **stack, t_token *input)
-{
-	t_stack	*new;
-
-	new = (t_stack *)malloc(sizeof(*new));
-	if (!new)
-		return (ERR);
-	new->type = input->type;
-	new->state = -1;
-	new->data = input->value;
-	input->value = NULL;
-	new->next = *stack;
-	*stack = new;
-	return (OK);
-}
-
-int	push_state(t_stack **stack, int state)
-{
-	t_stack	*new;
-
-	if (state == ERR)
-		return (ERR);
-	new = (t_stack *)malloc(sizeof(*new));
-	new->type = -1;
-	new->state = state;
-	new->data = NULL;
-	new->next = *stack;
-	*stack = new;
-	return (OK);
-}
 
 void	add_popped(t_stack **popped, t_stack *stack)
 {
@@ -82,19 +50,4 @@ t_stack	*pop_stack(t_stack **stack, int n)
 		}
 	}
 	return (popped);
-}
-
-int	push_reduce(t_stack **stack, int reduce)
-{
-	t_stack	*new;
-
-	new = (t_stack *)malloc(sizeof(*new));
-	if (!new)
-		return (-1);
-	new->type = reduce;
-	new->state = -1;
-	new->data = NULL;
-	new->next = *stack;
-	*stack = new;
-	return (0);
 }

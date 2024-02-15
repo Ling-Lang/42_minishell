@@ -12,7 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-
 void	ft_free_limit(char **l_start, char **l_middle)
 {
 	free(*l_start);

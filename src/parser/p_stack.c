@@ -12,8 +12,7 @@
 
 #include "../../include/minishell.h"
 
-
-t_node *initialize_node(t_node *node, t_stack *stack)
+t_node	*initialize_node(t_node *node, t_stack *stack)
 {
 	node->type = stack->type;
 	node->reduce = -1;
@@ -27,23 +26,23 @@ t_node *initialize_node(t_node *node, t_stack *stack)
 	node->l = NULL;
 	node->r = NULL;
 	node->n = NULL;
-	return node;
+	return (node);
 }
 
-t_node *convert_stack(t_stack *stack)
+t_node	*convert_stack(t_stack *stack)
 {
-	t_node *node;
+	t_node	*node;
 
 	node = (t_node *)malloc(sizeof(*node));
 	if (node)
 	{
 		node = initialize_node(node, stack);
-		return node;
+		return (node);
 	}
-	return NULL;
+	return (NULL);
 }
 
-int	 clear_stack(t_stack *stack)
+int	clear_stack(t_stack *stack)
 {
 	t_stack	*n;
 
@@ -54,7 +53,7 @@ int	 clear_stack(t_stack *stack)
 		free(stack);
 		stack = n;
 	}
-	return -1;
+	return (-1);
 }
 
 t_stack	*init_stack(void)

@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 void	free_tree(t_node **node)
 {
 	if (*node)
@@ -30,7 +29,8 @@ void	free_tree(t_node **node)
 
 void	clean_parser(t_node **tree, t_stack *stack, t_token *input, int r)
 {
-	t_token *tmp_token;
+	t_token	*tmp_token;
+
 	if (r == ERR)
 		free_tree(tree);
 	clear_stack(stack);

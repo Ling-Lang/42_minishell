@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 t_ptable	*get_entry(t_token *input, t_ptable **table, t_stack *stack)
 {
 	int			i;
@@ -41,10 +40,10 @@ t_ptable	*get_entry(t_token *input, t_ptable **table, t_stack *stack)
 
 t_node	*parser(t_token *input, t_ptable **table)
 {
-	int			r;
-	t_node		*tree;
-	t_stack		*stack;
-	t_token		*start;
+	int		r;
+	t_node	*tree;
+	t_stack	*stack;
+	t_token	*start;
 
 	tree = NULL;
 	start = input;

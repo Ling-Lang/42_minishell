@@ -28,6 +28,8 @@ SRC = 	src/main.c \
 		src/parser/p_table.c \
 		src/parser/p_utils.c \
 		src/parser/p_magic.c \
+		src/parser/p_push.c \
+		src/parser/p_reduce.c \
 		src/interpreter/i_main.c \
 		src/interpreter/i_utils.c \
 		src/interpreter/i_utils2.c \

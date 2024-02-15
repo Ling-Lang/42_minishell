@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 int	get_nstate(t_stack *stack, t_ptable **p_table)
 {
 	int	i;
