@@ -6,11 +6,30 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:05:13 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/12 15:08:22 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/20 12:42:19 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+int	ft_check_heredoc(t_node *tree, int *stop, int **fd)
+{
+	int	symbol;
+
+	symbol = find_symbol(tree, A_LESS, 0);
+	if (symbol)
+	{
+		ft_handle_signals();
+		*fd = ft_heredoc(tree, symbol, stop);
+		if (!fd)
+			return (ERR);
+		ft_restore_default();
+		dup2((*fd)[symbol], STDIN_FILENO);
+		close((*fd)[symbol]);
+		(*fd)[symbol] = -1;
+	}
+	return (0);
+}
 
 int	ft_create_heredoc(t_node *tree, int ret, int *fd, int *num)
 {

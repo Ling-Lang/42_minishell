@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:15:39 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/15 11:37:00 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/20 12:10:01 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ char	*ft_get_next_tmp(char *limit, int to_free)
 				free(buffer);
 				return (ft_finalize_heredoc(&save, p_limit));
 			}
-			free(buffer);
 			buffer = readbuf(buffer);
 		}
 		if (!buffer)

@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 char	**add_arg_back(char **arg, char *data)
 {
 	int		i;

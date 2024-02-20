@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 int	simple_command2(t_node *tree, int *fd, t_env **env)
 {
 	char	**args;

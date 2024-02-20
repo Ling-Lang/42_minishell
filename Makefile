@@ -14,11 +14,11 @@ RESET = \033[0m
 SRC = 	src/main.c \
 		src/lexer/l_strutils.c \
 		src/lexer/l_main.c \
-		src/lexer/l_quotes.c \
 		src/lexer/l_tokens.c \
 		src/lexer/l_utils.c \
 		src/lexer/expander/le_main.c \
 		src/lexer/expander/le_var.c \
+		src/lexer/expander/le_quotes.c \
 		src/parser/p_main.c \
 		src/parser/p_action.c \
 		src/parser/p_clean.c \
@@ -34,7 +34,7 @@ SRC = 	src/main.c \
 		src/interpreter/i_utils.c \
 		src/interpreter/i_utils2.c \
 		src/interpreter/i_pipes.c \
-		src/interpreter/i_cmd.c \
+		src/interpreter/i_exec_tree.c \
 		src/interpreter/i_fd.c \
 		src/interpreter/i_redirects.c \
 		src/interpreter/heredoc/ih_file.c \
@@ -42,6 +42,9 @@ SRC = 	src/main.c \
 		src/interpreter/heredoc/ih_other.c \
 		src/interpreter/heredoc/ih_limit.c \
 		src/interpreter/i_pipes2.c \
+		src/interpreter/i_execve.c \
+		src/interpreter/i_exec_handler.c \
+		src/interpreter/i_simple_cmd.c \
 		src/builtins/echo.c \
 		src/builtins/cd.c \
 		src/builtins/pwd.c \

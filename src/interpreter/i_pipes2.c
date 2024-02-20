@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 char	**copy_string_array(char **original)
 {
 	int		size;

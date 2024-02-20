@@ -6,12 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:02:29 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/05 12:06:01 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/20 14:16:54 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 void	execute_builtin(char **arg, t_env **env, t_return *ret)
 {

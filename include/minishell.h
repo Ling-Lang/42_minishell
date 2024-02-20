@@ -6,26 +6,26 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/15 11:58:16 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/20 12:54:46 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# include "../lib/Libft/include/libft.h"
 # include "builtins.h"
 # include "structs.h"
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <string.h>
 # include <sys/wait.h>
-# include "../lib/Libft/include/libft.h"
-# include <readline/history.h>
-# include <readline/readline.h>
 
 # define RED "\e[0;31m"
 # define YEL "\e[0;33m"
@@ -60,6 +60,7 @@ void		child_process(char ****commands, int *params, int pipe_fd[2],
 				t_env **env);
 void		handle_pipe(int prev_pipe_fd, int pipe_fd[2]);
 int			ft_execve(char **args, t_env *env);
+void		simple_command(t_node *tree, int *fd, t_env **env, t_return (*ret));
 /* Heredoc */
 int			*ft_heredoc(t_node *tree, int symbol, int *stop);
 char		*ft_tmp_file(int num);
@@ -71,6 +72,7 @@ int			ft_write_here(int fd, char **str, int len);
 char		*ft_get_next_tmp(char *limit, int free);
 void		clean_here(int *fd);
 char		*readbuf(char *buffer);
+int			ft_check_heredoc(t_node *tree, int *stop, int **fd);
 
 /* Parser */
 t_node		*parser(t_token *input, t_ptable **table);
@@ -84,14 +86,16 @@ t_node		*add_reduce_front(t_node **tree, int reduce);
 t_node		*convert_stack(t_stack *stack);
 t_stack		*init_stack(void);
 t_node		*fix_types(t_node *tree);
-int		clear_stack(t_stack *stack);
+int			clear_stack(t_stack *stack);
 void		clean_parser(t_node **tree, t_stack *stack, t_token *input, int r);
 void		free_tree(t_node **node);
 void		free_table(t_ptable **table);
-int process_input(t_token **input, t_ptable **table, t_stack **stack, t_node **tree);
+int			process_input(t_token **input, t_ptable **table, t_stack **stack,
+				t_node **tree);
 t_ptable	*get_entry(t_token *input, t_ptable **table, t_stack *stack);
-int	shift(t_stack **stack, t_token **input, int n_state);
-int	reduce(t_stack **stack, t_ptable **ptable, t_ptable *entry, t_node **tree);
+int			shift(t_stack **stack, t_token **input, int n_state);
+int			reduce(t_stack **stack, t_ptable **ptable, t_ptable *entry,
+				t_node **tree);
 
 /* Lexer */
 t_token		*init_tokens(char *str);
@@ -109,8 +113,9 @@ void		ft_sanitize_tokens(t_token **input, t_env *env, int l_ret);
 char		*ft_get_val(char *str, int len, t_env *env, int l_ret);
 int			ft_get_var_len(char *str);
 char		*ft_get_last_ret(int l_ret);
-char		*ft_rem_quotes(char *str);
-void		copy_value(t_token **tmp, char **value);
+char		*ft_rem_quotes_double(char *str);
+char		*ft_rem_quotes_single(char *str);
+void		copy_value(t_token **tmp, char **value, bool within_single_quotes);
 
 /* Utils */
 t_env		*ft_init(char **envp);
@@ -122,7 +127,7 @@ void		ft_error(char *arg, int r);
 void		ft_handle_signals(void);
 void		ft_restore_default(void);
 int			ft_get_exit_code(int e_code);
-char	*ft_strjoin_free(char *s1, char const *s2);
+char		*ft_strjoin_free(char *s1, char const *s2);
 
 /* envs */
 void		add_env(t_env **env, t_env *new);

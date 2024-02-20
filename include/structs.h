@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:29:32 by jkulka            #+#    #+#             */
-/*   Updated: 2023/12/05 16:22:34 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/20 14:18:27 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ typedef struct s_node
 
 typedef struct s_return
 {
-	int		r_code;
-	bool	should_exit;
-}	t_return;	
+	int				r_code;
+	bool			should_exit;
+}	t_return;
 
 typedef enum e_ttype
 {

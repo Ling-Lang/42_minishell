@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 char	**init_args(void)
 {
 	char	**res;

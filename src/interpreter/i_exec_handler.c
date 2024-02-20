@@ -1,28 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_fd.c                                             :+:      :+:    :+:   */
+/*   i_exec_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 14:54:51 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/05 12:05:33 by jkulka           ###   ########.fr       */
+/*   Created: 2024/02/20 12:39:22 by jkulka            #+#    #+#             */
+/*   Updated: 2024/02/20 12:39:33 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	cache_fd(int *fd)
+void	handle_child(char **arg, t_env *env)
 {
-	fd[READ] = dup(STDIN_FILENO);
-	fd[WRITE] = dup(STDOUT_FILENO);
+	int	ret;
+
+	ret = ft_execve(arg, env);
+	free_str_array(arg);
+	exit(ret);
 }
 
-int	restore_fd(int *fd)
+int	handle_parent(pid_t child)
 {
-	fd[READ] = dup2(fd[READ], STDIN_FILENO);
-	fd[WRITE] = dup2(fd[WRITE], STDOUT_FILENO);
-	if (fd[READ] == ERR || fd[WRITE] == ERR)
+	int		ec;
+	pid_t	wait;
+
+	wait = waitpid(child, &ec, 0);
+	if (wait == ERR)
 		return (ERR);
-	return (0);
+	return (ft_get_exit_code(ec));
+}
+
+int	execute_command(char **arg, t_env *env)
+{
+	pid_t	child;
+
+	child = fork();
+	if (child == ERR)
+		return (ERR);
+	if (child == 0)
+		handle_child(arg, env);
+	else
+		return (handle_parent(child));
+	return (ERR);
 }

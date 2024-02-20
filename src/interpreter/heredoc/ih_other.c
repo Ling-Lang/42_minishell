@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:37:10 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/15 11:35:47 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/20 12:50:15 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	clean_here(int *fd)
 	}
 }
 
-char *readbuf(char *buffer)
+char	*readbuf(char *buffer)
 {
 	buffer = readline("> ");
 	buffer = ft_strjoin(buffer, "\n");

@@ -6,12 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:48:30 by ahocuk            #+#    #+#             */
-/*   Updated: 2024/02/05 12:06:20 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/20 14:17:22 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 int	ft_unset(t_env **env, char **arg)
 {

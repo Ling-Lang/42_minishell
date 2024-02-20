@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:54:50 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/15 11:57:56 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/20 14:15:23 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	push_reduce(t_stack **stack, int reduce)
 {
 	t_stack	*new;
 
-    new = create_new_reduce_node(reduce);
+	new = create_new_reduce_node(reduce);
 	if (!new)
 		return (-1);
 	new->next = *stack;

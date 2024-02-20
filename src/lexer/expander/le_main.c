@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/05 12:05:01 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/20 14:15:35 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,59 +65,6 @@ void	ft_expander(char **str, t_env *env, int l_ret)
 	}
 }
 
-int	ft_str_len_quotes(char *str)
-{
-	int		i;
-	int		len;
-	int		inside;
-	char	q;
-
-	i = -1;
-	len = 0;
-	inside = 0;
-	q = 0;
-	while (str[++i])
-	{
-		if (inside == 0 && (str[i] == '\'' || str[i] == '\"'))
-		{
-			q = str[i];
-			inside = 1;
-		}
-		else if (inside == 1 && q == str[i])
-		{
-			inside = 0;
-			q = 0;
-		}
-		else
-			len++;
-	}
-	return (len);
-}
-
-char	*ft_rem_quotes(char *str)
-{
-	int		i;
-	int		inside;
-	int		j;
-	char	*ret;
-
-	i = -1;
-	inside = 0;
-	j = 0;
-	ret = (char *)malloc(sizeof(char) * (ft_str_len_quotes(str) + 1));
-	while (str[++i])
-	{
-		if (inside == 0 && (str[i] == '\'' || str[i] == '\"'))
-			inside = 1;
-		else if (inside == 1 && (str[i] == '\'' || str[i] == '\"'))
-			inside = 0;
-		else
-			ret[j++] = str[i];
-	}
-	ret[j] = '\0';
-	return (ret);
-}
-
 void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 {
 	t_token	*tmp;
@@ -142,6 +89,6 @@ void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 				break ;
 			}
 		}
-		copy_value(&tmp, &value);
+		copy_value(&tmp, &value, within_single_quotes);
 	}
 }

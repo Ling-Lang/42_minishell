@@ -6,12 +6,11 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:14:50 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/15 12:43:33 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/02/20 14:17:06 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 int	ft_cd(char **arg)
 {

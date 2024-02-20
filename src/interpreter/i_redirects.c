@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 int	ret_to(t_node *tree)
 {
 	int	fd;
