@@ -48,11 +48,12 @@ TEST_FILE="file"
 exec_test 'pwd'
 exec_test 'ls -l | wc -l'
 # exec_test 'cd'
-exec_test 'cd ~'
-# exec_diff_test 'echo test > file'
+exec_test 'echo $PATH'
+exec_diff_test 'echo test > file'
 exec_test 'echo $?'
-# exec_test 'env'
-
+exec_test 'ls | wc'
+# exec_test 'exit 1'
+exec_test 'exit 15'
 rm -rf ./out
 rm -rf ./bout
 rm -rf ./mout
