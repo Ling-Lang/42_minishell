@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:00:13 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/05 12:05:43 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/03/06 14:18:43 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,25 @@ char	*ft_find_limit(char *buffer, char *limit)
 	ft_free_limit(&l_start, &l_middle);
 	return (p_limit);
 }
+
+// char *search_limit(char *buffer, char *limit, int type)
+// {
+//     char *l_search = ft_to_search(limit, type);
+//     char *p_limit = ft_strnstr(buffer, l_search, ft_strlen(buffer));
+//     ft_free_limit(&l_search, NULL);
+//     return p_limit;
+// }
+
+// char *ft_find_limit(char *buffer, char *limit)
+// {
+//     char *p_limit = search_limit(buffer, limit, 1);
+//     if (p_limit != buffer)
+//     {
+//         p_limit = search_limit(buffer, limit, 2);
+//         return p_limit ? p_limit : NULL;
+//     }
+//     return p_limit;
+// }
 
 void	ft_redo_buffer(char **save)
 {
