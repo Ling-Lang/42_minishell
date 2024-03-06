@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:52:30 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/05 12:05:22 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/03/06 12:23:52 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,36 @@ int	ft_handle_heredoc(int *h_fd)
 	return (0);
 }
 
-int	handle_redirects(t_node *tree, int r, int *h_fd)
+int handle_redirects_helper(t_node *tree, int r, int *h_fd)
 {
-	if (!tree || (tree && tree->type == A_PIPE))
-		return (r);
-	r = handle_redirects(tree->l, r, h_fd);
-	r = handle_redirects(tree->r, r, h_fd);
-	if (r == ERR)
-		return (ERR);
-	if (tree->reduce == R_IOFILE)
-	{
-		if (tree->l->type == A_R_TO_FILE)
-			r = ret_to(tree);
-		if (tree->l->type == A_RET_FROM_FILE)
-			r = ret_from(tree);
-		if (tree->l->type == A_GREATER)
-			r = append_to(tree);
-	}
-	if (tree->reduce == R_IO_HERE)
-		r = ft_handle_heredoc(h_fd);
-	return (r);
+    r = handle_redirects(tree->l, r, h_fd);
+    r = handle_redirects(tree->r, r, h_fd);
+    if (r == ERR)
+        return (ERR);
+    return r;
+}
+
+int handle_iofile(t_node *tree, int r)
+{
+    if (tree->l->type == A_R_TO_FILE)
+        r = ret_to(tree);
+    if (tree->l->type == A_RET_FROM_FILE)
+        r = ret_from(tree);
+    if (tree->l->type == A_GREATER)
+        r = append_to(tree);
+    return r;
+}
+
+int handle_redirects(t_node *tree, int r, int *h_fd)
+{
+    if (!tree || (tree && tree->type == A_PIPE))
+        return (r);
+    r = handle_redirects_helper(tree, r, h_fd);
+    if (tree->reduce == R_IOFILE)
+    {
+        r = handle_iofile(tree, r);
+    }
+    if (tree->reduce == R_IO_HERE)
+        r = ft_handle_heredoc(h_fd);
+    return (r);
 }
