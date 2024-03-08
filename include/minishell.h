@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:15:40 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/20 12:54:46 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/03/08 13:57:31 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,14 @@ void		child_process(char ****commands, int *params, int pipe_fd[2],
 				t_env **env);
 void		handle_pipe(int prev_pipe_fd, int pipe_fd[2]);
 int			ft_execve(char **args, t_env *env);
-void		simple_command(t_node *tree, int *fd, t_env **env, t_return (*ret));
+void		simple_command(t_node *tree, int *fd, t_env **env, t_return(*ret));
+int			ret_to(t_node *tree);
+int			append_to(t_node *tree);
+int			ret_from(t_node *tree);
+void		free_split(char **split);
+char		**add_args(char **args, char **split);
+char		**add_cmd(char **args, t_node *node);
+char		**add_arg_back(char **arg, char *data);
 /* Heredoc */
 int			*ft_heredoc(t_node *tree, int symbol, int *stop);
 char		*ft_tmp_file(int num);
@@ -73,6 +80,14 @@ char		*ft_get_next_tmp(char *limit, int free);
 void		clean_here(int *fd);
 char		*readbuf(char *buffer);
 int			ft_check_heredoc(t_node *tree, int *stop, int **fd);
+int			calculate_l_limit(char *p_limit, char *buffer);
+char		*create_res(char **buffer, int l_limit);
+int			ft_exec_heredoc(t_node *tree, int ret, int *fd, int *num);
+char		*get_content(t_node *tree, int *num);
+int			ft_create_heredoc(t_node *tree, int ret, int *fd, int *num);
+char		*ft_here_helper(char *limit, char *buffer, char *save,
+				char *p_limit);
+char		*ft_check_buffer(char **save, char *buffer, char *limit);
 
 /* Parser */
 t_node		*parser(t_token *input, t_ptable **table);
@@ -115,7 +130,7 @@ int			ft_get_var_len(char *str);
 char		*ft_get_last_ret(int l_ret);
 char		*ft_rem_quotes_double(char *str);
 char		*ft_rem_quotes_single(char *str);
-void		copy_value(t_token **tmp, char **value, bool within_single_quotes);
+void		copy_value(t_token **tmp, char **value);
 
 /* Utils */
 t_env		*ft_init(char **envp);
@@ -138,5 +153,6 @@ int			get_bin(char **arg, t_env *env);
 void		ft_free_env(t_env **env);
 void		pipe_free(char ***commands, int num_commands);
 char		***add_pipe(char **args, int *num_commands);
+char		*get_path(char **dir, char *arg);
 
 #endif

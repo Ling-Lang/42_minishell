@@ -31,16 +31,19 @@ SRC = 	src/main.c \
 		src/parser/p_push.c \
 		src/parser/p_reduce.c \
 		src/interpreter/i_main.c \
+		src/interpreter/i_main_helper.c \
 		src/interpreter/i_utils.c \
 		src/interpreter/i_utils2.c \
 		src/interpreter/i_pipes.c \
 		src/interpreter/i_exec_tree.c \
 		src/interpreter/i_fd.c \
 		src/interpreter/i_redirects.c \
+		src/interpreter/i_ret_helper.c \
 		src/interpreter/heredoc/ih_file.c \
 		src/interpreter/heredoc/ih_main.c \
 		src/interpreter/heredoc/ih_other.c \
 		src/interpreter/heredoc/ih_limit.c \
+		src/interpreter/heredoc/ih_utils.c \
 		src/interpreter/i_pipes2.c \
 		src/interpreter/i_execve.c \
 		src/interpreter/i_exec_handler.c \
@@ -54,6 +57,9 @@ SRC = 	src/main.c \
 		src/builtins/b_main.c \
 		src/builtins/exit.c \
 		src/env/e_main.c \
+		src/env/e_get_bin.c \
+		src/env/e_new_env.c \
+		src/env/e_env_to_envp.c \
 		src/env/e_paths.c \
 		src/utils/init.c \
 		src/utils/error.c \

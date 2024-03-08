@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:15:39 by jkulka            #+#    #+#             */
-/*   Updated: 2024/03/07 14:25:14 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/03/08 13:21:12 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,34 +66,18 @@ char	*ft_check_buffer(char **save, char *buffer, char *limit)
 	return (ft_find_limit(*save, limit));
 }
 
-
 char	*ft_get_next_tmp(char *limit, int to_free)
 {
 	static char	*save;
 	char		*p_limit;
 	char		*buffer;
 
-
 	if (ft_manage_buffer(to_free, &save) == ERR)
 		return (NULL);
 	p_limit = ft_find_limit(save, limit);
 	buffer = NULL;
 	if (!p_limit)
-	{
-		buffer = readbuf(buffer);
-		while (buffer)
-		{
-			p_limit = ft_check_buffer(&save, buffer, limit);
-			if (p_limit || buffer[0] == '\0')
-			{
-				free(buffer);
-				return (ft_finalize_heredoc(&save, p_limit));
-			}
-			buffer = readbuf(buffer);
-		}
-		if (!buffer)
-			ft_redo_buffer(&save);
-	}
+		return (ft_here_helper(limit, buffer, save, p_limit));
 	else
 		return (ft_finalize_heredoc(&save, p_limit));
 	return (NULL);

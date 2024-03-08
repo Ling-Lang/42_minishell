@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:38:35 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/05 12:05:30 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/03/08 13:32:58 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,35 +38,6 @@ char	**add_arg_back(char **arg, char *data)
 		return (free_str_null(res));
 	res[i + 1] = NULL;
 	return (res);
-}
-
-char	**add_cmd(char **args, t_node *node)
-{
-	int		i;
-	int		j;
-	char	**split;
-
-	split = ft_split(node->data, ' ');
-	if (!split)
-		return (NULL);
-	i = -1;
-	while (split[++i])
-	{
-		args = add_arg_back(args, split[i]);
-		if (!args)
-		{
-			j = -1;
-			while (split[++j])
-				free(split[j]);
-			free(split);
-			return (NULL);
-		}
-	}
-	j = -1;
-	while (split[++j])
-		free(split[j]);
-	free(split);
-	return (args);
 }
 
 char	**iterate_tree(t_node *node, char **args)

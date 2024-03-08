@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:42:18 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/20 14:15:35 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/03/08 13:57:35 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ void	ft_sanitize_tokens(t_token **input, t_env *env, int l_ret)
 				break ;
 			}
 		}
-		copy_value(&tmp, &value, within_single_quotes);
+		copy_value(&tmp, &value);
 	}
 }

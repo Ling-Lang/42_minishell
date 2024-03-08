@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:02:29 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/20 14:16:54 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/03/08 11:43:12 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	execute_builtin(char **arg, t_env **env, t_return *ret)
 	while (arg[i])
 		++i;
 	if (!ft_strcmp(arg[0], "cd"))
-		ret->r_code = ft_cd(arg);
+		ret->r_code = ft_cd(arg, env);
 	if (!ft_strcmp(arg[0], "pwd"))
 		ret->r_code = ft_pwd();
 	if (!ft_strcmp(arg[0], "exit"))

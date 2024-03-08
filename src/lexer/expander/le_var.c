@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 21:38:12 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/20 14:15:52 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/03/08 14:05:32 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,15 @@ char	*ft_get_last_ret(int l_ret)
 	return (var);
 }
 
-void	copy_value(t_token **tmp, char **value, bool within_single_quotes)
+void	copy_value(t_token **tmp, char **value)
 {
 	char	*tmp_str;
 	char	*org_val;
 
 	org_val = ft_strdup((*tmp)->value);
 	tmp_str = NULL;
-	if (!within_single_quotes)
-		tmp_str = ft_rem_quotes_double(*value);
-	else
-		tmp_str = ft_rem_quotes_single(*value);
+	tmp_str = ft_rem_quotes_single(*value);
+	tmp_str = ft_rem_quotes_double(tmp_str);
 	free((*tmp)->value);
 	(*tmp)->value = ft_strdup(tmp_str);
 	*tmp = (*tmp)->next;

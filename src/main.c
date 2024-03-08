@@ -6,7 +6,7 @@
 /*   By: jkulka <jkulka@student.42heilbronn.de >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 13:16:36 by jkulka            #+#    #+#             */
-/*   Updated: 2024/02/20 14:17:48 by jkulka           ###   ########.fr       */
+/*   Updated: 2024/03/08 14:04:32 by jkulka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	ft_main(t_env **env, t_ptable **table, t_return *ret)
 	ret->r_code = 0;
 	while (ret->should_exit == false)
 	{
-		str = readline(BLU ">> " WHT);
+		str = readline(BLU "\e[1mMinishell\e[m"RED" \e[1m>>\e[m " WHT);
 		if (str == NULL || str[0] == EOF)
 			break ;
-		str[strcspn(str, "\n")] = '\0';
+		str[ft_strcspn(str, "\n")] = '\0';
 		if (str[0] == '\0')
 			continue ;
 		if (str[0] != '\0')
@@ -71,11 +71,10 @@ int	main(int argc, char **argv, char **envp)
 	if (table == NULL)
 		return (EXIT_FAILURE);
 	env = ft_init(envp);
+	remove_env(&env, "OLDPWD");
 	ft_main(&env, table, &ret);
 	ft_free_env(&env);
 	if (ret.r_code == ERR)
 		return (EXIT_FAILURE);
 	return (ret.r_code);
 }
-
-	// system("leaks minishell");
